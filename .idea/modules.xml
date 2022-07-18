@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/java8-stream/java8-stream.iml" filepath="$PROJECT_DIR$/java8-stream/java8-stream.iml" />
+      <module fileurl="file://$PROJECT_DIR$/note-code.iml" filepath="$PROJECT_DIR$/note-code.iml" />
+    </modules>
+  </component>
+</project>
