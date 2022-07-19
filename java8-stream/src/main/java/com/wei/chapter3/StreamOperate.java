@@ -7,13 +7,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 public class StreamOperate {
     public static void main(String[] args) {
+        flatMap();
+    }
+
+    private static void init() {
         User oneUser = UserInitializationUtil.getOneUser();
         System.out.println("oneUser = " + oneUser);
         System.out.println("UserInitializationUtil.getUserList() = " + UserInitializationUtil.getUserList());
@@ -40,5 +44,59 @@ public class StreamOperate {
             return person;
         }).collect(Collectors.toList());
         personList.forEach(System.out::println);
+    }
+
+    private static void flatMap() {
+
+        List<User> userList = UserInitializationUtil.getUserList();
+        List<User> userList2 = UserInitializationUtil.getUserList2();
+        List<List<User>> userList3 = new ArrayList<>();
+        userList3.add(userList);
+        userList3.add(userList2);
+
+        userList3.stream().flatMap(Collection::stream).forEach(System.out::println);
+        Stream<User> userStream = userList3.stream().flatMap(Collection::stream);
+        List<User> userList4 = userStream.collect(Collectors.toList());
+        List<Person> personList = new ArrayList<>();
+        userList4.stream()
+                .map(User::getId)
+                .filter(id -> id.startsWith("5"))
+                .filter(id -> id.endsWith("9")).collect(Collectors.toSet())
+                .forEach(id -> personList.add(buildPerson(id)));
+        System.out.println("personList = " + personList);
+        System.out.println("userList4: " + userList4);
+
+        List<Integer> collect = Stream.of(Arrays.asList(1, 2), Arrays.asList(3, 4)).flatMap(Collection::stream).collect(Collectors.toList());
+        collect.forEach(System.out::println);
+    }
+
+    private static void minAndMax() {
+        List<User> userList = UserInitializationUtil.getUserList();
+        User minIdUser = userList.stream().min(Comparator.comparing(User::getId)).get();
+        User maxIdUser1 = userList.stream().max(Comparator.comparing(User::getId)).get();
+        User maxIdUser2 = userList.stream().max(Comparator.comparing(user -> Integer.parseInt(user.getId()))).get();
+        log.info(minIdUser.toString());
+        log.info(maxIdUser1.toString());
+        log.info(maxIdUser2.toString());
+    }
+
+    private static void universalMode() {
+
+    }
+
+    private static void reduce() {
+//        Integer reduce = Stream.of(1, 2, 3, 4, 5, 6).reduce(0, (acc, element) -> acc + element);
+        Integer reduce = Stream.of(1, 2, 3, 4, 5, 6).reduce(0, Integer::sum);
+        log.debug(reduce.toString());
+        assertEquals(reduce.toString(), "21");
+        assertEquals(reduce.toString(), "22");
+    }
+
+    private static void assertEquals(String a, String b) {
+        assert !Objects.nonNull(a) || !Objects.nonNull(b) || a.equals(b);
+    }
+
+    private static Person buildPerson(String id) {
+        return Person.builder().id(id).build();
     }
 }

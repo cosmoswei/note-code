@@ -3,7 +3,11 @@ package com.wei.utils;
 import com.wei.entity.User;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -32,5 +36,11 @@ public class UserInitializationUtil {
             userList.add(oneUser);
         }
         return userList;
+    }
+
+    public static List<User> getUserList2() {
+        List<User> userList = getUserList();
+        Collections.reverse(userList);
+        return userList.stream().filter(user -> Integer.parseInt(user.getId()) > 50).collect(Collectors.toList());
     }
 }
