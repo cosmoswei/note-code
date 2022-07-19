@@ -8,6 +8,9 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class UserInitializationUtil {
+
+    private static final Integer LOOP_COUNT = 120;
+
     public static User getOneUser() {
         return User.builder().
                 firstName("黄").lastName("旭伟").gender("男").build();
@@ -15,12 +18,13 @@ public class UserInitializationUtil {
 
     public static List<User> getUserList() {
         List<User> userList = new ArrayList<>();
-//        IntStream.rangeClosed(1, 100).parallel().forEach(i -> {
+//        IntStream.rangeClosed(1, LOOP_COUNT).parallel().forEach(i -> {
 //            User oneUser = getOneUser();
 //            oneUser.setLastName(String.valueOf(i));
 //            userList.add(oneUser);
 //        });
-        for (int i = 0; i < 100; i++) {
+
+        for (int i = 0; i < LOOP_COUNT; i++) {
             User oneUser = getOneUser();
             oneUser.setId(String.valueOf(i));
             String lastName = oneUser.getLastName();
