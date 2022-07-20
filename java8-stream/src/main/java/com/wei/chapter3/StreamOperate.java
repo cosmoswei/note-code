@@ -66,6 +66,9 @@ public class StreamOperate {
         System.out.println("personList = " + personList);
         System.out.println("userList4: " + userList4);
 
+        long count = userList.stream().map(User::getId).filter(id -> id.startsWith("5")).count();
+        System.out.println(count);
+
         List<Integer> collect = Stream.of(Arrays.asList(1, 2), Arrays.asList(3, 4)).flatMap(Collection::stream).collect(Collectors.toList());
         collect.forEach(System.out::println);
     }
