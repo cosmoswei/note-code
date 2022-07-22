@@ -59,10 +59,9 @@ public class StreamOperate {
         List<User> userList4 = userStream.collect(Collectors.toList());
         List<Person> personList = new ArrayList<>();
         userList4.stream()
-                .map(User::getId)
-                .filter(id -> id.startsWith("5"))
-                .filter(id -> id.endsWith("9")).collect(Collectors.toSet())
-                .forEach(id -> personList.add(buildPerson(id)));
+                .filter(user -> user.getLastName().startsWith("5"))
+                .filter(user -> user.getLastName().endsWith("9")).collect(Collectors.toSet())
+                .forEach(user -> personList.add(buildPerson(user)));
         System.out.println("personList = " + personList);
         System.out.println("userList4: " + userList4);
 
@@ -99,7 +98,7 @@ public class StreamOperate {
         assert !Objects.nonNull(a) || !Objects.nonNull(b) || a.equals(b);
     }
 
-    private static Person buildPerson(String id) {
-        return Person.builder().id(id).build();
+    private static Person buildPerson(User user) {
+        return Person.builder().id(user.getId()).fullName(user.getFirstName() + user.getLastName()).gender(user.getGender()).build();
     }
 }
