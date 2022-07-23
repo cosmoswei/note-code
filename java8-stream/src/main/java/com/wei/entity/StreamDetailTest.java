@@ -247,11 +247,11 @@ public class StreamDetailTest {
                     System.out.println(i);
                 });
 
-//        orders.stream()
-//                .filter(order -> order.getTotalPrice() > 40)
-//                .peek(order -> System.out.println(order.toString()))
-//                .map(Order::getCustomerName)
-//                .collect(toList());
+        orders.stream()
+                .filter(order -> order.getTotalPrice() > 40)
+                .peek(order -> System.out.println(order.toString()))
+                .map(Order::getCustomerName)
+                .collect(toList());
 
 
     }
