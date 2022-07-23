@@ -59,6 +59,7 @@ public class StreamDetailTest {
         System.out.println(IntStream.rangeClosed(1, 10)
                 .mapToObj(i -> new Product((long) i, "product" + i, i * 100.0))
                 .collect(toList()));
+        System.out.println(longAdder);
     }
 
     @Test
@@ -77,14 +78,15 @@ public class StreamDetailTest {
 
         //如果不依赖订单上的总价格,可以直接展开订单商品进行价格统计
         System.out.println(orders.stream()
-                .flatMap(order -> order.getOrderItemList().stream())
+                .flatMap(order ->
+                        order.getOrderItemList().stream())
                 .mapToDouble(item -> item.getProductQuantity() * item.getProductPrice()).sum());
 
         //另一种方式flatMap+mapToDouble=flatMapToDouble
         System.out.println(orders.stream()
                 .flatMapToDouble(order ->
-                        order.getOrderItemList()
-                                .stream().mapToDouble(item -> item.getProductQuantity() * item.getProductPrice()))
+                        order.getOrderItemList().stream()
+                                .mapToDouble(item -> item.getProductQuantity() * item.getProductPrice()))
                 .sum());
     }
 
