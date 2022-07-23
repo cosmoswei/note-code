@@ -8,21 +8,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="carl-algorithm" />
+        <module name="java8-in-action" />
         <module name="java8-stream" />
-        <module name="note-code" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="carl-algorithm" target="1.8" />
-      <module name="java8-stream" target="1.8" />
-      <module name="note-code" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="carl-algorithm" options="-parameters" />
+      <module name="java8-in-action" options="-parameters" />
       <module name="java8-stream" options="-parameters" />
-      <module name="note-code" options="-parameters" />
+      <module name="note-code" options="" />
     </option>
   </component>
 </project>
