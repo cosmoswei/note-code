@@ -21,7 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class StreamDetailTest {
-    private static Random random = new Random();
+    private static final Random random = new Random();
     private List<Order> orders;
 
     @Before
