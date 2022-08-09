@@ -11,10 +11,23 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
+
 @Slf4j
 public class StreamOperate {
     public static void main(String[] args) {
-        flatMap();
+        mapOperate();
+    }
+
+    private static void mapOperate() {
+        List<Integer> integers1 = Arrays.asList(1, 2, 3);
+        List<Integer> integers2 = Arrays.asList(3, 4, 5, 6);
+
+        List<int[]> collect = integers1.stream().flatMap(i ->
+                integers2.stream().filter(j -> (i * j) % 3 == 0).map(j -> new int[]{i, j})
+        ).collect(toList());
+
+        collect.forEach(i -> Arrays.stream(i).asLongStream().forEachOrdered(System.out::println));
     }
 
     private static void init() {
@@ -31,7 +44,7 @@ public class StreamOperate {
                 .map(user -> user.setLastName("虚伪" + user.getId()))
                 .filter(user -> user.getLastName().contains("1"))
                 .map(user -> user.setLastName("虚伪" + user.getId() + "X"))
-                .collect(Collectors.toList());
+                .collect(toList());
         log.debug(users.toString());
         users.forEach(System.out::println);
         userList.forEach(System.out::println);
@@ -42,7 +55,7 @@ public class StreamOperate {
             person.setFullName(user.getFirstName() + user.getLastName());
             person.setGender(user.getGender());
             return person;
-        }).collect(Collectors.toList());
+        }).collect(toList());
         personList.forEach(System.out::println);
     }
 
@@ -56,7 +69,7 @@ public class StreamOperate {
 
         userList3.stream().flatMap(Collection::stream).forEach(System.out::println);
         Stream<User> userStream = userList3.stream().flatMap(Collection::stream);
-        List<User> userList4 = userStream.collect(Collectors.toList());
+        List<User> userList4 = userStream.collect(toList());
         List<Person> personList = new ArrayList<>();
         userList4.stream()
                 .filter(user -> user.getLastName().startsWith("5"))
@@ -68,7 +81,7 @@ public class StreamOperate {
         long count = userList.stream().map(User::getId).filter(id -> id.startsWith("5")).count();
         System.out.println(count);
 
-        List<Integer> collect = Stream.of(Arrays.asList(1, 2), Arrays.asList(3, 4)).flatMap(Collection::stream).collect(Collectors.toList());
+        List<Integer> collect = Stream.of(Arrays.asList(1, 2), Arrays.asList(3, 4)).flatMap(Collection::stream).collect(toList());
         collect.forEach(System.out::println);
     }
 
