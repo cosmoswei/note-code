@@ -19,11 +19,13 @@ public class CompletableFutureExplore {
     public static void main(String[] args) {
         long start = System.nanoTime();
 //        System.out.println("findPrice(\"myPhone77S\") = " + findPriceV2("myPhone77S"));
-        CompletableFuture[] myPhones = findPriceV2("myPhone").map(f -> f.thenAccept(System.out::println)).toArray(size -> new CompletableFuture[size]);
+        CompletableFuture[] myPhones = findPriceV2("myPhone").map(f -> f.thenAccept(s -> {
+            System.out.println("Done in " + (System.nanoTime() - start) / 1_000_000 + " msecs");
+        })).toArray(size -> new CompletableFuture[size]);
         CompletableFuture.allOf(myPhones).join();
         long duration = (System.nanoTime() - start) / 1_000_000;
         System.out.println("Done in " + duration + " msecs");
-        System.out.println("All of shops have now responded in "+duration+" msecs");
+        System.out.println("All of shops have now responded in " + duration + " msecs");
         System.out.println(Runtime.getRuntime().availableProcessors());
     }
 
