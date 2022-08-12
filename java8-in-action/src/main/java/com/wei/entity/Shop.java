@@ -1,12 +1,30 @@
 package com.wei.entity;
 
+import com.wei.chapter11.Discount;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Shop {
-    public double getPrice(String product) {
-        return calculatePrice(product);
+    private String shopName;
+
+    public Shop(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getPrice(String product) {
+        double price = calculatePrice(product);
+        Discount.Code code = Discount.Code.values()[
+                random.nextInt(Discount.Code.values().length)];
+        return String.format("%s:%.2f:%s", shopName, price, code);
     }
 
     public Future<Double> getPriceAsync(String product) {
@@ -28,9 +46,10 @@ public class Shop {
         );
     }
 
+    Random random = new Random();
+
     private double calculatePrice(String product) {
         delay();
-        Random random = new Random();
         return random.nextDouble() * product.charAt(0) + product.charAt(1);
     }
 
