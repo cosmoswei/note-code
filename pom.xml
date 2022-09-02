@@ -7,6 +7,8 @@
         <module>java8-in-action</module>
         <module>java8-stream</module>
         <module>carl-algorithm</module>
+        <module>jvm</module>
+        <module>labuladong-algorithm</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
