@@ -9,6 +9,8 @@
         <module>carl-algorithm</module>
         <module>jvm</module>
         <module>labuladong-algorithm</module>
+        <module>puml</module>
+        <module>hackthon</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
