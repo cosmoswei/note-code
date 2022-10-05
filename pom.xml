@@ -12,6 +12,7 @@
         <module>puml</module>
         <module>hackthon</module>
         <module>netty</module>
+        <module>optional</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
