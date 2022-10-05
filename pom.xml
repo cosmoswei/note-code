@@ -11,6 +11,7 @@
         <module>labuladong-algorithm</module>
         <module>puml</module>
         <module>hackthon</module>
+        <module>netty</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
