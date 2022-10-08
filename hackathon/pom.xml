@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hackthon</artifactId>
+    <artifactId>hackathon</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

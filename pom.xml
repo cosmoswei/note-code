@@ -10,9 +10,10 @@
         <module>jvm</module>
         <module>labuladong-algorithm</module>
         <module>puml</module>
-        <module>hackthon</module>
+        <module>hackathon</module>
         <module>netty</module>
         <module>optional</module>
+        <module>jdk19</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
