@@ -15,6 +15,7 @@
         <module>optional</module>
         <module>jdk19</module>
         <module>easy-coding</module>
+        <module>lite-flow</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
