@@ -2,7 +2,8 @@
 <flow>
     <chain name="chain1">
         THEN(
-        b
+        a.tag("tag1"),
+        b.tag("tag2")
         );
     </chain>
 </flow>
