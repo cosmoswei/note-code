@@ -3,7 +3,9 @@ package com.wei.cmp;
 import com.wei.context.OrderContext;
 import com.wei.context.SignContext;
 import com.wei.context.UserContext;
+import com.wei.exexutor.CustomerDefaultNodeExecutor;
 import com.yomahub.liteflow.core.NodeComponent;
+import com.yomahub.liteflow.flow.executor.NodeExecutor;
 import org.springframework.stereotype.Component;
 
 @Component("b")
@@ -20,5 +22,9 @@ public class BCmp extends NodeComponent {
 //        UserContext userContext = this.getContextBean(UserContext.class);
 //        SignContext signContext = this.getContextBean(SignContext.class);
 
+    }
+    @Override
+    public Class<? extends NodeExecutor> getNodeExecutorClass() {
+        return CustomerDefaultNodeExecutor.class;
     }
 }

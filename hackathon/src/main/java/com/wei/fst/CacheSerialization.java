@@ -2,7 +2,6 @@ package com.wei.fst;
 
 import lombok.extern.slf4j.Slf4j;
 import org.nustaq.serialization.FSTConfiguration;
-import org.springframework.util.StopWatch;
 
 @Slf4j
 public class CacheSerialization {

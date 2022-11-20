@@ -16,6 +16,7 @@
         <module>jdk19</module>
         <module>easy-coding</module>
         <module>lite-flow</module>
+        <module>jmh</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
