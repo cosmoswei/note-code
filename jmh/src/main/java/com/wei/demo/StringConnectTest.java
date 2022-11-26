@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 3, time = 1)
-@Measurement(iterations = 5, time = 5)
-@Threads(4)
+@Measurement(iterations = 5, time = 1,timeUnit = TimeUnit.MINUTES)
+@Threads(1)
 @Fork(1)
 @State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.SECONDS)
@@ -22,12 +22,10 @@ public class StringConnectTest {
     @Param(value = {"10", "50", "100"})
     private int length;
 
-    static int cnt = 0;
 
     @Benchmark
     public void testStringAdd(Blackhole blackhole) {
         String a = "";
-        cnt++;
         for (int i = 0; i < length; i++) {
             a += i;
         }
@@ -49,6 +47,5 @@ public class StringConnectTest {
                 .result("resultAverageTime.json")
                 .resultFormat(ResultFormatType.JSON).build();
         new Runner(opt).run();
-        System.out.println("cnt = " + cnt);
     }
 }

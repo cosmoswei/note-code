@@ -17,6 +17,7 @@
         <module>easy-coding</module>
         <module>lite-flow</module>
         <module>jmh</module>
+        <module>note-md</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
