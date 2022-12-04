@@ -28,5 +28,7 @@ public class Demo {
             String result2 = cf2.join();
             return result1 + ", " + result2;
         });
+        System.out.println();
+        cf7.thenAccept(System.out::println);
     }
 }
