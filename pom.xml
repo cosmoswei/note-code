@@ -19,8 +19,6 @@
         <module>jedis</module>
         <module>rxjava</module>
         <module>netty-pro</module>
-        <module>grpc</module>
-        <module>grpc-client</module>
         <module>quasar</module>
     </modules>
     <parent>

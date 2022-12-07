@@ -1,5 +1,7 @@
+package com.wei;
+
 import co.paralleluniverse.fibers.Fiber;
-import java.util.concurrent.CountDownLatch;
+import co.paralleluniverse.strands.concurrent.CountDownLatch;
 
 public class Test {
     public static void main(String[] args) throws InterruptedException {
