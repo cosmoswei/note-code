@@ -8,7 +8,6 @@
         <module>java8-stream</module>
         <module>jvm</module>
         <module>hackathon</module>
-        <module>netty</module>
         <module>optional</module>
         <module>jdk19</module>
         <module>easy-coding</module>
@@ -16,10 +15,7 @@
         <module>jmh</module>
         <module>future</module>
         <module>flink</module>
-        <module>jedis</module>
-        <module>rxjava</module>
         <module>netty-pro</module>
-        <module>quasar</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
