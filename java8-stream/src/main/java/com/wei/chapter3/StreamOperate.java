@@ -4,19 +4,18 @@ import com.wei.entity.Person;
 import com.wei.entity.User;
 import com.wei.utils.UserInitializationUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.BeanUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 @Slf4j
 public class StreamOperate {
     public static void main(String[] args) {
-        mapOperate();
+        flatMap();
     }
 
     private static void mapOperate() {
@@ -78,6 +77,13 @@ public class StreamOperate {
         System.out.println("personList = " + personList);
         System.out.println("userList4: " + userList4);
 
+
+        Map<String, List<User>> collect1 = userList4.stream().collect(groupingBy(User::getId));
+
+        Map<String, Long> collect2 = collect1.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> (long) e.getValue().size()));
+        Long asd = collect2.get("88");
+        System.out.println(collect1);
+        System.out.println("asd" + asd);
         long count = userList.stream().map(User::getId).filter(id -> id.startsWith("5")).count();
         System.out.println(count);
 
