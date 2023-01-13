@@ -16,6 +16,7 @@
         <module>future</module>
         <module>flink</module>
         <module>netty-pro</module>
+        <module>hutool</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
