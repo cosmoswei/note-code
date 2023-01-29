@@ -1,4 +1,4 @@
-package com.wei.utils;
+package com.wei.util;
 
 import com.wei.function.BranchHandle;
 import com.wei.function.PresentOrElseHandler;

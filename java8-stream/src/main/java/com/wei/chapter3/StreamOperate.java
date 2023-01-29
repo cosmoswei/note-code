@@ -2,7 +2,7 @@ package com.wei.chapter3;
 
 import com.wei.entity.Person;
 import com.wei.entity.User;
-import com.wei.utils.UserInitializationUtil;
+import com.wei.util.UserInitializationUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-import com.wei.utils.TimeUtils;
+import com.wei.util.TimeUtils;
 
 import java.time.LocalDateTime;
 import java.util.Date;

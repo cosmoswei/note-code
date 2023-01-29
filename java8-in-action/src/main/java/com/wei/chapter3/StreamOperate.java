@@ -1,20 +1,13 @@
 package com.wei.chapter3;
 
-import com.wei.entity.Person;
 import com.wei.entity.Shop;
-import com.wei.entity.User;
-import com.wei.utils.UserInitializationUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.BeanUtils;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
