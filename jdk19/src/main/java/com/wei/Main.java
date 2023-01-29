@@ -1,9 +1,9 @@
 package com.wei;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -12,6 +12,8 @@ public class Main {
         Thread thread = Thread.startVirtualThread(runnable);
         System.out.println(thread.getName());
 
+        List<String> list = Stream.of("").toList();
+//        list.stream().takeWhile()
         ExecutorService executorService = Executors.newCachedThreadPool();
     }
 }
