@@ -21,6 +21,7 @@
         <module>function-interface</module>
         <module>disruptor</module>
         <module>aviator</module>
+        <module>dev-utils</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
