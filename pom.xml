@@ -15,10 +15,11 @@
         <module>flink</module>
         <module>netty-pro</module>
         <module>hutool</module>
-        <module>strategy</module>
         <module>disruptor</module>
         <module>aviator</module>
         <module>dev-utils</module>
+        <module>design-pattern</module>
+        <module>bug</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
