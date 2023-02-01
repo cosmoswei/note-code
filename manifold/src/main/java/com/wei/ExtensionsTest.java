@@ -11,5 +11,8 @@ public class ExtensionsTest {
         List<String> strings = List.of("1", "2", "3");
         strings.forEach(System.out::println);
 
+        String[] split2 = str.split(',');
+        split2.toList().forEach(System.out::println);
+
     }
 }
