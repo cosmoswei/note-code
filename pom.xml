@@ -20,6 +20,7 @@
         <module>dev-utils</module>
         <module>design-pattern</module>
         <module>bug</module>
+        <module>manifold</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
