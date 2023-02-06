@@ -21,6 +21,7 @@
         <module>design-pattern</module>
         <module>bug</module>
         <module>manifold</module>
+        <module>proxy</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -110,6 +111,11 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
         </dependency>
     </dependencies>
 
