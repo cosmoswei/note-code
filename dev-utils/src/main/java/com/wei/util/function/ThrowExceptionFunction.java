@@ -1,4 +1,4 @@
-package com.wei.function;
+package com.wei.util.function;
 
 /**
  * 抛异常接口
@@ -12,5 +12,5 @@ public interface ThrowExceptionFunction {
      * @param message 异常信息
      * @return void
      **/
-    void throwMessage(String message) throws Exception;
+    void throwMessage(String message);
 }

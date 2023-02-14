@@ -1,10 +1,10 @@
-package com.wei.function;
+package com.wei.util.function;
 
 /**
  * 分支处理接口
  **/
 @FunctionalInterface
-public interface BranchHandle {
+public interface BranchHandler {
 
     /**
      * 分支操作

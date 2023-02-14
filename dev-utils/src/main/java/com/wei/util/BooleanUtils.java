@@ -1,28 +1,30 @@
 package com.wei.util;
 
-import com.wei.function.BranchHandle;
-import com.wei.function.PresentOrElseHandler;
-import com.wei.function.ThrowExceptionFunction;
+import com.wei.util.function.*;
 
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * @author PC
+ */
 public class BooleanUtils {
 
     private BooleanUtils() {
     }
 
     /**
-     * 如果参数为true抛出异常
+     * 如果参数为 false 抛出异常
      *
-     * @param b
+     * @param param
      * @return ThrowExceptionFunction
      **/
-    public static ThrowExceptionFunction isTure(boolean b) {
+    public static ThrowExceptionFunction orThrow(boolean param) {
 
-        return (errorMessage) -> {
-            if (b) {
-                throw new RuntimeException(errorMessage);
+        return message -> {
+            if (!param) {
+                throw new RuntimeException(message);
             }
         };
     }
@@ -33,13 +35,43 @@ public class BooleanUtils {
      * @param b
      * @return BranchHandle
      **/
-    public static BranchHandle isTureOrFalse(boolean b) {
+    public static BranchHandler isTureOrFalse(boolean b) {
 
         return (trueHandle, falseHandle) -> {
             if (b) {
                 trueHandle.run();
             } else {
                 falseHandle.run();
+            }
+        };
+    }
+
+    /**
+     * 参数为true时，进行的操作
+     *
+     * @param b
+     * @return BooleanHandler
+     **/
+    public static BooleanHandler isTure(boolean b) {
+
+        return handler -> {
+            if (b) {
+                handler.run();
+            }
+        };
+    }
+
+    /**
+     * 参数为false时，进行的操作
+     *
+     * @param b
+     * @return BooleanHandler
+     **/
+    public static BooleanHandler isFalse(boolean b) {
+
+        return handler -> {
+            if (!b) {
+                handler.run();
             }
         };
     }
@@ -62,7 +94,7 @@ public class BooleanUtils {
     }
 
     /**
-     * 如果参数为 null 抛出自定义异常
+     * 如果参数为 false 抛出自定义异常
      *
      * @param param
      * @param exceptionSupplier
@@ -79,15 +111,30 @@ public class BooleanUtils {
     }
 
     /**
-     * 如果参数为 true 抛出通用异常
+     * 如果参数为 null 抛出通用异常
      *
      * @param b
      * @return ThrowExceptionFunction
      */
     public static ThrowExceptionFunction isNull(Object b) {
-        return (errorMessage) -> {
+        return errorMessage -> {
             if (Objects.isNull(b)) {
                 throw new RuntimeException(errorMessage);
+            }
+        };
+    }
+
+    /**
+     * 如果参数为 false 抛出自定义异常
+     *
+     * @param param
+     * @param exceptionSupplier
+     * @return
+     */
+    public static <T, R> ThrowFunction<T> orThrow(boolean param, Function<T, R> exceptionSupplier) {
+        return message -> {
+            if (!param) {
+                exceptionSupplier.apply(message);
             }
         };
     }

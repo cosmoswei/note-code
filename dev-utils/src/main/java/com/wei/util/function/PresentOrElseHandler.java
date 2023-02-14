@@ -1,4 +1,4 @@
-package com.wei.function;
+package com.wei.util.function;
 
 import java.util.function.Consumer;
 
