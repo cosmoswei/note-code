@@ -22,6 +22,7 @@
         <module>bug</module>
         <module>manifold</module>
         <module>proxy</module>
+        <module>thread-local</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
