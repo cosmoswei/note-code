@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 public class Test {
     public static void main(String[] args) {
-        test1(args);
+        test2(args);
     }
 
     public static void test2(String[] args) {
@@ -47,7 +47,7 @@ public class Test {
         users.add(new User("huang", "null", null));
         users.add(new User("huang", null, null));
         Set<Long> collect4 = users.stream().map(User::getCode)
-                .filter(e -> StringUtils.isNotBlank(e)).map(Long::parseLong)
+                .filter(StringUtils::isNotBlank).map(Long::parseLong)
                 .collect(Collectors.toSet());
         System.out.println(collect4);
         System.out.println(CollectionUtils.isEmpty(collect4));
