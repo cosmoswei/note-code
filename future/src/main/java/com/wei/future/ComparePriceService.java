@@ -1,5 +1,6 @@
 package com.wei.future;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -18,16 +19,15 @@ public class ComparePriceService {
     public static void main(String[] args) {
         ComparePriceService service = new ComparePriceService();
         long startTime = System.currentTimeMillis();
-        PriceResult result = service.getCheapestPlatAndPrice5("Iphone13");
-        System.out.println("获取最优价格信息：" + result);
-//        PriceResult result2 = service.comparePriceInOnePlat(Arrays.asList("Iphone13黑色", "Iphone13白色", "Iphone13红色"));
-//        System.out.println("获取最优价格信息：" + result2);
-//        service.testCreateFuture("Iphone13");
-//        service.testExceptionHandle();
+//        PriceResult result = service.getCheapestPlatAndPrice5("Iphone13");
+//        System.out.println("获取最优价格信息：" + result);
+        PriceResult result2 = service.comparePriceInOnePlat0(Arrays.asList("Iphone13黑色", "Iphone13白色", "Iphone13红色"));
+        System.out.println("获取最优价格信息：" + result2);
         System.out.println("-----执行耗时： " + (System.currentTimeMillis() - startTime) + "ms  ------");
     }
 
-    private ExecutorService threadPool = Executors.newFixedThreadPool(5);
+    public ExecutorService threadPool = CustomGlobalExecutor.getExecutor();
+//    private ExecutorService threadPool = Executors.newFixedThreadPool(2);
 
     /**
      * 【串行】获取多个平台比价信息得到最低价格平台
@@ -51,6 +51,7 @@ public class ComparePriceService {
                 min(Comparator.comparingInt(PriceResult::getRealPrice))
                 .get();
     }
+
 
     /**
      * 演示传统方式通过线程池来增加并发
@@ -125,15 +126,15 @@ public class ComparePriceService {
         // 构造自定义线程池
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
-        return
-                CompletableFuture.supplyAsync(
+        return CompletableFuture
+                .supplyAsync(
                         () -> HttpRequestMock.getMouXiXiPrice(product),
-                        executor
-                ).thenCombineAsync(
+                        threadPool)
+                .thenCombineAsync(
                         CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouXiXiDiscounts(product)),
                         this::computeRealPrice,
-                        executor
-                ).join();
+                        threadPool)
+                .join();
     }
 
     /**
@@ -143,13 +144,13 @@ public class ComparePriceService {
      * @return
      */
     public PriceResult getCheapestPlatAndPrice5(String product) {
-        return
-                CompletableFuture.supplyAsync(
-                        () -> HttpRequestMock.getMouXiXiPrice(product)
-                ).thenCombine(
+        return CompletableFuture
+                .supplyAsync(
+                        () -> HttpRequestMock.getMouXiXiPrice(product))
+                .thenCombine(
                         CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouXiXiDiscounts(product)),
-                        this::computeRealPrice
-                ).join();
+                        this::computeRealPrice)
+                .join();
     }
 
     public void testGetAndJoin(String product) {
@@ -172,12 +173,12 @@ public class ComparePriceService {
      * @param products
      * @return
      */
-    public PriceResult comparePriceInOnePlat(List<String> products) {
-        return products.stream()
-                .map(product ->
-                        CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
-                                .thenCombine(
-                                        CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
+    public PriceResult comparePriceInOnePlat0(List<String> products) {
+        return products.parallelStream()
+                .map(product -> CompletableFuture
+                                .supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
+                                .thenCombine(CompletableFuture
+                                                .supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
                                         this::computeRealPrice))
                 .map(CompletableFuture::join)
                 .sorted(Comparator.comparingInt(PriceResult::getRealPrice))
@@ -193,12 +194,33 @@ public class ComparePriceService {
      */
     public PriceResult comparePriceInOnePlat1(List<String> products) {
         return products.stream()
-                .map(product ->
-                        CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
+                .map(product -> CompletableFuture
+                                .supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
                                 .thenCombine(
                                         CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
                                         this::computeRealPrice)
                                 .join())
+                .sorted(Comparator.comparingInt(PriceResult::getRealPrice))
+                .findFirst()
+                .get();
+    }
+
+    /**
+     * Stream分开，并行模式
+     *
+     * @param products
+     * @return
+     */
+    public PriceResult comparePriceInOnePlat2(List<String> products) {
+        List<CompletableFuture<PriceResult>> completableFutures = products.stream()
+                .map(product -> CompletableFuture
+                                .supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
+                                .thenCombine(CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
+                                        this::computeRealPrice))
+                .collect(Collectors.toList());
+
+        return completableFutures.stream()
+                .map(CompletableFuture::join)
                 .sorted(Comparator.comparingInt(PriceResult::getRealPrice))
                 .findFirst()
                 .get();
@@ -225,29 +247,6 @@ public class ComparePriceService {
         });
 
     }
-
-    /**
-     * Stream分开，并行模式
-     *
-     * @param products
-     * @return
-     */
-    public PriceResult comparePriceInOnePlat2(List<String> products) {
-        List<CompletableFuture<PriceResult>> completableFutures = products.stream()
-                .map(product ->
-                        CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
-                                .thenCombine(
-                                        CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
-                                        this::computeRealPrice))
-                .collect(Collectors.toList());
-
-        return completableFutures.stream()
-                .map(CompletableFuture::join)
-                .sorted(Comparator.comparingInt(PriceResult::getRealPrice))
-                .findFirst()
-                .get();
-    }
-
 
     private PriceResult computeRealPrice(PriceResult priceResult, int disCounts) {
         priceResult.setRealPrice(priceResult.getPrice() - disCounts);
@@ -296,6 +295,4 @@ public class ComparePriceService {
         }
         return result;
     }
-
-
 }
