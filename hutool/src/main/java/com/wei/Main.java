@@ -3,6 +3,7 @@ package com.wei;
 
 import cn.hutool.Hutool;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.thread.ThreadUtil;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -13,6 +14,7 @@ import java.util.function.BiFunction;
 public class Main {
     public static void main(String[] args) {
         Hutool.getAllUtils().forEach(System.out::println);
+        ThreadUtil.safeSleep(1000);
     }
     public static <K, X, Y, V> Map<K, V> merge(Map<K, X> map1, Map<K, Y> map2, BiFunction<X, Y, V> merge) {
         if (MapUtil.isEmpty((Map)map1) && MapUtil.isEmpty((Map)map2)) {
