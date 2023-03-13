@@ -11,8 +11,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class LogHelper {
 
+    private LogHelper() {
+    }
+
     public static void printLog(String logContent) {
-        System.out.println(getCurrentTime() + currentThreadId()  + logContent);
+        System.out.println(getCurrentTime() + currentThreadId() + logContent);
     }
 
     private static String getCurrentTime() {

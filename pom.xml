@@ -24,6 +24,7 @@
         <module>proxy</module>
         <module>thread-local</module>
         <module>thread-pool</module>
+        <module>limiter</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -8,6 +8,9 @@ package com.wei.future;
  */
 public class HttpRequestMock {
 
+    private HttpRequestMock() {
+    }
+
     public static PriceResult getMouBaoPrice(String product) {
         LogHelper.printLog("获取某宝上 " + product + "的价格");
         mockCostTimeOperationn();

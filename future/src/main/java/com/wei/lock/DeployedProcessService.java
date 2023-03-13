@@ -1,7 +1,5 @@
 package com.wei.lock;
 
-import java.util.Random;
-
 /**
  * <类功能简要描述>
  *
@@ -24,7 +22,7 @@ public class DeployedProcessService {
 
     private void collectProcessInfo() {
         try {
-            Thread.sleep(500L + new Random().nextInt(100));
+            Thread.sleep(500L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

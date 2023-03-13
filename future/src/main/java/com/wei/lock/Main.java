@@ -15,8 +15,10 @@ public class Main {
         VmService vmService = new VmService();
         DeployedProcessService deployedProcessService = new DeployedProcessService();
 
-        CompletableFuture.allOf(CompletableFuture.runAsync(() -> vmService.manageVmInfo(deployedProcessService)),
-                CompletableFuture.runAsync(() -> deployedProcessService.manageDeployedProcessInfo(vmService))).join();
+        CompletableFuture.allOf(CompletableFuture
+                        .runAsync(() -> vmService.manageVmInfo(deployedProcessService)), CompletableFuture
+                        .runAsync(() -> deployedProcessService.manageDeployedProcessInfo(vmService)))
+                .join();
 
         System.out.println("全部执行完成");
     }

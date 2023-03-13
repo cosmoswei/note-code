@@ -2,7 +2,6 @@ package com.wei.future;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
@@ -13,7 +12,7 @@ import java.util.concurrent.Future;
  */
 public class FutureService {
 
-    ExecutorService threadPool = Executors.newFixedThreadPool(3);
+    ExecutorService threadPool = CustomGlobalExecutor.getExecutor();
 
     public void buyCoffeeAndOthers() throws ExecutionException, InterruptedException {
         goShopping();
@@ -26,7 +25,6 @@ public class FutureService {
         // 子线程结果获取完成，主线程继续执行
         eatAndDrink(bread, coffee);
     }
-
 
      private  void goShopping() {
 
@@ -45,9 +43,7 @@ public class FutureService {
      }
 
     public static void main(String[] args) {
-
     }
-
 
     private static class Coffee {
 

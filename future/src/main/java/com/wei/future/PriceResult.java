@@ -22,10 +22,10 @@ public class PriceResult {
     @Override
     public String toString() {
         return
-                "【平台：" + platform  +
-                ", 原价：" + price +
-                ", 折扣：" + discounts +
-                ", 实付价：" + realPrice +
-                "】";
+                "【平台：" + platform +
+                        ", 原价：" + price +
+                        ", 折扣：" + discounts +
+                        ", 实付价：" + realPrice +
+                        "】";
     }
 }
