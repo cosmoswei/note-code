@@ -1,5 +1,6 @@
 package com.wei.util;
 
+
 import com.wei.util.function.*;
 
 import java.util.Objects;
@@ -30,6 +31,35 @@ public class BooleanUtils {
     }
 
     /**
+     * 如果参数为 false 抛出自定义异常
+     *
+     * @param param
+     * @param function
+     * @return
+     */
+    public static <T> ThrowFunction<T> orThrow(boolean param, Function<T, ? extends Throwable> function) {
+        return message -> {
+            if (!param) {
+                throw function.apply(message);
+            }
+        };
+    }
+
+    /**
+     * 如果参数为 null 抛出通用异常
+     *
+     * @param b
+     * @return ThrowExceptionFunction
+     */
+    public static ThrowExceptionFunction isNull(Object b) {
+        return errorMessage -> {
+            if (Objects.isNull(b)) {
+                throw new RuntimeException(errorMessage);
+            }
+        };
+    }
+
+    /**
      * 参数为true或false时，分别进行不同的操作
      *
      * @param b
@@ -47,16 +77,17 @@ public class BooleanUtils {
     }
 
     /**
-     * 参数为true时，进行的操作
+     * 参数为null或者空串时执行的操作
      *
-     * @param b
-     * @return BooleanHandler
+     * @param str
+     * @return PresentOrElseHandler
      **/
-    public static BooleanHandler isTure(boolean b) {
-
-        return handler -> {
-            if (b) {
-                handler.run();
+    public static PresentOrElseHandler<?> isBlankOrNoBlank(String str) {
+        return (consumer, runnable) -> {
+            if (str == null || str.length() == 0) {
+                runnable.run();
+            } else {
+                consumer.accept(str);
             }
         };
     }
@@ -68,7 +99,6 @@ public class BooleanUtils {
      * @return BooleanHandler
      **/
     public static BooleanHandler isFalse(boolean b) {
-
         return handler -> {
             if (!b) {
                 handler.run();
@@ -77,20 +107,13 @@ public class BooleanUtils {
     }
 
     /**
-     * 参数为true或false时，分别进行不同的操作
+     * 参数为true时，进行的操作
      *
-     * @param str
-     * @return PresentOrElseHandler
+     * @param b
+     * @return BooleanHandler
      **/
-    public static PresentOrElseHandler<?> isBlankOrNoBlank(String str) {
-
-        return (consumer, runnable) -> {
-            if (str == null || str.length() == 0) {
-                runnable.run();
-            } else {
-                consumer.accept(str);
-            }
-        };
+    public static BooleanHandler isTure(boolean b) {
+        return isFalse(!b);
     }
 
     /**
@@ -110,32 +133,4 @@ public class BooleanUtils {
         }
     }
 
-    /**
-     * 如果参数为 null 抛出通用异常
-     *
-     * @param b
-     * @return ThrowExceptionFunction
-     */
-    public static ThrowExceptionFunction isNull(Object b) {
-        return errorMessage -> {
-            if (Objects.isNull(b)) {
-                throw new RuntimeException(errorMessage);
-            }
-        };
-    }
-
-    /**
-     * 如果参数为 false 抛出自定义异常
-     *
-     * @param param
-     * @param exceptionSupplier
-     * @return
-     */
-    public static <T, R> ThrowFunction<T> orThrow(boolean param, Function<T, R> exceptionSupplier) {
-        return message -> {
-            if (!param) {
-                exceptionSupplier.apply(message);
-            }
-        };
-    }
 }

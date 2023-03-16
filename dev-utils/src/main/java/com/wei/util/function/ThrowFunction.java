@@ -9,5 +9,5 @@ public interface ThrowFunction<T> {
     /**
      * 抛出异常信息
      **/
-    void message(T message);
+    void message(T message) throws Throwable;
 }
