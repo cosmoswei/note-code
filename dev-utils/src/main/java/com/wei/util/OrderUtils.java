@@ -1,6 +1,5 @@
 package com.wei.util;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +12,6 @@ import java.util.List;
  * @author huangxuwei
  * @date 2023年02月06日 13:50
  */
-@Slf4j
 public class OrderUtils {
 
     private OrderUtils() {
@@ -63,11 +61,10 @@ public class OrderUtils {
      * @return
      */
     private static String getMethodStr(String filed) {
+        String prefix = "get";
         if (StringUtils.isBlank(filed)) {
-            return StringUtils.EMPTY;
+            return prefix;
         }
-        // todo 换一种更加优雅的写法
-        return "get" + filed.substring(0, 1).toUpperCase() + filed.substring(1);
+        return prefix + filed.substring(0, 1).toUpperCase() + filed.substring(1);
     }
-
 }
