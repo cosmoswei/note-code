@@ -4,16 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
 
+
 /**
  * 线程工具类
  *
  * @author huangxuwei
  */
 public class ThreadUtils {
-
-    public static final String TIME_FORMAT = "yyyy:MM:dd HH:mm:ss";
-
-    public static final String CHINESE_TIME_FORMAT = "yyyy 年 MM 月 dd 日 E HH 点 mm 分 ss 秒";
 
     private ThreadUtils() {
 
@@ -47,10 +44,10 @@ public class ThreadUtils {
         return true;
     }
 
-    public static void log(String message) {
+    public static void threadLog(String message) {
 
         String s = new StringJoiner(" | ")
-                .add(getCurrent())
+                .add(getCurrentTime())
                 .add(String.format("%2d", Thread.currentThread().getId()))
                 .add(String.valueOf(Thread.currentThread().getName()))
                 .add(message)
@@ -58,7 +55,7 @@ public class ThreadUtils {
         System.out.println(s);
     }
 
-    private static String getCurrent() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(CHINESE_TIME_FORMAT));
+    private static String getCurrentTime() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(TimeUtils.CHINESE_TIME_FORMAT));
     }
 }

@@ -14,7 +14,7 @@ public class LocalDateTimeUtilTest {
 
     @Test
     public void test() {
-        ThreadUtils.log("q");
+        ThreadUtils.threadLog("黄旭伟线程日志打印");
         ThreadUtils.safeSleep(20000L);
     }
 }
