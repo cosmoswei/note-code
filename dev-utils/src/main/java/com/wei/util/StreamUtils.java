@@ -38,8 +38,7 @@ public class StreamUtils {
      */
     public static <T> List<T> distinctByField(List<T> list, Function<? super T, ?> keyExtractor) {
         notNull(list);
-        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
-        return list.stream().filter(t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null).collect(Collectors.toList());
+        return list.stream().filter(distinctByAttr(keyExtractor)).collect(Collectors.toList());
     }
 
     /**

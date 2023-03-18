@@ -34,7 +34,6 @@ public class BigDecimalUtils {
      * @return
      */
     public static boolean ne(BigDecimal var1, BigDecimal var2) {
-        notNull(var1, var2);
         return !eq(var1, var2);
     }
 
@@ -70,8 +69,7 @@ public class BigDecimalUtils {
      * @return
      */
     public static boolean ge(BigDecimal var1, BigDecimal var2) {
-        notNull(var1, var2);
-        return var1.compareTo(var2) >= 0;
+        return !lt(var1, var2);
     }
 
     /**
@@ -82,8 +80,7 @@ public class BigDecimalUtils {
      * @return
      */
     public static boolean le(BigDecimal var1, BigDecimal var2) {
-        notNull(var1, var2);
-        return var1.compareTo(var2) <= 0;
+        return !gt(var1, var2);
     }
 
     private static void notNull(Object object1, Object object2) {
