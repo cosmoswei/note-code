@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.mapper.TestMapper">
+    <select id="queryUser" resultType="com.wei.entity.TestUser">
+        select *
+        from t_test_user
+    </select>
+</mapper>

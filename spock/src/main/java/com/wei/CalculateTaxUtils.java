@@ -1,6 +1,7 @@
 package com.wei;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class CalculateTaxUtils {
     private CalculateTaxUtils() {
@@ -41,6 +42,6 @@ public class CalculateTaxUtils {
             BigDecimal base = BigDecimal.valueOf(15160);
             tax = salary.multiply(taxLevel).subtract(base);
         }
-        return tax.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return tax.setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 }

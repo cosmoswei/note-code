@@ -26,6 +26,7 @@
         <module>thread-pool</module>
         <module>limiter</module>
         <module>spock</module>
+        <module>common-dal</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
