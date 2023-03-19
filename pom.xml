@@ -25,6 +25,7 @@
         <module>thread-local</module>
         <module>thread-pool</module>
         <module>limiter</module>
+        <module>spock</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
