@@ -50,7 +50,6 @@ public class VirtualTest {
         System.out.printf("耗时：%dms\n", System.currentTimeMillis() - l);
     }
 
-
     public static void test2(String[] args) {
         //记录系统线程数
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
