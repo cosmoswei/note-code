@@ -1,3 +1,5 @@
+package com.wei.util.mock;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

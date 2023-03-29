@@ -1,4 +1,5 @@
 import com.wei.util.SplitUtils
+import com.wei.util.mock.People
 import spock.lang.Specification
 
 class SplitUtilsTest extends Specification {

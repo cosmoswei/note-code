@@ -1,4 +1,6 @@
 import com.wei.util.StreamUtils
+import com.wei.util.mock.MockClass
+import com.wei.util.mock.People
 import spock.lang.Specification
 
 import java.util.function.Predicate

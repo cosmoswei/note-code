@@ -1,3 +1,5 @@
+package com.wei.util.mock;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
