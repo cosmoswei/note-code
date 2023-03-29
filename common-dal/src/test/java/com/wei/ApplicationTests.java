@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @SpringBootTest
-class MagicApiApplicationTests {
+class ApplicationTests {
 
     @Resource
     private TestManager testManager;
