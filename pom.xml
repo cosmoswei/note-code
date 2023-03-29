@@ -6,9 +6,7 @@
     <modules>
         <module>java8-in-action</module>
         <module>hackathon</module>
-        <module>optional</module>
         <module>easy-coding</module>
-        <module>lite-flow</module>
         <module>jmh</module>
         <module>future</module>
         <module>flink</module>
@@ -20,7 +18,6 @@
         <module>design-pattern</module>
         <module>bug</module>
         <module>manifold</module>
-        <module>proxy</module>
         <module>thread-local</module>
         <module>thread-pool</module>
         <module>limiter</module>
@@ -29,6 +26,7 @@
         <module>batch</module>
         <module>hodgepodge</module>
         <module>new-jdk</module>
+        <module>rule-engine</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
