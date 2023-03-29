@@ -1,4 +1,4 @@
-package com.wei;
+package com.wei.virtual;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -10,8 +10,8 @@ public class VirtualThreadTest {
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = null;
         try {
-            executorService = Executors.newVirtualThreadPerTaskExecutor();
-//        ExecutorService executorService = Executors.newFixedThreadPool(5);
+//            executorService = Executors.newVirtualThreadPerTaskExecutor();
+            executorService = Executors.newFixedThreadPool(5);
             executorService.execute(new MyTask());
             executorService.execute(new MyTask());
             executorService.execute(new MyTask());

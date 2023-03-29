@@ -25,6 +25,8 @@
                 <version>3.8.1</version>
                 <configuration>
                     <compilerArgs>--enable-preview</compilerArgs>
+                    <source>20</source>
+                    <target>20</target>
                 </configuration>
             </plugin>
         </plugins>
