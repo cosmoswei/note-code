@@ -1,6 +1,7 @@
 package com.wei;
 
 
+import cn.hutool.Hutool;
 import cn.hutool.core.map.MapUtil;
 
 import java.util.*;
@@ -10,6 +11,7 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
+        Hutool.getAllUtils().forEach(System.out::println);
         Map<Integer, List<BigPerson>> map1 = Stream.of(new BigPerson("11", 1),
                 new BigPerson("12", 1),
                 new BigPerson("21", 2),

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * BigDecimal 对象比较工具类
  *
  * @author huangxuwei
- * @unitTest BigDecimalUtilsTest
+ * @unit BigDecimalUtilsTest
  * @date 2023年03月14日 14:30
  */
 public class BigDecimalUtils {

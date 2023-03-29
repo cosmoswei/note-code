@@ -36,25 +36,9 @@ public class StreamUtils {
      * @param <T>          泛型
      * @return 返回去重后的List
      */
-    public static <T> List<T> distinctByField(List<T> list, Function<? super T, ?> keyExtractor) {
+    public static <T> List<T> distinctByAttr(List<T> list, Function<? super T, ?> keyExtractor) {
         notNull(list);
         return list.stream().filter(distinctByAttr(keyExtractor)).collect(Collectors.toList());
-    }
-
-    /**
-     * List<String> 转为 List<Long>
-     */
-    public static List<Long> stringToLong(List<String> list) {
-        notNull(list);
-        return list.stream().map(Long::parseLong).collect(Collectors.toList());
-    }
-
-    /**
-     * List<Long> 转为 List<String>
-     */
-    public static List<String> longToString(List<Long> list) {
-        notNull(list);
-        return list.stream().map(String::valueOf).collect(Collectors.toList());
     }
 
     /**
