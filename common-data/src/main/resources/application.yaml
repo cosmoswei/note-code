@@ -8,5 +8,4 @@ spring:
 
 mybatis:
   type-aliases-package: com.wei.entity
-#  mapper-locations: classpath:mapper/*.xml
-  mapper-locations: com.wei/mapper/*.xml
+  mapper-locations: mapper/*.xml
