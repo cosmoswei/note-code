@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.mapper.DepartmentEmployeesMapper">
+
+    <resultMap id="BaseResultMap" type="com.wei.entity.DepartmentEmployees">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="departmentId" column="departmentId" jdbcType="INTEGER"/>
+        <result property="employeeName" column="employeeName" jdbcType="VARCHAR"/>
+        <result property="employeeTitle" column="employeeTitle" jdbcType="VARCHAR"/>
+        <result property="employeeSalary" column="employeeSalary" jdbcType="DECIMAL"/>
+        <result property="employeeAge" column="employeeAge" jdbcType="INTEGER"/>
+        <result property="employeeGender" column="employeeGender" jdbcType="VARCHAR"/>
+        <result property="employeeAddress" column="employeeAddress" jdbcType="VARCHAR"/>
+        <result property="employeePhone" column="employeePhone" jdbcType="VARCHAR"/>
+        <result property="employeeEmail" column="employeeEmail" jdbcType="VARCHAR"/>
+        <result property="employeeStartDate" column="employeeStartDate" jdbcType="DATE"/>
+        <result property="employeeEndDate" column="employeeEndDate" jdbcType="DATE"/>
+        <result property="employeeStatus" column="employeeStatus" jdbcType="VARCHAR"/>
+        <result property="employeePerformance" column="employeePerformance" jdbcType="VARCHAR"/>
+        <result property="employeeNotes" column="employeeNotes" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,departmentId,employeeName,
+        employeeTitle,employeeSalary,employeeAge,
+        employeeGender,employeeAddress,employeePhone,
+        employeeEmail,employeeStartDate,employeeEndDate,
+        employeeStatus,employeePerformance,employeeNotes
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from department_employees
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByIds" resultType="com.wei.entity.DepartmentEmployees">
+        select
+        <include refid="Base_Column_List"/>
+        from department_employees
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from department_employees
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wei.entity.DepartmentEmployees"
+            useGeneratedKeys="true">
+        insert into department_employees
+        ( id, departmentId, employeeName
+        , employeeTitle, employeeSalary, employeeAge
+        , employeeGender, employeeAddress, employeePhone
+        , employeeEmail, employeeStartDate, employeeEndDate
+        , employeeStatus, employeePerformance, employeeNotes)
+        values ( #{id,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}
+               , #{employeeTitle,jdbcType=VARCHAR}, #{employeeSalary,jdbcType=DECIMAL}, #{employeeAge,jdbcType=INTEGER}
+               , #{employeeGender,jdbcType=VARCHAR}, #{employeeAddress,jdbcType=VARCHAR}
+               , #{employeePhone,jdbcType=VARCHAR}
+               , #{employeeEmail,jdbcType=VARCHAR}, #{employeeStartDate,jdbcType=DATE}, #{employeeEndDate,jdbcType=DATE}
+               , #{employeeStatus,jdbcType=VARCHAR}, #{employeePerformance,jdbcType=VARCHAR}
+               , #{employeeNotes,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wei.entity.DepartmentEmployees"
+            useGeneratedKeys="true">
+        insert into department_employees
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="departmentId != null">departmentId,</if>
+            <if test="employeeName != null">employeeName,</if>
+            <if test="employeeTitle != null">employeeTitle,</if>
+            <if test="employeeSalary != null">employeeSalary,</if>
+            <if test="employeeAge != null">employeeAge,</if>
+            <if test="employeeGender != null">employeeGender,</if>
+            <if test="employeeAddress != null">employeeAddress,</if>
+            <if test="employeePhone != null">employeePhone,</if>
+            <if test="employeeEmail != null">employeeEmail,</if>
+            <if test="employeeStartDate != null">employeeStartDate,</if>
+            <if test="employeeEndDate != null">employeeEndDate,</if>
+            <if test="employeeStatus != null">employeeStatus,</if>
+            <if test="employeePerformance != null">employeePerformance,</if>
+            <if test="employeeNotes != null">employeeNotes,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=INTEGER},</if>
+            <if test="departmentId != null">#{departmentId,jdbcType=INTEGER},</if>
+            <if test="employeeName != null">#{employeeName,jdbcType=VARCHAR},</if>
+            <if test="employeeTitle != null">#{employeeTitle,jdbcType=VARCHAR},</if>
+            <if test="employeeSalary != null">#{employeeSalary,jdbcType=DECIMAL},</if>
+            <if test="employeeAge != null">#{employeeAge,jdbcType=INTEGER},</if>
+            <if test="employeeGender != null">#{employeeGender,jdbcType=VARCHAR},</if>
+            <if test="employeeAddress != null">#{employeeAddress,jdbcType=VARCHAR},</if>
+            <if test="employeePhone != null">#{employeePhone,jdbcType=VARCHAR},</if>
+            <if test="employeeEmail != null">#{employeeEmail,jdbcType=VARCHAR},</if>
+            <if test="employeeStartDate != null">#{employeeStartDate,jdbcType=DATE},</if>
+            <if test="employeeEndDate != null">#{employeeEndDate,jdbcType=DATE},</if>
+            <if test="employeeStatus != null">#{employeeStatus,jdbcType=VARCHAR},</if>
+            <if test="employeePerformance != null">#{employeePerformance,jdbcType=VARCHAR},</if>
+            <if test="employeeNotes != null">#{employeeNotes,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wei.entity.DepartmentEmployees">
+        update department_employees
+        <set>
+            <if test="departmentId != null">
+                departmentId = #{departmentId,jdbcType=INTEGER},
+            </if>
+            <if test="employeeName != null">
+                employeeName = #{employeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeTitle != null">
+                employeeTitle = #{employeeTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeSalary != null">
+                employeeSalary = #{employeeSalary,jdbcType=DECIMAL},
+            </if>
+            <if test="employeeAge != null">
+                employeeAge = #{employeeAge,jdbcType=INTEGER},
+            </if>
+            <if test="employeeGender != null">
+                employeeGender = #{employeeGender,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeAddress != null">
+                employeeAddress = #{employeeAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="employeePhone != null">
+                employeePhone = #{employeePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeEmail != null">
+                employeeEmail = #{employeeEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeStartDate != null">
+                employeeStartDate = #{employeeStartDate,jdbcType=DATE},
+            </if>
+            <if test="employeeEndDate != null">
+                employeeEndDate = #{employeeEndDate,jdbcType=DATE},
+            </if>
+            <if test="employeeStatus != null">
+                employeeStatus = #{employeeStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="employeePerformance != null">
+                employeePerformance = #{employeePerformance,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeNotes != null">
+                employeeNotes = #{employeeNotes,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wei.entity.DepartmentEmployees">
+        update department_employees
+        set departmentId        = #{departmentId,jdbcType=INTEGER},
+            employeeName        = #{employeeName,jdbcType=VARCHAR},
+            employeeTitle       = #{employeeTitle,jdbcType=VARCHAR},
+            employeeSalary      = #{employeeSalary,jdbcType=DECIMAL},
+            employeeAge         = #{employeeAge,jdbcType=INTEGER},
+            employeeGender      = #{employeeGender,jdbcType=VARCHAR},
+            employeeAddress     = #{employeeAddress,jdbcType=VARCHAR},
+            employeePhone       = #{employeePhone,jdbcType=VARCHAR},
+            employeeEmail       = #{employeeEmail,jdbcType=VARCHAR},
+            employeeStartDate   = #{employeeStartDate,jdbcType=DATE},
+            employeeEndDate     = #{employeeEndDate,jdbcType=DATE},
+            employeeStatus      = #{employeeStatus,jdbcType=VARCHAR},
+            employeePerformance = #{employeePerformance,jdbcType=VARCHAR},
+            employeeNotes       = #{employeeNotes,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="caseWhenUpdate" parameterType="com.wei.entity.DepartmentEmployees">
+        update department_employees
+        set
+        departmentId= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.departmentId}
+        </foreach>
+        end,
+        employeeName= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeName}
+        </foreach>
+        end,
+        employeeTitle= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeTitle}
+        </foreach>
+        end,
+        employeeSalary= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeSalary}
+        </foreach>
+        end,
+        employeeAge= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeAge}
+        </foreach>
+        end,
+        employeeGender= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeGender}
+        </foreach>
+        end,
+        employeeAddress= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeAddress}
+        </foreach>
+        end,
+        employeePhone= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeePhone}
+        </foreach>
+        end,
+        employeeEmail= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeEmail}
+        </foreach>
+        end,
+        employeeStartDate= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeStartDate}
+        </foreach>
+        end,
+        employeeEndDate= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeEndDate}
+        </foreach>
+        end,
+        employeeStatus= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeStatus}
+        </foreach>
+        end,
+        employeePerformance= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeePerformance}
+        </foreach>
+        end,
+        employeeNotes= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeNotes}
+        </foreach>
+        end
+        where
+        <foreach collection="list" item="emp" separator="or">
+            id = #{emp.id}
+        </foreach>
+    </update>
+
+    <update id="batchUpdate" parameterType="com.wei.entity.DepartmentEmployees">
+        <foreach collection="list" item="item" separator=";">
+            update department_employees
+            set departmentId = #{item.departmentId,jdbcType=INTEGER},
+            employeeName = #{item.employeeName,jdbcType=VARCHAR},
+            employeeTitle = #{item.employeeTitle,jdbcType=VARCHAR},
+            employeeSalary = #{item.employeeSalary,jdbcType=DECIMAL},
+            employeeAge = #{item.employeeAge,jdbcType=INTEGER},
+            employeeGender = #{item.employeeGender,jdbcType=VARCHAR},
+            employeeAddress = #{item.employeeAddress,jdbcType=VARCHAR},
+            employeePhone = #{item.employeePhone,jdbcType=VARCHAR},
+            employeeEmail = #{item.employeeEmail,jdbcType=VARCHAR},
+            employeeStartDate = #{item.employeeStartDate,jdbcType=DATE},
+            employeeEndDate = #{item.employeeEndDate,jdbcType=DATE},
+            employeeStatus = #{item.employeeStatus,jdbcType=VARCHAR},
+            employeePerformance = #{item.employeePerformance,jdbcType=VARCHAR},
+            employeeNotes = #{item.employeeNotes,jdbcType=VARCHAR}
+            where id = #{item.id,jdbcType=INTEGER}
+        </foreach>
+    </update>
+</mapper>

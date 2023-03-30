@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>com.wei</groupId>
-            <artifactId>dev-utils</artifactId>
+            <artifactId>dev-util</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
