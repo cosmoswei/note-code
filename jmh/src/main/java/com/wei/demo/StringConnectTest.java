@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 3, time = 1)
-@Measurement(iterations = 5, time = 1,timeUnit = TimeUnit.MINUTES)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.MINUTES)
 @Threads(1)
 @Fork(1)
 @State(value = Scope.Benchmark)
