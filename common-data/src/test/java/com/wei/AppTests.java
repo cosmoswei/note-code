@@ -79,4 +79,18 @@ class AppTests {
         result.forEach(e -> e.setEmployeeName("updateEmployeeBatch 更新后的部门名字"));
         foreachDemo.foreachUpdate(result);
     }
+    @Test
+    void updateEmployeeJpa() {
+        List<Long> ids = LongStream.range(0, 1000).boxed().collect(Collectors.toList());
+        List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
+        result.forEach(e -> e.setEmployeeName("updateEmployeeBatch 更新后的部门名字"));
+        foreachDemo.foreachUpdate(result);
+    }
+    @Test
+    void updateEmployeeSpringData() {
+        List<Long> ids = LongStream.range(0, 1000).boxed().collect(Collectors.toList());
+        List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
+        result.forEach(e -> e.setEmployeeName("updateEmployeeBatch 更新后的部门名字"));
+        foreachDemo.foreachUpdate(result);
+    }
 }
