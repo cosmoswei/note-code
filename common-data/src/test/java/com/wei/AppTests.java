@@ -6,7 +6,7 @@ import com.wei.mapper.DepartmentEmployeesMapper;
 import com.wei.mapper.DepartmentEmployeesRepository;
 import com.wei.service.DepartmentEmployeesService;
 import com.wei.service.impl.BatchDemo;
-import com.wei.service.impl.CaseThenDemo;
+import com.wei.service.impl.CaseWhenDemo;
 import com.wei.service.impl.ForeachDemo;
 import com.wei.service.impl.InitialDemo;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ class AppTests {
     @Resource
     private InitialDemo initialDemo;
     @Resource
-    private CaseThenDemo caseThenDemo;
+    private CaseWhenDemo caseWhenDemo;
     @Resource
     private DepartmentEmployeesMapper departmentEmployeesMapper;
     @Resource
@@ -60,7 +60,7 @@ class AppTests {
         List<Long> ids = LongStream.range(0, 1000).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeeCaseWhen 更新后的部门名字"));
-        caseThenDemo.caseWhenUpdate(result);
+        caseWhenDemo.caseWhenUpdate(result);
     }
 
     @Test

@@ -5,7 +5,7 @@ import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
 import com.wei.service.DepartmentEmployeesService;
 import com.wei.service.impl.BatchDemo;
-import com.wei.service.impl.CaseThenDemo;
+import com.wei.service.impl.CaseWhenDemo;
 import com.wei.service.impl.ForeachDemo;
 import com.wei.service.impl.InitialDemo;
 import org.openjdk.jmh.annotations.*;
@@ -35,7 +35,7 @@ public class BatchUpdateBenchmark {
     private BatchDemo batchDemo;
     private ForeachDemo foreachDemo;
     private InitialDemo initialDemo;
-    private CaseThenDemo caseThenDemo;
+    private CaseWhenDemo caseThenDemo;
     private DepartmentEmployeesMapper departmentEmployeesMapper;
     private DepartmentEmployeesService departmentEmployeesService;
 
@@ -50,7 +50,7 @@ public class BatchUpdateBenchmark {
         this.batchDemo = (BatchDemo) context.getBean("batchDemo");
         this.foreachDemo = (ForeachDemo) context.getBean("foreachDemo");
         this.initialDemo = (InitialDemo) context.getBean("initialDemo");
-        this.caseThenDemo = (CaseThenDemo) context.getBean("caseThenDemo");
+        this.caseThenDemo = (CaseWhenDemo) context.getBean("caseWhenDemo");
         this.departmentEmployeesMapper = (DepartmentEmployeesMapper) context.getBean("departmentEmployeesMapper");
         this.departmentEmployeesService = (DepartmentEmployeesService) context.getBean("departmentEmployeesService");
 

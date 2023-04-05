@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class CaseThenDemo {
+public class CaseWhenDemo {
     @Resource
     DepartmentEmployeesMapper departmentEmployeesMapper;
 
