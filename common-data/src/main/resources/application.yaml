@@ -4,8 +4,23 @@ spring:
     url: jdbc:mysql://huangxuwei.com:3306/huangxuwei?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: huangxuwei
     password: HKLC6c4zY7xMheNd
-
-
-mybatis:
-  type-aliases-package: com.wei.entity
-  mapper-locations: mapper/*.xml
+  jpa:
+    hibernate:
+    #DDL:用于定义数据库的三层结构，包括外模式、概念模式、内模式及其相互之间的映像，定义数据的完整性，安全控制等约束
+     ddl-auto: none #什么也不做
+     naming:
+       physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    #其他可选值
+    #create: 每次运行应用程序时，都会重新创建表，所以，数据都会丢失
+    #create-drop:每次运行程序时会创建表结构，然后程序结束时清空数据
+    #update: 每次运行程序没有表时会创建表，如果对象改变会更新表结构，原有数据不会清除，只会更新
+    #validate: 运行程序会校验数据与数据库的字段类型是否相同，字段不同会报错
+    #打印执行的sql及参数
+    show-sql: true
+   # 关闭懒加载配置，否则会报错
+    open-in-view: false
+    properties:
+      #输出sql语句
+      show_sql: true
+      #格式化输出的sql，否则会一行显示
+      format_sql: true

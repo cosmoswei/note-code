@@ -7,7 +7,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,11 +22,15 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("department_employees")
+@Entity(name = "department_employees")
+@Getter
+@Setter
 public class DepartmentEmployees extends Model<DepartmentEmployees>{
     /**
      * 员工唯一标识符
      */
     @TableId(value = "id", type = IdType.AUTO)
+    @Id
     private Integer id;
 
     /**
