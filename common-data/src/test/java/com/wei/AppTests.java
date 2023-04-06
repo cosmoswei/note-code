@@ -57,7 +57,7 @@ class AppTests {
 
     @Test
     void updateEmployeeCaseWhen() {
-        List<Long> ids = LongStream.range(0, 1000).boxed().collect(Collectors.toList());
+        List<Long> ids = LongStream.range(1, 2000).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeeCaseWhen 更新后的部门名字"));
         caseWhenDemo.caseWhenUpdate(result);
