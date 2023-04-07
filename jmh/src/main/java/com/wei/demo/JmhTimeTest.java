@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 3, time = 1)
 @Measurement(iterations = 20, time = 1)
-@Threads(1)
+@Threads(5)
 @Fork(1)
 @State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.SECONDS)
@@ -24,7 +24,6 @@ public class JmhTimeTest {
 
     @Benchmark
     public void sleepOnceSecond() {
-
         ThreadUtils.safeSleep(length * 100);
     }
 
