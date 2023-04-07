@@ -1,7 +1,7 @@
 package com.wei.demo;
 
+import com.wei.util.ThreadUtils;
 import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -13,37 +13,30 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 3, time = 1)
 @Measurement(iterations = 5, time = 1)
-@Threads(1)
+@Threads(5)
 @Fork(1)
 @State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.SECONDS)
-public class StringConnectTest {
+public class JmhTimeTest {
 
-    @Param(value = {"10", "50", "100"})
-    private int length;
+    @Param(value = {"1", "2", "3", "4", "5"})
+    private long length;
 
     @Benchmark
-    public void testStringAdd(Blackhole blackhole) {
-        String a = "";
-        for (int i = 0; i < length; i++) {
-            a += i;
-        }
-        blackhole.consume(a);
+    public void sleepOnceSecond() {
+
+        ThreadUtils.safeSleep(length * 1000);
     }
 
     @Benchmark
-    public void testStringBuilderAdd(Blackhole blackhole) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            sb.append(i);
-        }
-        blackhole.consume(sb.toString());
+    public void sleepTwiceSecond() {
+        ThreadUtils.safeSleep(length * 2000L);
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(StringConnectTest.class.getSimpleName())
-                .result("string.text")
+                .include(JmhTimeTest.class.getSimpleName())
+                .result("jmh/JmhTimeTest.text")
                 .resultFormat(ResultFormatType.TEXT).build();
         new Runner(opt).run();
     }

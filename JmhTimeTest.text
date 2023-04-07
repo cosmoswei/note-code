@@ -1,0 +1,7 @@
+Benchmark                     (length)  Mode  Cnt  Score   Error  Units
+JmhTimeTest.sleepOnceSecond          1  avgt    5  1.004 ± 0.003   s/op
+JmhTimeTest.sleepOnceSecond          2  avgt    5  2.004 ± 0.006   s/op
+JmhTimeTest.sleepOnceSecond          3  avgt    5  3.003 ± 0.008   s/op
+JmhTimeTest.sleepTwiceSecond         1  avgt    5  2.004 ± 0.004   s/op
+JmhTimeTest.sleepTwiceSecond         2  avgt    5  4.004 ± 0.008   s/op
+JmhTimeTest.sleepTwiceSecond         3  avgt    5  6.004 ± 0.005   s/op
