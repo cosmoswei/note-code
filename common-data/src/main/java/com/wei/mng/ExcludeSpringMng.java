@@ -1,4 +1,4 @@
-package com.wei.exclude;
+package com.wei.mng;
 
 import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
