@@ -8,7 +8,7 @@
         <module>hackathon</module>
         <module>easy-coding</module>
         <module>jmh</module>
-        <module>future</module>
+        <module>async</module>
         <module>flink</module>
         <module>netty-pro</module>
         <module>hutool</module>
