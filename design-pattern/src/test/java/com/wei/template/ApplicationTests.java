@@ -1,13 +1,9 @@
 package com.wei.template;
 
-import com.wei.strategy.AppRun;
-import org.junit.jupiter.api.Test;
+import com.wei.strategy.DesignAppRun;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
-import java.util.List;
-
-@SpringBootTest(classes = AppRun.class)
+@SpringBootTest(classes = DesignAppRun.class)
 class ApplicationTests {
 
 }

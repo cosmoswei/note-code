@@ -1,6 +1,6 @@
 package com.wei.demo;
 
-import com.wei.AppRun;
+import com.wei.DataAppRun;
 import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
 import org.openjdk.jmh.annotations.*;
@@ -35,7 +35,7 @@ public class BenchmarkDemo {
     @Setup
     public void init() {
         // 这里的WebApplication.class是项目里的spring boot启动类
-        context = SpringApplication.run(AppRun.class);
+        context = SpringApplication.run(DataAppRun.class);
         // 获取需要测试的bean
     }
 

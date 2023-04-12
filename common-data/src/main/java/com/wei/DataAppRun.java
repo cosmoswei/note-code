@@ -1,12 +1,14 @@
-package com.wei.strategy;
+package com.wei;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
-public class AppRun {
+@MapperScan("com.wei.mapper")
+public class DataAppRun {
     public static void main(String[] args) {
-        SpringApplication.run(AppRun.class, args);
+        SpringApplication.run(DataAppRun.class, args);
     }
+
 }

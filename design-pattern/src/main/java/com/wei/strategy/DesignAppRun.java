@@ -1,13 +1,12 @@
-package com.wei;
+package com.wei.strategy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
-public class Java8StreamApplication {
-
+public class DesignAppRun {
     public static void main(String[] args) {
-        SpringApplication.run(Java8StreamApplication.class, args);
+        SpringApplication.run(DesignAppRun.class, args);
     }
-
 }

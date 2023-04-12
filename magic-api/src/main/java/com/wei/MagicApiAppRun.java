@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ThreadLocalApplication {
+public class MagicApiAppRun {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ThreadLocalApplication.class, args);
+		SpringApplication.run(MagicApiAppRun.class, args);
 	}
 
 }

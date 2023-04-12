@@ -26,6 +26,7 @@
         <module>hodgepodge</module>
         <module>new-jdk</module>
         <module>rule-engine</module>
+        <module>event</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

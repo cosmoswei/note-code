@@ -6,10 +6,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LimiterApplication {
+public class LimiterAppRun {
     public static void main(String[] args) {
         // 具体的限流组件
         LimiterHandler.setLimiter(CounterLimiter.getInstance());
-        SpringApplication.run(LimiterApplication.class, args);
+        SpringApplication.run(LimiterAppRun.class, args);
     }
 }

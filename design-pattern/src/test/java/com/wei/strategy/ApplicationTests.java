@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-@SpringBootTest(classes = AppRun.class)
+@SpringBootTest(classes = DesignAppRun.class)
 class ApplicationTests {
 
 

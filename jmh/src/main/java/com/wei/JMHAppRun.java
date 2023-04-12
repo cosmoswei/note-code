@@ -1,13 +1,14 @@
-package com.wei.lite.flow;
+package com.wei;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LiteFlowApplication {
-
+@MapperScan("com.wei.mapper")
+public class JMHAppRun {
     public static void main(String[] args) {
-        SpringApplication.run(LiteFlowApplication.class, args);
+        SpringApplication.run(DataAppRun.class, args);
     }
 
 }

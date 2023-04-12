@@ -1,6 +1,6 @@
 package com.wei.orm;
 
-import com.wei.AppRun;
+import com.wei.DataAppRun;
 import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
 import com.wei.mapper.DepartmentEmployeesRepository;
@@ -48,7 +48,7 @@ public class BatchUpdateBenchmark {
     @Setup
     public void init() {
         // 这里的WebApplication.class是项目里的spring boot启动类
-        context = SpringApplication.run(AppRun.class);
+        context = SpringApplication.run(DataAppRun.class);
         // 获取需要测试的bean
         this.batchDemo = (BatchDemo) context.getBean("batchDemo");
         this.foreachDemo = (ForeachDemo) context.getBean("foreachDemo");
