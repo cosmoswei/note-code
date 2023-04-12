@@ -3,7 +3,6 @@ package com.wei.orm;
 import com.wei.DataAppRun;
 import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
-import com.wei.mapper.DepartmentEmployeesRepository;
 import com.wei.service.DepartmentEmployeesService;
 import com.wei.service.impl.BatchDemo;
 import com.wei.service.impl.CaseWhenDemo;
@@ -21,7 +20,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 @BenchmarkMode(Mode.AverageTime)
@@ -40,9 +38,9 @@ public class BatchUpdateBenchmark {
     private CaseWhenDemo caseThenDemo;
     private DepartmentEmployeesMapper departmentEmployeesMapper;
     private DepartmentEmployeesService departmentEmployeesService;
-    private DepartmentEmployeesRepository departmentEmployeesRepository;
+//    private DepartmentEmployeesRepository departmentEmployeesRepository;
 
-    @Param(value = {"10", "50", "100","1000","10000"})
+    @Param(value = {"10", "50", "100", "1000", "10000"})
     private int param;
 
     @Setup
@@ -56,7 +54,7 @@ public class BatchUpdateBenchmark {
         this.caseThenDemo = (CaseWhenDemo) context.getBean("caseWhenDemo");
         this.departmentEmployeesMapper = (DepartmentEmployeesMapper) context.getBean("departmentEmployeesMapper");
         this.departmentEmployeesService = (DepartmentEmployeesService) context.getBean("departmentEmployeesService");
-        this.departmentEmployeesRepository = (DepartmentEmployeesRepository) context.getBean("departmentEmployeesRepository");
+//        this.departmentEmployeesRepository = (DepartmentEmployeesRepository) context.getBean("departmentEmployeesRepository");
 
     }
 
@@ -105,13 +103,13 @@ public class BatchUpdateBenchmark {
         departmentEmployeesService.updateBatchById(result);
     }
 
-    @Benchmark
-    public void saveAllAndFlush() {
-        List<Integer> ids = IntStream.range(0, param).boxed().collect(Collectors.toList());
-        List<DepartmentEmployees> allById = departmentEmployeesRepository.findAllById(ids);
-        allById.forEach(e -> e.setEmployeeName("saveAllAndFlush 更新后的部门名字"));
-        departmentEmployeesRepository.saveAllAndFlush(allById);
-    }
+//    @Benchmark
+//    public void saveAllAndFlush() {
+//        List<Integer> ids = IntStream.range(0, param).boxed().collect(Collectors.toList());
+//        List<DepartmentEmployees> allById = departmentEmployeesRepository.findAllById(ids);
+//        allById.forEach(e -> e.setEmployeeName("saveAllAndFlush 更新后的部门名字"));
+//        departmentEmployeesRepository.saveAllAndFlush(allById);
+//    }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
