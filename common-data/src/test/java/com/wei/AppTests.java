@@ -33,7 +33,7 @@ class AppTests {
     private DepartmentEmployeesMapper departmentEmployeesMapper;
     @Resource
     private DepartmentEmployeesService departmentEmployeesService;
-    @Resource
+//    @Resource
 //    private DepartmentEmployeesRepository departmentEmployeesRepository;
 
     @Test

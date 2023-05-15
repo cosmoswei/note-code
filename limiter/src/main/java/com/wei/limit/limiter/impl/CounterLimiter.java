@@ -21,8 +21,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class CounterLimiter extends LimiterAbstract {
 
-    private Map<String, Data> map = new HashMap<>();
-    private BlockingQueue<DataDelay> delayQueue = new DelayQueue<>();
+    private final Map<String, Data> map = new HashMap<>();
+    private final BlockingQueue<DataDelay> delayQueue = new DelayQueue<>();
     private boolean state = false;
 
     private static CounterLimiter instance;
@@ -112,6 +112,7 @@ public class CounterLimiter extends LimiterAbstract {
                 try {
                     DataDelay take = delayQueue.take();
                     map.remove(take.key);
+                    System.out.println("++" + map);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
