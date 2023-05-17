@@ -10,9 +10,9 @@
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/><!--驱动程序名-->
                 <!--jdbc链接，在这里将yourDatabase配置为你的数据库名字-->
                 <property name="url"
-                          value="jdbc:mysql://huangxuwei.com:3306/huangxuwei?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                          value="jdbc:mysql://43.138.81.164:3306/huangxuwei?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false"/>
                 <property name="username" value="huangxuwei"/><!--用户名-->
-                <property name="password" value="HKLC6c4zY7xMheNd"/><!--密码-->
+                <property name="password" value="PnZd73wDG4wH3TeM"/><!--密码-->
             </dataSource>
         </environment>
     </environments>

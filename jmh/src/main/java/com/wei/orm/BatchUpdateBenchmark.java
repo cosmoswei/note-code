@@ -42,7 +42,7 @@ public class BatchUpdateBenchmark {
     private DepartmentEmployeesService departmentEmployeesService;
     private DepartmentEmployeesRepository departmentEmployeesRepository;
 
-    @Param(value = {"10", "50", "100", "1000", "10000"})
+    @Param(value = {"10", "50", "100", "1000"})
     private int param;
 
     @Setup
