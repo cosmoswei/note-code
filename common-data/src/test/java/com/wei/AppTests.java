@@ -1,7 +1,9 @@
 package com.wei;
 
+import com.alibaba.fastjson.JSON;
 import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
+import com.wei.mapper.DepartmentEmployeesRepository;
 import com.wei.service.DepartmentEmployeesService;
 import com.wei.service.impl.BatchDemo;
 import com.wei.service.impl.CaseWhenDemo;
@@ -33,8 +35,10 @@ class AppTests {
     private DepartmentEmployeesMapper departmentEmployeesMapper;
     @Resource
     private DepartmentEmployeesService departmentEmployeesService;
-//    @Resource
-//    private DepartmentEmployeesRepository departmentEmployeesRepository;
+    @Resource
+    private DepartmentEmployeesRepository departmentEmployeesRepository;
+
+    private final static Long batchSize = 10L;
 
     @Test
     void queryEmployee() {
@@ -45,16 +49,15 @@ class AppTests {
 
     @Test
     void updateEmployeePlus() {
-        List<Long> ids = LongStream.range(0, 1000).boxed().collect(Collectors.toList());
+        List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeePlus 更新后的部门名字"));
-        boolean b = departmentEmployeesService.updateBatchById(result);
-        System.out.println(b);
+        departmentEmployeesService.updateBatchById(result);
     }
 
     @Test
     void updateEmployeeCaseWhen() {
-            List<Long> ids = LongStream.range(1, 1000).boxed().collect(Collectors.toList());
+        List<Long> ids = LongStream.range(1, batchSize).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeeCaseWhen 更新后的部门名字"));
         caseWhenDemo.caseWhenUpdate(result);
@@ -62,7 +65,7 @@ class AppTests {
 
     @Test
     void updateEmployeeBatch() {
-        List<Long> ids = LongStream.range(0, 1000).boxed().collect(Collectors.toList());
+        List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeeBatch 更新后的部门名字"));
         batchDemo.batchUpdate(result);
@@ -70,7 +73,7 @@ class AppTests {
 
     @Test
     void updateEmployeeInitial() {
-        List<Long> ids = LongStream.range(0, 1000).boxed().collect(Collectors.toList());
+        List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeeInitial 更新后的部门名字"));
         initialDemo.initialUpdate(result);
@@ -78,18 +81,18 @@ class AppTests {
 
     @Test
     void updateEmployeeForeach() {
-        List<Long> ids = LongStream.range(0, 10).boxed().collect(Collectors.toList());
+        List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeeBatch 更新后的部门名字"));
         foreachDemo.foreachUpdate(result);
     }
 
-//    @Test
-//    void saveAllAndFlush() {
-//        List<Integer> ids = IntStream.range(1, 10).boxed().collect(Collectors.toList());
-//        List<DepartmentEmployees> allById = departmentEmployeesRepository.findAllById(ids);
-//        allById.forEach(e -> e.setEmployeeName("saveAllAndFlush 更新后的部门名字"));
-//        List<DepartmentEmployees> departmentEmployees = departmentEmployeesRepository.saveAllAndFlush(allById);
-//        log.info("banner exists: {}, banner info: {}", departmentEmployees.size(), JSON.toJSON(departmentEmployees));
-//    }
+    @Test
+    void saveAllAndFlush() {
+        List<Long> ids = LongStream.range(1, batchSize).boxed().collect(Collectors.toList());
+        List<DepartmentEmployees> allById = departmentEmployeesMapper.selectByIds(ids);
+        allById.forEach(e -> e.setEmployeeName("saveAllAndFlush 更新后的部门名字"));
+        List<DepartmentEmployees> departmentEmployees = departmentEmployeesRepository.saveAllAndFlush(allById);
+        log.info("banner exists: {}, banner info: {}", departmentEmployees.size(), JSON.toJSON(departmentEmployees));
+    }
 }
