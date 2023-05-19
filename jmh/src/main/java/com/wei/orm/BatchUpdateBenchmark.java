@@ -18,6 +18,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -25,8 +26,8 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 @BenchmarkMode(Mode.AverageTime)
-@Warmup(iterations = 3, time = 1)
-@Measurement(iterations = 5, time = 1)
+@Warmup(iterations = 1, time = 1)
+@Measurement(iterations = 1, time = 1)
 @Threads(1)
 @Fork(1)
 @State(value = Scope.Benchmark)
@@ -42,7 +43,8 @@ public class BatchUpdateBenchmark {
     private DepartmentEmployeesService departmentEmployeesService;
     private DepartmentEmployeesRepository departmentEmployeesRepository;
 
-    @Param(value = {"10", "50", "100", "1000"})
+    //    @Param(value = {"10", "50", "100", "1000", "10000"})
+    @Param(value = {"1", "10", "50"})
     private int param;
 
     @Setup
@@ -115,7 +117,7 @@ public class BatchUpdateBenchmark {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(BatchUpdateBenchmark.class.getSimpleName())
-                .result("BatchUpdateBenchmark_1000.json")
+                .result(LocalDateTime.now() + "BatchUpdateBenchmark_50.json")
                 .resultFormat(ResultFormatType.JSON).build();
         new Runner(opt).run();
     }
