@@ -12,7 +12,7 @@ import java.util.List;
 public class ForeachDemo {
 
     @Resource
-    DepartmentEmployeesMapper departmentEmployeesMapper;
+    private DepartmentEmployeesMapper departmentEmployeesMapper;
 
     public void foreachUpdate(List<DepartmentEmployees> list) {
         if (CollectionUtils.isEmpty(list)) {

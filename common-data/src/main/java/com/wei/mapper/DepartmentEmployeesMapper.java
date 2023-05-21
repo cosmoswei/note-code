@@ -34,4 +34,6 @@ public interface DepartmentEmployeesMapper extends BaseMapper<DepartmentEmployee
 
     int batchUpdate(@Param("list") List<DepartmentEmployees> list);
 
+    int batchUpdateSingle(@Param("ids") List<Long> ids, @Param("employeeName") String employeeName);
+
 }

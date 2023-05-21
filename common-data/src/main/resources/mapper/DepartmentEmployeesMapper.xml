@@ -273,4 +273,15 @@
             where id = #{item.id,jdbcType=INTEGER}
         </foreach>
     </update>
+
+    <update id="batchUpdateSingle">
+        update department_employees
+        set
+        employeeName = #{employeeName,jdbcType=VARCHAR}
+        where id in (
+        <foreach collection="ids" item="id" separator=",">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+        )
+    </update>
 </mapper>

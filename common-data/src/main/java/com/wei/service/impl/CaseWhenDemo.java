@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class CaseWhenDemo {
     @Resource
-    DepartmentEmployeesMapper departmentEmployeesMapper;
+    private DepartmentEmployeesMapper departmentEmployeesMapper;
 
     public void caseWhenUpdate(List<DepartmentEmployees> list) {
         if (CollectionUtils.isEmpty(list)) {
