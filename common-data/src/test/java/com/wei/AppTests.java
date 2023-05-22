@@ -123,7 +123,7 @@ class AppTests {
 
     @Test
     void batchUpdateSingle() {
-        List<Long> ids = LongStream.range(1, 100L).boxed().collect(Collectors.toList());
+        List<Long> ids = LongStream.range(1, 100000L).boxed().collect(Collectors.toList());
         batchUpdateSingle.batchUpdateSingle(ids, "batchUpdateSingle 更新后的部门名字");
     }
 }
