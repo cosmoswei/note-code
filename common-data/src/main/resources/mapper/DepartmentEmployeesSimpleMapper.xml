@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.mapper.DepartmentEmployeesSimpleMapper">
+
+    <resultMap id="BaseResultMap" type="com.wei.entity.DepartmentEmployeesSimple">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="departmentId" column="departmentId" jdbcType="INTEGER"/>
+        <result property="employeeName" column="employeeName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,departmentId,employeeName
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from department_employees_simple
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByIds" resultType="com.wei.entity.DepartmentEmployeesSimple">
+        select
+        <include refid="Base_Column_List"/>
+        from department_employees_simple
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <update id="updateByPrimaryKey" parameterType="com.wei.entity.DepartmentEmployeesSimple">
+        update department_employees_simple
+        set departmentId = #{departmentId,jdbcType=INTEGER},
+            employeeName = #{employeeName,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="caseWhenUpdate" parameterType="com.wei.entity.DepartmentEmployeesSimple">
+        update department_employees_simple
+        set
+        departmentId= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.departmentId}
+        </foreach>
+        end,
+        employeeName= case id
+        <foreach collection="list" item="emp">
+            when #{emp.id} then #{emp.employeeName}
+        </foreach>
+        end
+        where
+        <foreach collection="list" item="emp" separator="or">
+            id = #{emp.id}
+        </foreach>
+    </update>
+
+    <update id="batchUpdate" parameterType="com.wei.entity.DepartmentEmployeesSimple">
+        <foreach collection="list" item="item" separator=";">
+            update department_employees_simple
+            set departmentId = #{item.departmentId,jdbcType=INTEGER},
+            employeeName = #{item.employeeName,jdbcType=VARCHAR}
+            where id = #{item.id,jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+    <update id="batchUpdateSingle">
+        update department_employees_simple
+        set
+        employeeName = #{employeeName,jdbcType=VARCHAR}
+        where id in (
+        <foreach collection="ids" item="id" separator=",">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+        )
+    </update>
+</mapper>

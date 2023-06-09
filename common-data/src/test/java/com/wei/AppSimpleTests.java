@@ -1,10 +1,11 @@
 package com.wei;
 
-import com.wei.entity.DepartmentEmployees;
-import com.wei.mapper.DepartmentEmployeesMapper;
-import com.wei.mapper.DepartmentEmployeesRepository;
-import com.wei.service.DepartmentEmployeesService;
-import com.wei.service.impl.*;
+
+import com.wei.entity.DepartmentEmployeesSimple;
+import com.wei.mapper.DepartmentEmployeesSimpleMapper;
+import com.wei.mapper.DepartmentEmployeesSimpleRepository;
+import com.wei.service.simple.DepartmentEmployeesSimpleService;
+import com.wei.service.simple.impl.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,11 +15,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
-import static com.wei.mock.MockUtils.getMockDepartmentEmployees;
+import static com.wei.mock.MockUtils.getMockDepartmentEmployeesSimple;
 
 @SpringBootTest
 @Slf4j
-class AppTests {
+class AppSimpleTests {
 
     @Resource
     private ForeachXmlUpdate batchDemo;
@@ -31,19 +32,19 @@ class AppTests {
     @Resource
     private SingleFieldUpdate batchUpdateSingle;
     @Resource
-    private DepartmentEmployeesMapper departmentEmployeesMapper;
+    private DepartmentEmployeesSimpleMapper DepartmentEmployeesSimpleMapper;
     @Resource
-    private DepartmentEmployeesService departmentEmployeesService;
+    private DepartmentEmployeesSimpleService departmentEmployeesSimpleService;
     @Resource
-    private DepartmentEmployeesRepository departmentEmployeesRepository;
+    private DepartmentEmployeesSimpleRepository departmentEmployeesSimpleRepository;
 
-    private final static Integer batchSize = 1000000;
+    private final static Integer batchSize = 200000;
 
     @Test
     void queryEmployee() {
         long start = System.currentTimeMillis();
         List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
-        List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
+        List<DepartmentEmployeesSimple> result = DepartmentEmployeesSimpleMapper.selectByIds(ids);
         System.out.println(result);
         long end = System.currentTimeMillis();
         System.out.println("=锚点=" + (end - start));
@@ -52,50 +53,50 @@ class AppTests {
 
     @Test
     void myBatisPluUpdate() {
-        List<DepartmentEmployees> result = getMockDepartmentEmployees(batchSize);
+        List<DepartmentEmployeesSimple> result = getMockDepartmentEmployeesSimple(batchSize);
         result.forEach(e -> e.setEmployeeName("myBatisPluUpdate 更新后的部门名字"));
-        departmentEmployeesService.updateBatchById(result);
+        departmentEmployeesSimpleService.updateBatchById(result);
     }
 
     @Test
     void caseWhenUpdate() {
-        List<DepartmentEmployees> result = getMockDepartmentEmployees(batchSize);
+        List<DepartmentEmployeesSimple> result = getMockDepartmentEmployeesSimple(batchSize);
         result.forEach(e -> e.setEmployeeName("caseWhenUpdate 更新后的部门名字"));
         caseWhenDemo.caseWhenUpdate(result);
     }
 
     @Test
     void foreachXmlUpdate() {
-        List<DepartmentEmployees> result = getMockDepartmentEmployees(batchSize);
+        List<DepartmentEmployeesSimple> result = getMockDepartmentEmployeesSimple(batchSize);
         result.forEach(e -> e.setEmployeeName("foreachXmlUpdate 更新后的部门名字"));
         batchDemo.batchUpdate(result);
     }
 
     @Test
     void batchExecutorUpdate() {
-        List<DepartmentEmployees> result = getMockDepartmentEmployees(batchSize);
+        List<DepartmentEmployeesSimple> result = getMockDepartmentEmployeesSimple(batchSize);
         result.forEach(e -> e.setEmployeeName("batchExecutorUpdate 更新后的部门名字"));
         initialDemo.batchExecutorUpdate(result);
     }
 
     @Test
     void foreachUpdate() {
-        List<DepartmentEmployees> result = getMockDepartmentEmployees(batchSize);
+        List<DepartmentEmployeesSimple> result = getMockDepartmentEmployeesSimple(batchSize);
         result.forEach(e -> e.setEmployeeName("foreachUpdate 更新后的部门名字"));
         foreachDemo.foreachUpdate(result);
     }
 
     @Test
     void jpaUpdate() {
-        List<DepartmentEmployees> result = getMockDepartmentEmployees(batchSize);
+        List<DepartmentEmployeesSimple> result = getMockDepartmentEmployeesSimple(batchSize);
         result.forEach(e -> e.setEmployeeName("saveAllAndFlush 更新后的部门名字"));
-        departmentEmployeesRepository.saveAllAndFlush(result);
+        departmentEmployeesSimpleRepository.saveAllAndFlush(result);
     }
 
     @Test
     void batchUpdateSingle() {
-        List<DepartmentEmployees> result = getMockDepartmentEmployees(batchSize);
-        List<Long> ids = result.stream().map(DepartmentEmployees::getId).collect(Collectors.toList());
+        List<DepartmentEmployeesSimple> result = getMockDepartmentEmployeesSimple(batchSize);
+        List<Long> ids = result.stream().map(DepartmentEmployeesSimple::getId).collect(Collectors.toList());
         batchUpdateSingle.batchUpdateSingle(ids, "batchUpdateSingle 更新后的部门名字");
     }
 
@@ -103,7 +104,7 @@ class AppTests {
     @Test
     void test() {
         long start = System.currentTimeMillis();
-//        foreachXmlUpdate();
+        foreachXmlUpdate();
         long mid = System.currentTimeMillis();
         batchExecutorUpdate();
         long end = System.currentTimeMillis();

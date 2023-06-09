@@ -1,10 +1,10 @@
 package com.wei.orm;
 
 import com.wei.DataAppRun;
-import com.wei.entity.DepartmentEmployees;
-import com.wei.mapper.DepartmentEmployeesRepository;
-import com.wei.service.DepartmentEmployeesService;
-import com.wei.service.impl.*;
+import com.wei.entity.DepartmentEmployeesSimple;
+import com.wei.mapper.DepartmentEmployeesSimpleRepository;
+import com.wei.service.simple.DepartmentEmployeesSimpleService;
+import com.wei.service.simple.impl.*;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.wei.mock.MockUtils.getMockDepartmentEmployees;
+import static com.wei.mock.MockUtils.getMockDepartmentEmployeesSimple;
 
 @BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 3, time = 1)
@@ -28,7 +28,7 @@ import static com.wei.mock.MockUtils.getMockDepartmentEmployees;
 @Fork(1)
 @State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.SECONDS)
-public class BatchUpdateBenchmark {
+public class SimpleBatchUpdateBenchmark {
 
     private ConfigurableApplicationContext context;
     private ForeachUpdate foreachUpdate;
@@ -36,8 +36,8 @@ public class BatchUpdateBenchmark {
     private ForeachXmlUpdate foreachXmlUpdate;
     private SingleFieldUpdate singleFieldUpdate;
     private BatchExecutorUpdate batchExecutorUpdate;
-    private DepartmentEmployeesService departmentEmployeesService;
-    private DepartmentEmployeesRepository departmentEmployeesRepository;
+    private DepartmentEmployeesSimpleService departmentEmployeesSimpleService;
+    private DepartmentEmployeesSimpleRepository departmentEmployeesSimpleRepository;
 
     @Param(value = {"10", "100", "1000", "10000"})
     private int param;
@@ -47,13 +47,13 @@ public class BatchUpdateBenchmark {
         // 这里的WebApplication.class是项目里的spring boot启动类
         context = SpringApplication.run(DataAppRun.class);
         // 获取需要测试的bean
-        this.foreachXmlUpdate = (ForeachXmlUpdate) context.getBean("foreachXmlUpdate");
-        this.foreachUpdate = (ForeachUpdate) context.getBean("foreachUpdate");
-        this.batchExecutorUpdate = (BatchExecutorUpdate) context.getBean("batchExecutorUpdate");
-        this.singleFieldUpdate = (SingleFieldUpdate) context.getBean("singleFieldUpdate");
-        this.caseWhenUpdate = (CaseWhenUpdate) context.getBean("caseWhenUpdate");
-        this.departmentEmployeesService = (DepartmentEmployeesService) context.getBean("departmentEmployeesService");
-        this.departmentEmployeesRepository = (DepartmentEmployeesRepository) context.getBean("departmentEmployeesRepository");
+        this.foreachXmlUpdate = (ForeachXmlUpdate) context.getBean("simpleForeachXmlUpdate");
+        this.foreachUpdate = (ForeachUpdate) context.getBean("simpleForeachUpdate");
+        this.batchExecutorUpdate = (BatchExecutorUpdate) context.getBean("simpleBatchExecutorUpdate");
+        this.singleFieldUpdate = (SingleFieldUpdate) context.getBean("simpleSingleFieldUpdate");
+        this.caseWhenUpdate = (CaseWhenUpdate) context.getBean("simpleCaseWhenUpdate");
+        this.departmentEmployeesSimpleService = (DepartmentEmployeesSimpleService) context.getBean("departmentEmployeesSimpleService");
+        this.departmentEmployeesSimpleRepository = (DepartmentEmployeesSimpleRepository) context.getBean("departmentEmployeesSimpleRepository");
     }
 
     @TearDown
@@ -63,58 +63,58 @@ public class BatchUpdateBenchmark {
 
     @Benchmark
     public void batchExecutorUpdate() {
-        List<DepartmentEmployees> mockData = getMockDepartmentEmployees(param);
+        List<DepartmentEmployeesSimple> mockData = getMockDepartmentEmployeesSimple(param);
         mockData.forEach(e -> e.setEmployeeName("batchExecutorUpdate 更新后的部门名字"));
         batchExecutorUpdate.batchExecutorUpdate(mockData);
     }
 
     @Benchmark
     public void caseWhenUpdate() {
-        List<DepartmentEmployees> mockData = getMockDepartmentEmployees(param);
+        List<DepartmentEmployeesSimple> mockData = getMockDepartmentEmployeesSimple(param);
         mockData.forEach(e -> e.setEmployeeName("caseWhenUpdate 更新后的部门名字"));
         caseWhenUpdate.caseWhenUpdate(mockData);
     }
 
     @Benchmark
     public void foreachUpdate() {
-        List<DepartmentEmployees> mockData = getMockDepartmentEmployees(param);
+        List<DepartmentEmployeesSimple> mockData = getMockDepartmentEmployeesSimple(param);
         mockData.forEach(e -> e.setEmployeeName("foreachUpdate 更新后的部门名字"));
         foreachUpdate.foreachUpdate(mockData);
     }
 
     @Benchmark
     public void foreachXmlUpdate() {
-        List<DepartmentEmployees> mockData = getMockDepartmentEmployees(param);
+        List<DepartmentEmployeesSimple> mockData = getMockDepartmentEmployeesSimple(param);
         mockData.forEach(e -> e.setEmployeeName("foreachXmlUpdate 更新后的部门名字"));
         foreachXmlUpdate.batchUpdate(mockData);
     }
 
     @Benchmark
     public void myBatisPlusUpdate() {
-        List<DepartmentEmployees> mockData = getMockDepartmentEmployees(param);
+        List<DepartmentEmployeesSimple> mockData = getMockDepartmentEmployeesSimple(param);
         mockData.forEach(e -> e.setEmployeeName("myBatisPlusUpdate 更新后的部门名字"));
-        departmentEmployeesService.updateBatchById(mockData);
+        departmentEmployeesSimpleService.updateBatchById(mockData);
     }
 
     @Benchmark
     public void jpaUpdate() {
-        List<DepartmentEmployees> mockData = getMockDepartmentEmployees(param);
+        List<DepartmentEmployeesSimple> mockData = getMockDepartmentEmployeesSimple(param);
         mockData.forEach(e -> e.setEmployeeName("jpaUpdate 更新后的部门名字"));
-        departmentEmployeesRepository.saveAllAndFlush(mockData);
+        departmentEmployeesSimpleRepository.saveAllAndFlush(mockData);
     }
 
     @Benchmark
     public void singleFieldUpdate() {
-        List<DepartmentEmployees> mockData = getMockDepartmentEmployees(param);
-        List<Long> ids = mockData.stream().map(DepartmentEmployees::getId).collect(Collectors.toList());
+        List<DepartmentEmployeesSimple> mockData = getMockDepartmentEmployeesSimple(param);
+        List<Long> ids = mockData.stream().map(DepartmentEmployeesSimple::getId).collect(Collectors.toList());
         singleFieldUpdate.batchUpdateSingle(ids, "batchUpdateSingle 更新后的部门名字");
 
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(BatchUpdateBenchmark.class.getSimpleName())
-                .result(LocalDateTime.now() + "BatchUpdateBenchmark_100000_10_new_RC.json")
+                .include(SimpleBatchUpdateBenchmark.class.getSimpleName())
+                .result(LocalDateTime.now() + "Simple_BatchUpdateBenchmark_100000_10_new_RC.json")
                 .resultFormat(ResultFormatType.JSON).build();
         new Runner(opt).run();
     }
