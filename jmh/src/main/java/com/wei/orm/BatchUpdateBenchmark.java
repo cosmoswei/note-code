@@ -2,7 +2,6 @@ package com.wei.orm;
 
 import com.wei.DataAppRun;
 import com.wei.entity.DepartmentEmployees;
-import com.wei.mapper.DepartmentEmployeesMapper;
 import com.wei.mapper.DepartmentEmployeesRepository;
 import com.wei.service.DepartmentEmployeesService;
 import com.wei.service.impl.*;
@@ -32,18 +31,16 @@ import java.util.stream.LongStream;
 @OutputTimeUnit(TimeUnit.SECONDS)
 public class BatchUpdateBenchmark {
 
-
     private ConfigurableApplicationContext context;
     private ForeachUpdate foreachUpdate;
     private CaseWhenUpdate caseWhenUpdate;
     private ForeachXmlUpdate foreachXmlUpdate;
     private SingleFieldUpdate singleFieldUpdate;
     private BatchExecutorUpdate batchExecutorUpdate;
-    private DepartmentEmployeesMapper departmentEmployeesMapper;
     private DepartmentEmployeesService departmentEmployeesService;
     private DepartmentEmployeesRepository departmentEmployeesRepository;
 
-    @Param(value = {"10", "100", "1000", "10000", "100000"})
+    @Param(value = {"10", "100", "1000", "10000"})
     private int param;
 
     @Setup
@@ -56,7 +53,6 @@ public class BatchUpdateBenchmark {
         this.batchExecutorUpdate = (BatchExecutorUpdate) context.getBean("batchExecutorUpdate");
         this.singleFieldUpdate = (SingleFieldUpdate) context.getBean("singleFieldUpdate");
         this.caseWhenUpdate = (CaseWhenUpdate) context.getBean("caseWhenUpdate");
-        this.departmentEmployeesMapper = (DepartmentEmployeesMapper) context.getBean("departmentEmployeesMapper");
         this.departmentEmployeesService = (DepartmentEmployeesService) context.getBean("departmentEmployeesService");
         this.departmentEmployeesRepository = (DepartmentEmployeesRepository) context.getBean("departmentEmployeesRepository");
     }
@@ -95,9 +91,9 @@ public class BatchUpdateBenchmark {
     }
 
     @Benchmark
-    public void myBatisPluUpdate() {
+    public void myBatisPlusUpdate() {
         List<DepartmentEmployees> mockData = getMockData(param);
-        mockData.forEach(e -> e.setEmployeeName("myBatisPluUpdate 更新后的部门名字"));
+        mockData.forEach(e -> e.setEmployeeName("myBatisPlusUpdate 更新后的部门名字"));
         departmentEmployeesService.updateBatchById(mockData);
     }
 
