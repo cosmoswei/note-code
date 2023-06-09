@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class ForeachDemo {
+public class ForeachUpdate {
 
     @Resource
     private DepartmentEmployeesMapper departmentEmployeesMapper;

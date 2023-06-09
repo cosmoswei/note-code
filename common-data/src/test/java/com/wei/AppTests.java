@@ -22,15 +22,15 @@ import java.util.stream.LongStream;
 class AppTests {
 
     @Resource
-    private BatchDemo batchDemo;
+    private ForeachXmlUpdate batchDemo;
     @Resource
-    private ForeachDemo foreachDemo;
+    private ForeachUpdate foreachDemo;
     @Resource
-    private InitialDemo initialDemo;
+    private BatchExecutorUpdate initialDemo;
     @Resource
-    private CaseWhenDemo caseWhenDemo;
+    private CaseWhenUpdate caseWhenDemo;
     @Resource
-    private BatchUpdateSingleDemo batchUpdateSingle;
+    private SingleFieldUpdate batchUpdateSingle;
     @Resource
     private DepartmentEmployeesMapper departmentEmployeesMapper;
     @Resource
@@ -38,7 +38,7 @@ class AppTests {
     @Resource
     private DepartmentEmployeesRepository departmentEmployeesRepository;
 
-    private final static Long batchSize = 10000L;
+    private final static Long batchSize = 100000L;
 
     @Test
     void queryEmployee() {
@@ -51,7 +51,7 @@ class AppTests {
     }
 
     private static List<DepartmentEmployees> getMockData(Long batchSize) {
-        return LongStream.range(0, batchSize).boxed().map(String::valueOf).map(Integer::valueOf).map(e -> {
+        return LongStream.range(0, batchSize).boxed().map(e -> {
             DepartmentEmployees departmentEmployees = new DepartmentEmployees();
             departmentEmployees.setId(e);
             departmentEmployees.setDepartmentId(0);
@@ -74,7 +74,7 @@ class AppTests {
     }
 
     @Test
-    void updateEmployeePlus() {
+    void myBatisPluUpdate() {
         List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeePlus 更新后的部门名字"));
@@ -82,22 +82,21 @@ class AppTests {
     }
 
     @Test
-    void updateEmployeeCaseWhen() {
-        List<DepartmentEmployees> result = getMockData(100L);
-        result.forEach(e -> e.setEmployeeName("updateEmployeeCaseWhen 更新后的部门名字"));
+    void caseWhenUpdate() {
+        List<DepartmentEmployees> result = getMockData(batchSize);
+        result.forEach(e -> e.setEmployeeName("caseWhenUpdate 更新后的部门名字"));
         caseWhenDemo.caseWhenUpdate(result);
     }
 
     @Test
-    void updateEmployeeBatch() {
-        List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
-        List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
-        result.forEach(e -> e.setEmployeeName("updateEmployeeBatch 更新后的部门名字"));
+    void foreachXmlUpdate() {
+        List<DepartmentEmployees> result = getMockData(batchSize);
+        result.forEach(e -> e.setEmployeeName("foreachXmlUpdate 更新后的部门名字"));
         batchDemo.batchUpdate(result);
     }
 
     @Test
-    void updateEmployeeInitial() {
+    void batchExecutorUpdate() {
         List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeeInitial 更新后的部门名字"));
@@ -105,7 +104,7 @@ class AppTests {
     }
 
     @Test
-    void updateEmployeeForeach() {
+    void foreachUpdate() {
         List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
         result.forEach(e -> e.setEmployeeName("updateEmployeeBatch 更新后的部门名字"));
@@ -113,7 +112,7 @@ class AppTests {
     }
 
     @Test
-    void saveAllAndFlush() {
+    void jpaUpdate() {
         List<Long> ids = LongStream.range(1, batchSize).boxed().collect(Collectors.toList());
         List<DepartmentEmployees> allById = departmentEmployeesMapper.selectByIds(ids);
         allById.forEach(e -> e.setEmployeeName("saveAllAndFlush 更新后的部门名字"));
@@ -125,5 +124,18 @@ class AppTests {
     void batchUpdateSingle() {
         List<Long> ids = LongStream.range(1, 100000L).boxed().collect(Collectors.toList());
         batchUpdateSingle.batchUpdateSingle(ids, "batchUpdateSingle 更新后的部门名字");
+    }
+
+
+    @Test
+    void test() {
+        long start = System.currentTimeMillis();
+        foreachXmlUpdate();
+        long mid = System.currentTimeMillis();
+        caseWhenUpdate();
+        long end = System.currentTimeMillis();
+        System.out.println("foreachXmlUpdate = " + (mid - start));
+        System.out.println("caseWhenUpdate = " + (end - mid));
+
     }
 }

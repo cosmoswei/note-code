@@ -25,13 +25,13 @@ import java.util.Date;
 @Entity(name = "department_employees")
 @Getter
 @Setter
-public class DepartmentEmployees extends Model<DepartmentEmployees>{
+public class DepartmentEmployees extends Model<DepartmentEmployees> {
     /**
      * 员工唯一标识符
      */
     @TableId(value = "id", type = IdType.AUTO)
     @Id
-    private Integer id;
+    private Long id;
 
     /**
      * 员工所属部门唯一标识符

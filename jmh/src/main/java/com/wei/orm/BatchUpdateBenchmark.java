@@ -5,10 +5,7 @@ import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
 import com.wei.mapper.DepartmentEmployeesRepository;
 import com.wei.service.DepartmentEmployeesService;
-import com.wei.service.impl.BatchDemo;
-import com.wei.service.impl.CaseWhenDemo;
-import com.wei.service.impl.ForeachDemo;
-import com.wei.service.impl.InitialDemo;
+import com.wei.service.impl.*;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
@@ -18,33 +15,35 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 @BenchmarkMode(Mode.AverageTime)
-@Warmup(iterations = 1, time = 1)
-@Measurement(iterations = 1, time = 1)
+@Warmup(iterations = 3, time = 1)
+@Measurement(iterations = 10, time = 1)
 @Threads(1)
 @Fork(1)
 @State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.SECONDS)
 public class BatchUpdateBenchmark {
 
+
     private ConfigurableApplicationContext context;
-    private BatchDemo batchDemo;
-    private ForeachDemo foreachDemo;
-    private InitialDemo initialDemo;
-    private CaseWhenDemo caseThenDemo;
+    private ForeachUpdate foreachUpdate;
+    private CaseWhenUpdate caseWhenUpdate;
+    private ForeachXmlUpdate foreachXmlUpdate;
+    private SingleFieldUpdate singleFieldUpdate;
+    private BatchExecutorUpdate batchExecutorUpdate;
     private DepartmentEmployeesMapper departmentEmployeesMapper;
     private DepartmentEmployeesService departmentEmployeesService;
     private DepartmentEmployeesRepository departmentEmployeesRepository;
 
-    //    @Param(value = {"10", "50", "100", "1000", "10000"})
-    @Param(value = {"1", "10", "50"})
+    @Param(value = {"10", "100", "1000", "10000", "100000"})
     private int param;
 
     @Setup
@@ -52,10 +51,11 @@ public class BatchUpdateBenchmark {
         // 这里的WebApplication.class是项目里的spring boot启动类
         context = SpringApplication.run(DataAppRun.class);
         // 获取需要测试的bean
-        this.batchDemo = (BatchDemo) context.getBean("batchDemo");
-        this.foreachDemo = (ForeachDemo) context.getBean("foreachDemo");
-        this.initialDemo = (InitialDemo) context.getBean("initialDemo");
-        this.caseThenDemo = (CaseWhenDemo) context.getBean("caseWhenDemo");
+        this.foreachXmlUpdate = (ForeachXmlUpdate) context.getBean("foreachXmlUpdate");
+        this.foreachUpdate = (ForeachUpdate) context.getBean("foreachUpdate");
+        this.batchExecutorUpdate = (BatchExecutorUpdate) context.getBean("batchExecutorUpdate");
+        this.singleFieldUpdate = (SingleFieldUpdate) context.getBean("singleFieldUpdate");
+        this.caseWhenUpdate = (CaseWhenUpdate) context.getBean("caseWhenUpdate");
         this.departmentEmployeesMapper = (DepartmentEmployeesMapper) context.getBean("departmentEmployeesMapper");
         this.departmentEmployeesService = (DepartmentEmployeesService) context.getBean("departmentEmployeesService");
         this.departmentEmployeesRepository = (DepartmentEmployeesRepository) context.getBean("departmentEmployeesRepository");
@@ -67,58 +67,83 @@ public class BatchUpdateBenchmark {
     }
 
     @Benchmark
-    public void initialUpdate() {
-        List<Long> ids = LongStream.range(0, param).boxed().collect(Collectors.toList());
-        List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
-        result.forEach(e -> e.setEmployeeName("initialUpdate 更新后的部门名字"));
-        initialDemo.initialUpdate(result);
+    public void batchExecutorUpdate() {
+        List<DepartmentEmployees> mockData = getMockData(param);
+        mockData.forEach(e -> e.setEmployeeName("batchExecutorUpdate 更新后的部门名字"));
+        batchExecutorUpdate.initialUpdate(mockData);
     }
 
     @Benchmark
     public void caseWhenUpdate() {
-        List<Long> ids = LongStream.range(0, param).boxed().collect(Collectors.toList());
-        List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
-        result.forEach(e -> e.setEmployeeName("caseWhenUpdate 更新后的部门名字"));
-        caseThenDemo.caseWhenUpdate(result);
+        List<DepartmentEmployees> mockData = getMockData(param);
+        mockData.forEach(e -> e.setEmployeeName("caseWhenUpdate 更新后的部门名字"));
+        caseWhenUpdate.caseWhenUpdate(mockData);
     }
 
     @Benchmark
     public void foreachUpdate() {
-        List<Long> ids = LongStream.range(0, param).boxed().collect(Collectors.toList());
-        List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
-        result.forEach(e -> e.setEmployeeName("foreachUpdate 更新后的部门名字"));
-        foreachDemo.foreachUpdate(result);
+        List<DepartmentEmployees> mockData = getMockData(param);
+        mockData.forEach(e -> e.setEmployeeName("foreachUpdate 更新后的部门名字"));
+        foreachUpdate.foreachUpdate(mockData);
     }
 
     @Benchmark
-    public void batchUpdate() {
-        List<Long> ids = LongStream.range(0, param).boxed().collect(Collectors.toList());
-        List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
-        result.forEach(e -> e.setEmployeeName("batchUpdate 更新后的部门名字"));
-        batchDemo.batchUpdate(result);
+    public void foreachXmlUpdate() {
+        List<DepartmentEmployees> mockData = getMockData(param);
+        mockData.forEach(e -> e.setEmployeeName("foreachXmlUpdate 更新后的部门名字"));
+        foreachXmlUpdate.batchUpdate(mockData);
     }
 
     @Benchmark
-    public void updateBatchPlus() {
-        List<Long> ids = LongStream.range(0, param).boxed().collect(Collectors.toList());
-        List<DepartmentEmployees> result = departmentEmployeesMapper.selectByIds(ids);
-        result.forEach(e -> e.setEmployeeName("updateBatchPlus 更新后的部门名字"));
-        departmentEmployeesService.updateBatchById(result);
+    public void myBatisPluUpdate() {
+        List<DepartmentEmployees> mockData = getMockData(param);
+        mockData.forEach(e -> e.setEmployeeName("myBatisPluUpdate 更新后的部门名字"));
+        departmentEmployeesService.updateBatchById(mockData);
     }
 
     @Benchmark
-    public void saveAllAndFlush() {
-        List<Integer> ids = IntStream.range(0, param).boxed().collect(Collectors.toList());
-        List<DepartmentEmployees> allById = departmentEmployeesRepository.findAllById(ids);
-        allById.forEach(e -> e.setEmployeeName("saveAllAndFlush 更新后的部门名字"));
-        departmentEmployeesRepository.saveAllAndFlush(allById);
+    public void jpaUpdate() {
+        List<DepartmentEmployees> mockData = getMockData(param);
+        mockData.forEach(e -> e.setEmployeeName("jpaUpdate 更新后的部门名字"));
+        departmentEmployeesRepository.saveAllAndFlush(mockData);
+    }
+
+    @Benchmark
+    public void singleFieldUpdate() {
+        List<DepartmentEmployees> mockData = getMockData(param);
+        List<Long> ids = mockData.stream().map(DepartmentEmployees::getId).collect(Collectors.toList());
+        singleFieldUpdate.batchUpdateSingle(ids, "batchUpdateSingle 更新后的部门名字");
+
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(BatchUpdateBenchmark.class.getSimpleName())
-                .result(LocalDateTime.now() + "BatchUpdateBenchmark_50.json")
+                .result(LocalDateTime.now() + "BatchUpdateBenchmark_100000_10_new_RC.json")
                 .resultFormat(ResultFormatType.JSON).build();
         new Runner(opt).run();
+    }
+
+
+    private static List<DepartmentEmployees> getMockData(Integer batchSize) {
+        return LongStream.range(0, batchSize).boxed().map(e -> {
+            DepartmentEmployees departmentEmployees = new DepartmentEmployees();
+            departmentEmployees.setId(e);
+            departmentEmployees.setDepartmentId(0);
+            departmentEmployees.setEmployeeName(e + "111");
+            departmentEmployees.setEmployeeTitle(e + "222");
+            departmentEmployees.setEmployeeSalary(new BigDecimal("9999"));
+            departmentEmployees.setEmployeeAge(0);
+            departmentEmployees.setEmployeeGender(e + "333");
+            departmentEmployees.setEmployeeAddress(e + "444");
+            departmentEmployees.setEmployeePhone(e + "555");
+            departmentEmployees.setEmployeeEmail(e + "666");
+            departmentEmployees.setEmployeeStartDate(new Date());
+            departmentEmployees.setEmployeeEndDate(new Date());
+            departmentEmployees.setEmployeeStatus(e + "777");
+            departmentEmployees.setEmployeePerformance(e + "888");
+            departmentEmployees.setEmployeeNotes(e + "999");
+            return departmentEmployees;
+        }).collect(Collectors.toList());
     }
 }

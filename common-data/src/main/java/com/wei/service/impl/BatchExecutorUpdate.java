@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Service
-public class InitialDemo {
+public class BatchExecutorUpdate {
     public void initialUpdate(List<DepartmentEmployees> list) {
         //加载MyBatis配置，获得SqlSessionFactory
         String url = "mybatis-config.xml";

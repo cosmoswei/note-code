@@ -1,11 +1,10 @@
 package com.wei.redis;
 
 import org.redisson.api.RedissonClient;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Service
+//@Service
 public class RedisMng {
 
     @Resource

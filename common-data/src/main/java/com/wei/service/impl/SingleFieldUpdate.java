@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class BatchUpdateSingleDemo {
+public class SingleFieldUpdate {
 
 
     @Resource
