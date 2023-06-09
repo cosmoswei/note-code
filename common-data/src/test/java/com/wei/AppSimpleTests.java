@@ -38,7 +38,7 @@ class AppSimpleTests {
     @Resource
     private DepartmentEmployeesSimpleRepository departmentEmployeesSimpleRepository;
 
-    private final static Integer batchSize = 400000;
+    private final static Integer batchSize = 300000;
 
     @Test
     void queryEmployee() {
@@ -108,8 +108,8 @@ class AppSimpleTests {
         long mid = System.currentTimeMillis();
         batchExecutorUpdate();
         long end = System.currentTimeMillis();
-        System.out.println(batchSize + " <> foreachXmlUpdate = " + (mid - start));
-        System.out.println(batchSize + " <> batchExecutorUpdate = " + (end - mid));
+        System.out.println(batchSize + " || foreachXmlUpdate = " + (mid - start));
+        System.out.println(batchSize + " || batchExecutorUpdate = " + (end - mid));
 
     }
 }
