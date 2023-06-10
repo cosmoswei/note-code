@@ -114,8 +114,8 @@ public class SimpleBatchUpdateBenchmark {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(SimpleBatchUpdateBenchmark.class.getSimpleName())
-                .result(LocalDateTime.now() + "Simple_BatchUpdateBenchmark_100000_10_new_RC.json")
-                .resultFormat(ResultFormatType.JSON).build();
+                .result(LocalDateTime.now() + "Simple_BatchUpdateBenchmark_10000_10_new_RC.csv")
+                .resultFormat(ResultFormatType.CSV).build();
         new Runner(opt).run();
     }
 }

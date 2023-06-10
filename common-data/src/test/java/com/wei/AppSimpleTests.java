@@ -94,7 +94,7 @@ class AppSimpleTests {
     }
 
     @Test
-    void batchUpdateSingle() {
+    void singleFieldUpdate() {
         List<DepartmentEmployeesSimple> result = getMockDepartmentEmployeesSimple(batchSize);
         List<Long> ids = result.stream().map(DepartmentEmployeesSimple::getId).collect(Collectors.toList());
         batchUpdateSingle.batchUpdateSingle(ids, "batchUpdateSingle 更新后的部门名字");
@@ -104,12 +104,26 @@ class AppSimpleTests {
     @Test
     void test() {
         long start = System.currentTimeMillis();
+        myBatisPluUpdate();
+        long step1 = System.currentTimeMillis();
+        caseWhenUpdate();
+        long step2 = System.currentTimeMillis();
         foreachXmlUpdate();
-        long mid = System.currentTimeMillis();
+        long step3 = System.currentTimeMillis();
         batchExecutorUpdate();
-        long end = System.currentTimeMillis();
-        System.out.println(batchSize + " || foreachXmlUpdate = " + (mid - start));
-        System.out.println(batchSize + " || batchExecutorUpdate = " + (end - mid));
-
+        long step4 = System.currentTimeMillis();
+        foreachUpdate();
+        long step5 = System.currentTimeMillis();
+        jpaUpdate();
+        long step6 = System.currentTimeMillis();
+        singleFieldUpdate();
+        long step7 = System.currentTimeMillis();
+        System.out.println(batchSize + " || myBatisPluUpdate = " + (step1 - start));
+        System.out.println(batchSize + " || caseWhenUpdate = " + (step2 - step1));
+        System.out.println(batchSize + " || foreachXmlUpdate = " + (step3 - step2));
+        System.out.println(batchSize + " || batchExecutorUpdate = " + (step4 - step3));
+        System.out.println(batchSize + " || foreachUpdate = " + (step5 - step4));
+        System.out.println(batchSize + " || jpaUpdate = " + (step6 - step5));
+        System.out.println(batchSize + " || singleFieldUpdate = " + (step7 - step6));
     }
 }

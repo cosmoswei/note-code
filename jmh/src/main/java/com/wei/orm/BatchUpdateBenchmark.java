@@ -39,7 +39,7 @@ public class BatchUpdateBenchmark {
     private DepartmentEmployeesService departmentEmployeesService;
     private DepartmentEmployeesRepository departmentEmployeesRepository;
 
-    @Param(value = {"10", "100", "1000", "10000"})
+    @Param(value = {"10", "100", "1000"})
     private int param;
 
     @Setup
@@ -114,7 +114,7 @@ public class BatchUpdateBenchmark {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(BatchUpdateBenchmark.class.getSimpleName())
-                .result(LocalDateTime.now() + "BatchUpdateBenchmark_100000_10_new_RC.json")
+                .result(LocalDateTime.now() + "BatchUpdateBenchmark_10000_10_new_RC_晓辉.json")
                 .resultFormat(ResultFormatType.JSON).build();
         new Runner(opt).run();
     }

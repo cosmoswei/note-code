@@ -13,6 +13,10 @@
                           value="jdbc:mysql://127.0.0.1:3306/huangxuwei?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false"/>
                 <property name="username" value="root"/><!--用户名-->
                 <property name="password" value="huangxuwei"/><!--密码-->
+<!--                <property name="url"-->
+<!--                          value="jdbc:mysql://test1-1.mysql.polardb.rds.aliyuncs.com:3306/huangxuwei?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false"/>-->
+<!--                <property name="username" value="yourusername"/>&lt;!&ndash;用户名&ndash;&gt;-->
+<!--                <property name="password" value="yourpassword_1"/>&lt;!&ndash;密码&ndash;&gt;-->
             </dataSource>
         </environment>
     </environments>
