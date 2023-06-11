@@ -25,7 +25,7 @@ import static com.wei.mock.MockUtils.getMockDepartmentEmployees;
 @Warmup(iterations = 3, time = 1)
 @Measurement(iterations = 10, time = 1)
 @Threads(1)
-@Fork(2)
+@Fork(1)
 @State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.SECONDS)
 public class BatchUpdateBenchmark {
