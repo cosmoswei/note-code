@@ -114,7 +114,7 @@ public class BatchUpdateBenchmark {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(BatchUpdateBenchmark.class.getSimpleName())
-                .result(LocalDateTime.now() + "BatchUpdate_100000_LOCAL .json")
+                .result(LocalDateTime.now() + "BatchUpdate_100000_LOCAL_V2.json")
                 .resultFormat(ResultFormatType.JSON).build();
         new Runner(opt).run();
     }
