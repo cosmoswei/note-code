@@ -2,8 +2,8 @@ package com.wei.service.simple.impl;
 
 import com.wei.entity.DepartmentEmployeesSimple;
 import com.wei.mapper.DepartmentEmployeesSimpleMapper;
+import org.apache.commons.collections4.ListUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,9 +14,9 @@ public class CaseWhenUpdate {
     private DepartmentEmployeesSimpleMapper departmentEmployeesSimpleMapper;
 
     public void caseWhenUpdate(List<DepartmentEmployeesSimple> list) {
-        if (CollectionUtils.isEmpty(list)) {
-            return;
+        List<List<DepartmentEmployeesSimple>> partition = ListUtils.partition(list, 10000);
+        for (List<DepartmentEmployeesSimple> departmentEmployees : partition) {
+            departmentEmployeesSimpleMapper.batchUpdate(departmentEmployees);
         }
-        departmentEmployeesSimpleMapper.caseWhenUpdate(list);
     }
 }

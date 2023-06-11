@@ -39,7 +39,7 @@ public class SimpleBatchUpdateBenchmark {
     private DepartmentEmployeesSimpleService departmentEmployeesSimpleService;
     private DepartmentEmployeesSimpleRepository departmentEmployeesSimpleRepository;
 
-    @Param(value = {"10", "100", "1000", "10000"})
+    @Param(value = {"10", "100", "1000", "10000", "100000"})
     private int param;
 
     @Setup
@@ -107,7 +107,7 @@ public class SimpleBatchUpdateBenchmark {
     public void singleFieldUpdate() {
         List<DepartmentEmployeesSimple> mockData = getMockDepartmentEmployeesSimple(param);
         List<Long> ids = mockData.stream().map(DepartmentEmployeesSimple::getId).collect(Collectors.toList());
-        singleFieldUpdate.batchUpdateSingle(ids, "batchUpdateSingle 更新后的部门名字");
+        singleFieldUpdate.batchUpdateSingle(ids, "singleFieldUpdate 更新后的部门名字");
 
     }
 

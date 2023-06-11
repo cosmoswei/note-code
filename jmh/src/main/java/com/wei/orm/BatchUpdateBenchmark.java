@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import static com.wei.mock.MockUtils.getMockDepartmentEmployees;
 
 @BenchmarkMode(Mode.AverageTime)
-@Warmup(iterations = 10, time = 1)
+@Warmup(iterations = 3, time = 1)
 @Measurement(iterations = 10, time = 1)
 @Threads(1)
 @Fork(2)
@@ -39,7 +39,7 @@ public class BatchUpdateBenchmark {
     private DepartmentEmployeesService departmentEmployeesService;
     private DepartmentEmployeesRepository departmentEmployeesRepository;
 
-    @Param(value = {"10", "100", "1000", "10000"})
+    @Param(value = {"10", "100", "1000", "10000", "100000"})
     private int param;
 
     @Setup
@@ -68,7 +68,7 @@ public class BatchUpdateBenchmark {
         batchExecutorUpdate.batchExecutorUpdate(mockData);
     }
 
-    @Benchmark
+        @Benchmark
     public void caseWhenUpdate() {
         List<DepartmentEmployees> mockData = getMockDepartmentEmployees(param);
         mockData.forEach(e -> e.setEmployeeName("caseWhenUpdate 更新后的部门名字"));
@@ -114,7 +114,7 @@ public class BatchUpdateBenchmark {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(BatchUpdateBenchmark.class.getSimpleName())
-                .result(LocalDateTime.now() + "BatchUpdate_10000_RC.json")
+                .result(LocalDateTime.now() + "BatchUpdate_100000_LOCAL .json")
                 .resultFormat(ResultFormatType.JSON).build();
         new Runner(opt).run();
     }
