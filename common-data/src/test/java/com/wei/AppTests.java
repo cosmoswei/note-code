@@ -2,7 +2,6 @@ package com.wei;
 
 import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
-import com.wei.mapper.DepartmentEmployeesRepository;
 import com.wei.service.DepartmentEmployeesService;
 import com.wei.service.impl.*;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +34,7 @@ class AppTests {
     @Resource
     private DepartmentEmployeesService departmentEmployeesService;
     @Resource
-    private DepartmentEmployeesRepository departmentEmployeesRepository;
+//    private DepartmentEmployeesRepository departmentEmployeesRepository;
 
     private final static Integer batchSize = 30000;
 
@@ -89,7 +88,7 @@ class AppTests {
     void jpaUpdate() {
         List<DepartmentEmployees> result = getMockDepartmentEmployees(batchSize);
         result.forEach(e -> e.setEmployeeName("saveAllAndFlush 更新后的部门名字"));
-        departmentEmployeesRepository.saveAllAndFlush(result);
+//        departmentEmployeesRepository.saveAllAndFlush(result);
     }
 
     @Test

@@ -5,6 +5,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -14,7 +15,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Configuration
+
+// 开启DataSourceConfig需要关闭注释JPA的代码，两者不兼容
+@Configuration
 public class DataSourceConfig {
 
     @ConfigurationProperties("datasource1")

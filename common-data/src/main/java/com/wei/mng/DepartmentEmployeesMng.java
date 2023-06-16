@@ -28,7 +28,7 @@ public class DepartmentEmployeesMng {
     @DataSource("ds1")
     public void updateMaster(Integer id) {
         DepartmentEmployees departmentEmployees = departmentEmployeesMapper.selectByPrimaryKey(Long.valueOf(id));
-        departmentEmployees.setEmployeeName("updateMaster");
+        departmentEmployees.setEmployeeName("updateMaster0");
         departmentEmployeesMapper.updateByPrimaryKey(departmentEmployees);
     }
 

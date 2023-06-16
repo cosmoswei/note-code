@@ -6,6 +6,7 @@ import com.wei.mng.DepartmentEmployeesMng;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ class DataSourceTests {
     private DepartmentEmployeesMng departmentEmployeesMng;
 
     @Test
+    @Transactional(rollbackFor = Exception.class)
     void dataSourceTest() {
         DepartmentEmployees masterById = departmentEmployeesMng.getMasterById(1);
         DepartmentEmployees salveById = departmentEmployeesMng.getSalveById(1);
@@ -27,6 +29,7 @@ class DataSourceTests {
         list.add(salveById);
         log.info(JSON.toJSONString(list));
         departmentEmployeesMng.updateMaster(1);
+        int i = 1 / 0;
         departmentEmployeesMng.updateSalve(1);
         System.out.println("dataSourceTest===");
     }

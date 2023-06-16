@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +17,14 @@ import java.util.List;
 
 @Service
 public class BatchExecutorUpdate {
+
+    TransactionTemplate transactionTemplate;
+
     @Transactional(rollbackFor = Exception.class)
     public void batchExecutorUpdate(List<DepartmentEmployees> list) {
+
+        transactionTemplate.execute(status -> null);
+
         //加载MyBatis配置，获得SqlSessionFactory
         String url = "mybatis-config.xml";
         InputStream config = null;
