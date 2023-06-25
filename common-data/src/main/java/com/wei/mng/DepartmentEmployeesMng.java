@@ -1,6 +1,5 @@
 package com.wei.mng;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.wei.datasource.DataSource;
 import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
@@ -52,7 +51,6 @@ public class DepartmentEmployeesMng {
         return list;
     }
 
-    @DS("slave_1")
     public void updateComposeById(Integer id) {
         updateMaster(id);
         updateSalve(id);
