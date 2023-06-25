@@ -19,8 +19,13 @@ class DataSourceTests {
     private DepartmentEmployeesMng departmentEmployeesMng;
 
     /**
-     * 情况1：没加 Transactional 注解，查询打印正常；中间抛出异常，事物没有失效。
-     * 情况2：加了 @Transactional 注解，查询异常（全部查询主库），且没有异常却将事物回滚，还有造成了 sout 输出了更新后的值，数据库却没有更新的现象。
+     * 情况1：没加 @Transactional 注解，未抛异常；数据源切换生效。
+     * 情况2：没加 @Transactional 注解，抛出异常；事物生效，数据源切换生效。，
+     * 情况3：加了 @Transactional 注解，未抛异常；数据源切换失效。
+     * 情况4：加了 @Transactional 注解，抛出异常；事物生效；数据源切换失效，查询异常（全部查询主库），且没有异常却将事物回滚，还有造成了 sout 输出了更新后的值，数据库却没有更新的现象。
+     * <p>
+     * 解答：就是在在使用事物时切换数据源会导致事物内全部的SQL请求走默认的数据库连接？不是说好的加了事物也能切换数据源吗？
+     * </p>
      */
 
     @Test
