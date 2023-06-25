@@ -55,4 +55,11 @@ class DataSourceTests {
     void dataSourceTestThree() {
         departmentEmployeesMng.updateComposeById(1);
     }
+
+
+    @Test
+    void dataSourceTestFour() {
+
+        departmentEmployeesMng.updateById(1);
+    }
 }
