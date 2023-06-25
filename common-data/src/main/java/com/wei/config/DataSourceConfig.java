@@ -49,9 +49,10 @@ public class DataSourceConfig {
 
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
 
-        /** 设置mybatis configuration 扫描路径 */
+        // 设置mybatis configuration 扫描路径
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));//加载配置文件的地址;//
+        // 加载配置文件的地址
+        bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
 
         bean.setDataSource(dynamicDataSource);
         return bean;

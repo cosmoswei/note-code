@@ -47,7 +47,6 @@ class DataSourceTests {
         list.forEach(System.out::println);
         departmentEmployeesMng.updateMaster(1);
         departmentEmployeesMng.updateSalve(1);
-        int i = 1 / 0;
         list.forEach(System.out::println);
     }
 
@@ -59,7 +58,6 @@ class DataSourceTests {
 
     @Test
     void dataSourceTestFour() {
-
         departmentEmployeesMng.updateById(1);
     }
 }
