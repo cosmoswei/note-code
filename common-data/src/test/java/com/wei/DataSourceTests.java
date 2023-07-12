@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +41,6 @@ class DataSourceTests {
     }
 
     @Test
-    @Transactional(rollbackOn = Exception.class)
     void dataSourceTestTwo() {
         DepartmentEmployees masterById = departmentEmployeesMng.getMasterById(1);
         DepartmentEmployees salveById = departmentEmployeesMng.getSalveById(1);

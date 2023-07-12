@@ -3,10 +3,11 @@ package com.wei.mng;
 import com.wei.datasource.DataSource;
 import com.wei.entity.DepartmentEmployees;
 import com.wei.mapper.DepartmentEmployeesMapper;
+import com.wei.mock.MockUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +31,14 @@ public class DepartmentEmployeesMng {
     @DataSource("ds1")
     public void updateMaster(Integer id) {
         DepartmentEmployees departmentEmployees = departmentEmployeesMapper.selectByPrimaryKey(Long.valueOf(id));
-        departmentEmployees.setEmployeeName("updateMaster1");
+        departmentEmployees.setEmployeeName("updateMaster7");
         departmentEmployeesMapper.updateByPrimaryKey(departmentEmployees);
     }
 
     @DataSource("ds2")
     public void updateSalve(Integer id) {
         DepartmentEmployees departmentEmployees = departmentEmployeesMapper.selectByPrimaryKey(Long.valueOf(id));
-        departmentEmployees.setEmployeeName("updateSalve1");
+        departmentEmployees.setEmployeeName("updateSalve7");
         departmentEmployeesMapper.updateByPrimaryKey(departmentEmployees);
     }
 
@@ -51,13 +52,19 @@ public class DepartmentEmployeesMng {
         return list;
     }
 
+    @DataSource("ds2")
     public void updateComposeById(Integer id) {
-        updateMaster(id);
-        updateSalve(id);
-        getComposeById(id).forEach(System.out::println);
+        DepartmentEmployees departmentEmployees = MockUtils.getMockDepartmentEmployees(2).get(1);
+        departmentEmployees.setEmployeeName("123");
+        departmentEmployeesMapper.updateByPrimaryKey(departmentEmployees);
+        Long id1 = departmentEmployees.getId();
+        id1 += 1;
+        departmentEmployees.setId(id1);
+        departmentEmployees.setEmployeeName("456");
+        departmentEmployeesMapper.updateByPrimaryKey(departmentEmployees);
     }
 
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public void updateById(Integer id) {
         DepartmentEmployees departmentEmployees = departmentEmployeesMapper.selectByPrimaryKey(Long.valueOf(id));
         departmentEmployees.setId(1L);
