@@ -27,6 +27,7 @@
         <module>new-jdk</module>
         <module>rule-engine</module>
         <module>event</module>
+        <module>leetcode</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
