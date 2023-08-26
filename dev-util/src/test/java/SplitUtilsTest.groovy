@@ -17,7 +17,7 @@ class SplitUtilsTest extends Specification {
         "a_a" | "a_a" | null
     }
 
-    def ""(){
+    def "ok"(){
         given: "就是一个棒槌"
         def p1 = new People(name:"1",id:1)
     }

@@ -1,0 +1,54 @@
+@startuml
+
+autonumber
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+
+participant "前端" as front
+participant "导出模块" as export
+participant "MQ Broker" as broker
+participant "活动查询模块" as activity
+participant "阿里云OSS" as oss
+database "数据库" as db
+
+front -> export: 活动商品数据数据导出请求
+activate front
+export -> db: 记录当前任务导出状态【RUNNING】
+activate db
+db -> export:返回结果
+deactivate db
+
+export --> broker: 提交导出任务
+export -> front: 返回前端
+deactivate front
+====
+broker --> export: 分发导出任务
+activate export
+export -> activity: 查询导出活动数据
+activate activity
+activity -> export: 返回结果
+deactivate activity
+export -> export: 转为 Excel文件
+export -> oss: 将文件上传到云
+activate oss
+oss -> export: 返回文件路径
+deactivate oss
+export -> db: 修改导出任务的状态【SUCCESS】与更新文件路径
+activate db
+db ->export : 返回结果
+deactivate db
+deactivate export
+====
+front -> export: 查询导出结果
+activate front
+activate export
+export -> front: 返回导出文件的OSS路径
+deactivate export
+front -> oss: 根据路径下载文件
+activate oss
+oss -> front: 返回文件
+deactivate oss
+deactivate front
+
+@enduml
