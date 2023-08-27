@@ -24,15 +24,15 @@ public class OrderUtils {
      * @param filed      需要排序的字段
      * @param <V>        列表对象泛型
      */
-    public static <V> void orderBySeq(List<?> seq, List<V> targetList, String filed) {
+    public static <V> void orderBySeq(List<?> seq, List<V> targetList, String filed) throws NoSuchMethodException {
 
         //按照字段名来排序
+        Method method = targetList.get(0).getClass().getMethod(getMethodStr(filed));
         //按照字段名来排序
         targetList.sort(((obj1, obj2) -> {
             int index1;
             int index2;
             try {
-                Method method = obj1.getClass().getMethod(getMethodStr(filed));
                 index1 = seq.indexOf(method.invoke(obj1));
                 index2 = seq.indexOf(method.invoke(obj2));
                 if (index1 != -1) {

@@ -2,6 +2,7 @@ package com.wei.util.mock;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class MockClass {
@@ -14,6 +15,20 @@ public class MockClass {
                         new People("小伟", 6, "6"),
                         new People("小大", 7, "7"),
                         new People("小大", 8, "8"))
+                .collect(Collectors.toList());
+    }
+
+    public static List<People> mockManyPeople(int size) {
+        return IntStream.range(0, size)
+                .boxed()
+                .map(e -> new People("小伟" + e, e, e.toString()))
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> mockManyPeopleStr(int size) {
+        return IntStream.range(0, size)
+                .boxed()
+                .map(String::valueOf)
                 .collect(Collectors.toList());
     }
 

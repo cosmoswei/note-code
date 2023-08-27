@@ -10,14 +10,13 @@ class OrderTest extends Specification {
 
     def "排序测试"() {
         when:
-        List<People> peopleList = MockClass.mockPeopleList();
+        List<People> peopleList = MockClass.mockManyPeople(100000);
+        List<Integer> str = MockClass.mockManyPeopleStr(100000);
+        Collections.reverse(str)
         def split = SplitUtils.split("5,4,3,1", ",")
         def list = Stream.of(8, 7, 6, 5, 4).toList()
         OrderUtils.orderBySeq(split, peopleList, "code")
         then:
-        for (i in 0..<peopleList.size()) {
-            println(peopleList.get(i))
-        }
         println(list)
     }
 }

@@ -38,6 +38,12 @@
             <artifactId>dev-util</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.wei</groupId>
+            <artifactId>hodgepodge</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

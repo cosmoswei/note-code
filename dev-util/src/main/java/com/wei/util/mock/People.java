@@ -9,6 +9,6 @@ import lombok.Getter;
 @Getter
 public class People {
     private String name;
-    private Integer id;
+    public Integer id;
     private String code;
 }
