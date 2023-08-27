@@ -2,7 +2,6 @@ package com.wei.orm;
 
 import com.wei.DataAppRun;
 import com.wei.entity.DepartmentEmployeesSimple;
-import com.wei.mapper.DepartmentEmployeesSimpleRepository;
 import com.wei.service.simple.DepartmentEmployeesSimpleService;
 import com.wei.service.simple.impl.*;
 import org.openjdk.jmh.annotations.*;
@@ -37,7 +36,7 @@ public class SimpleBatchUpdateBenchmark {
     private SingleFieldUpdate singleFieldUpdate;
     private BatchExecutorUpdate batchExecutorUpdate;
     private DepartmentEmployeesSimpleService departmentEmployeesSimpleService;
-    private DepartmentEmployeesSimpleRepository departmentEmployeesSimpleRepository;
+//    private DepartmentEmployeesSimpleRepository departmentEmployeesSimpleRepository;
 
     @Param(value = {"10", "100", "1000", "10000", "100000"})
     private int param;
@@ -53,7 +52,7 @@ public class SimpleBatchUpdateBenchmark {
         this.singleFieldUpdate = (SingleFieldUpdate) context.getBean("simpleSingleFieldUpdate");
         this.caseWhenUpdate = (CaseWhenUpdate) context.getBean("simpleCaseWhenUpdate");
         this.departmentEmployeesSimpleService = (DepartmentEmployeesSimpleService) context.getBean("departmentEmployeesSimpleService");
-        this.departmentEmployeesSimpleRepository = (DepartmentEmployeesSimpleRepository) context.getBean("departmentEmployeesSimpleRepository");
+//        this.departmentEmployeesSimpleRepository = (DepartmentEmployeesSimpleRepository) context.getBean("departmentEmployeesSimpleRepository");
     }
 
     @TearDown
@@ -100,7 +99,7 @@ public class SimpleBatchUpdateBenchmark {
     public void jpaUpdate() {
         List<DepartmentEmployeesSimple> mockData = getMockDepartmentEmployeesSimple(param);
         mockData.forEach(e -> e.setEmployeeName("jpaUpdate 更新后的部门名字"));
-        departmentEmployeesSimpleRepository.saveAllAndFlush(mockData);
+//        departmentEmployeesSimpleRepository.saveAllAndFlush(mockData);
     }
 
     @Benchmark
