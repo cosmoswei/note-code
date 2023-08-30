@@ -44,8 +44,8 @@ public class Test {
         sum = 0;
         now = System.currentTimeMillis();
         MethodAccess ma = MethodAccess.get(TestClass.class);
-        int index = ma.getIndex("setNum");
         for (int i = 0; i < param; ++i) {
+            int index = ma.getIndex("setNum");
             ma.invoke(t, index, i);
             sum += t.getNum();
         }
