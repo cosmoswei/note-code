@@ -26,6 +26,10 @@ public class OrderUtils {
      */
     public static <V> void orderBySeq(List<?> seq, List<V> targetList, String filed) throws NoSuchMethodException {
 
+        if (null == targetList || targetList.isEmpty()) {
+            return;
+        }
+
         //按照字段名来排序
         Method method = targetList.get(0).getClass().getMethod(getMethodStr(filed));
         //按照字段名来排序
@@ -42,7 +46,7 @@ public class OrderUtils {
                     index2 = targetList.size() - index2;
                 }
             } catch (Exception e) {
-                throw new RuntimeException("反射获取方法异常 info： {}", e);
+                throw new RuntimeException("反射调用方法异常", e);
             }
             return index2 - index1;
         }));
