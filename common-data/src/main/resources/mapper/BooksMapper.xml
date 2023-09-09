@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.mapper.BooksMapper">
+
+    <resultMap id="BaseResultMap" type="com.wei.entity.Books">
+        <id property="bookID" column="BookID" jdbcType="INTEGER"/>
+        <result property="title" column="Title" jdbcType="VARCHAR"/>
+        <result property="author" column="Author" jdbcType="VARCHAR"/>
+        <result property="ISBN" column="ISBN" jdbcType="VARCHAR"/>
+        <result property="publicationDate" column="PublicationDate" jdbcType="DATE"/>
+        <result property="publisher" column="Publisher" jdbcType="VARCHAR"/>
+        <result property="price" column="Price" jdbcType="DECIMAL"/>
+        <result property="stockQuantity" column="StockQuantity" jdbcType="INTEGER"/>
+        <result property="genre" column="Genre" jdbcType="VARCHAR"/>
+        <result property="coverImage" column="CoverImage" jdbcType="VARCHAR"/>
+        <result property="description" column="Description" jdbcType="VARCHAR"/>
+        <result property="createdAt" column="CreatedAt" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="UpdatedAt" jdbcType="TIMESTAMP"/>
+        <result property="eventTime" column="eventTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        BookID
+        ,Title,Author,
+        ISBN,PublicationDate,Publisher,
+        Price,StockQuantity,Genre,
+        CoverImage,Description,CreatedAt,
+        UpdatedAt,eventTime
+    </sql>
+
+
+    <insert id="insertBook" parameterType="com.wei.entity.Books">
+        INSERT INTO books (Title, Author, ISBN, PublicationDate, Publisher, Price, StockQuantity, Genre, CoverImage,
+                           Description, CreatedAt, UpdatedAt)
+        VALUES (#{title}, #{author}, #{ISBN}, #{publicationDate}, #{publisher}, #{price}, #{stockQuantity}, #{genre},
+                #{coverImage}, #{description}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <!-- 添加一个根据ISBN查询书籍的语句 -->
+    <select id="selectBookByISBN" resultType="com.wei.entity.Books">
+        SELECT *
+        FROM books
+        WHERE ISBN = #{isbn}
+    </select>
+</mapper>
