@@ -28,6 +28,7 @@
         <module>rule-engine</module>
         <module>event</module>
         <module>leetcode</module>
+        <module>byte-code</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
