@@ -44,9 +44,33 @@ public class TransactionTest {
                 throw new RuntimeException(e);
             }
             books.setISBN("测试");
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
             booksMapper.insertBook(books);
             return null;
+
         });
+        // DB：select UNIX_TIMESTAMP(eventTime) from books where BookID = 46
+        System.out.println("System.currentTimeMillis() = " + System.currentTimeMillis());
         // 其中执行一大串事务
         Books booksByISNB = bookManager.getBooksByISNB(ISNB);
         System.out.println("ISBN==" + ISNB);
