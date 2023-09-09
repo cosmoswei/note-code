@@ -69,8 +69,9 @@ public class TransactionTest {
             return null;
 
         });
-        // DB：select UNIX_TIMESTAMP(eventTime) from books where BookID = 46
-        System.out.println("System.currentTimeMillis() = " + System.currentTimeMillis());
+        // 本地
+        // DB：select UNIX_TIMESTAMP(eventTime) from books where BookID = 46                // 1694275016.113489
+        System.out.println("System.currentTimeMillis() = " + System.currentTimeMillis());   // 1694275016122
         // 其中执行一大串事务
         Books booksByISNB = bookManager.getBooksByISNB(ISNB);
         System.out.println("ISBN==" + ISNB);
