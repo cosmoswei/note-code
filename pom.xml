@@ -29,6 +29,7 @@
         <module>event</module>
         <module>leetcode</module>
         <module>byte-code</module>
+        <module>web</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

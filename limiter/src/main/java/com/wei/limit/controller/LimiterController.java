@@ -1,7 +1,7 @@
 package com.wei.limit.controller;
 
 
-import com.wei.limit.limiter.Limit;
+import com.wei.limit.limiter.FlowControl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,14 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class LimiterController {
 
     @GetMapping("/test1")
-    @Limit(limit = 5,time = 5,msg = "计数器的")
-    public String test1(){
+    @FlowControl(limit = 5, time = 5, callback = "test2")
+    public String test1() {
         return "ok";
     }
 
     @GetMapping("/test2")
-    @Limit()
-    public String test2(){
-        return "ok";
+    @FlowControl()
+    public String test2() {
+        return "ok2";
+    }
+
+    public String callback() {
+        return "触发流控";
     }
 }

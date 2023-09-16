@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Limit {
+public @interface FlowControl {
 
     int limit() default 0;
 
@@ -20,4 +20,6 @@ public @interface Limit {
     String key() default "";
 
     String msg() default "系统服务繁忙";
+
+    String callback() default "";
 }
