@@ -29,6 +29,7 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <scope>import</scope>
+            <version>2.1</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/junit/junit -->

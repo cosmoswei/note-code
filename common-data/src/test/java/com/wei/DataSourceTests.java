@@ -3,7 +3,7 @@ package com.wei;
 import com.wei.entity.DepartmentEmployees;
 import com.wei.mng.DepartmentEmployeesMng;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
