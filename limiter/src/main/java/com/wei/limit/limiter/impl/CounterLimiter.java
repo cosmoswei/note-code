@@ -112,7 +112,6 @@ public class CounterLimiter extends LimiterAbstract {
                 try {
                     DataDelay take = delayQueue.take();
                     map.remove(take.key);
-                    System.out.println("++" + map);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

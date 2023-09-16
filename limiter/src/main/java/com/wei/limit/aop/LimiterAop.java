@@ -4,6 +4,7 @@ package com.wei.limit.aop;
 import com.wei.limit.limiter.DTO.LimiterDTO;
 import com.wei.limit.limiter.FlowControl;
 import com.wei.limit.limiter.handler.LimiterHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Aspect
 @Component
+@Slf4j
 public class LimiterAop {
 
     @Autowired
@@ -39,6 +41,7 @@ public class LimiterAop {
         if (!result) {
             return joinPoint.proceed();
         } else {
+            log.info("触发流控！");
             String callback = limiter.callback();
             if (null == callback || callback.isEmpty()) {
                 throw new RuntimeException("");
