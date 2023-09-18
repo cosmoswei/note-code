@@ -1,7 +1,7 @@
 package com.wei.limit.limiter;
 
 
-import com.wei.limit.limiter.DTO.LimiterDTO;
+import com.wei.limit.DTO.MataData;
 
 /**
  * Author: Xhy
@@ -41,6 +41,6 @@ public interface Limiter {
      * @param restrictDTO
      * @return
      */
-    boolean check(LimiterDTO restrictDTO);
+    boolean check(MataData restrictDTO);
 
 }

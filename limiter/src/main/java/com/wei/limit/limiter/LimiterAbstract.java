@@ -7,7 +7,6 @@ public abstract class LimiterAbstract implements Limiter {
 
     @Override
     public void set(String key, Integer value, long time) {
-
     }
 
     @Override

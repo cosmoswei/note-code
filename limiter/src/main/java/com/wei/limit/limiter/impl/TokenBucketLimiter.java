@@ -1,7 +1,7 @@
 package com.wei.limit.limiter.impl;
 
 
-import com.wei.limit.limiter.DTO.LimiterDTO;
+import com.wei.limit.DTO.MataData;
 import com.wei.limit.limiter.LimiterAbstract;
 
 import java.util.concurrent.Executors;
@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 按照一定的速率往桶中放token
  * 每次请求校验桶中是否有token
  */
+//@Component(FlowControlConstant.TOKEN_BUCKET)
 public class TokenBucketLimiter extends LimiterAbstract {
 
     // 桶容量
@@ -42,7 +43,7 @@ public class TokenBucketLimiter extends LimiterAbstract {
     }
 
     @Override
-    public boolean check(LimiterDTO restrictDTO) {
+    public boolean check(MataData restrictDTO) {
         // 是否有容量
         if (surplus.get() <= 0) {
             return true;

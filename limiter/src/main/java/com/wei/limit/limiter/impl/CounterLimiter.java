@@ -1,8 +1,10 @@
 package com.wei.limit.limiter.impl;
 
 
-import com.wei.limit.limiter.DTO.LimiterDTO;
+import com.wei.limit.DTO.MataData;
+import com.wei.limit.constant.FlowControlConstant;
 import com.wei.limit.limiter.LimiterAbstract;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,10 +17,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Author: Xhy
- * CreateTime: 2023-03-08 08:51
  * 计数器限流
  */
+@Component(FlowControlConstant.COUNTER)
 public class CounterLimiter extends LimiterAbstract {
 
     private final Map<String, Data> map = new HashMap<>();
@@ -57,8 +58,6 @@ public class CounterLimiter extends LimiterAbstract {
 
     /**
      * 自增,不存在则添加
-     *
-     * @param key
      */
     @Override
     public void incr(String key, long time) {
@@ -73,16 +72,13 @@ public class CounterLimiter extends LimiterAbstract {
     /**
      * 达到限制让用户time期间内不允许访问
      * 如果用户执意访问则延续time期间
-     *
-     * @param restrictDTO
-     * @return
      */
     @Override
-    public boolean check(LimiterDTO restrictDTO) {
+    public boolean check(MataData mataData) {
         // 此处key应该为请求路径+userId。此处是为了测试方便
-        String key = restrictDTO.key;
-        int limit = restrictDTO.limit;
-        int time = restrictDTO.time;
+        String key = mataData.key;
+        int limit = mataData.limit;
+        int time = mataData.time;
         if (!map.containsKey(key)) {
             set(key, 1, time);
             return false;
@@ -186,6 +182,4 @@ public class CounterLimiter extends LimiterAbstract {
             return Objects.hash(key);
         }
     }
-
-
 }

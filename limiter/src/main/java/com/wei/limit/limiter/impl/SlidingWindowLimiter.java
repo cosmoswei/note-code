@@ -1,42 +1,41 @@
 package com.wei.limit.limiter.impl;
 
-import com.wei.limit.limiter.DTO.LimiterDTO;
+import com.wei.limit.DTO.MataData;
+import com.wei.limit.constant.FlowControlConstant;
 import com.wei.limit.limiter.LimiterAbstract;
-import com.wei.limit.limiter.constant.RedisConstant;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
+
+@Component(FlowControlConstant.SLIDING_WINDOW)
 public class SlidingWindowLimiter extends LimiterAbstract {
 
+    private final BlockingQueue<Long> requestQueue;
 
-    @Resource
-    private RedisTemplate redisTemplate;
+    public SlidingWindowLimiter() {
+        this.requestQueue = new ArrayBlockingQueue<>(20);
+    }
 
+    // 判断是否允许新请求
     @Override
-    public boolean check(LimiterDTO restrictDTO) {
-        return false;
+    public boolean check(MataData restrictDTO) {
+        return !allowRequest(restrictDTO.time, restrictDTO.limit);
     }
 
-    public boolean canAccess(String key, int windowInSecond, long maxCount) {
-        key = RedisConstant.SLIDING_WINDOW + key;
-        Long count = redisTemplate.opsForZSet().zCard(key);
-        if (count < maxCount) {
-            increment(key, windowInSecond);
-            return true;
-        } else {
-            return false;
+    public synchronized boolean allowRequest(int windowSize, int maxRequests) {
+        long currentTimestamp = System.currentTimeMillis();
+        // 移除超过滑动窗口大小的时间戳
+        while (!requestQueue.isEmpty() && currentTimestamp - requestQueue.peek() >= windowSize * 1000L) {
+            requestQueue.poll();
         }
-    }
 
-    public void increment(String key, Integer windowInSecond) {
-        long currentMs = System.currentTimeMillis();
-        long windowStartMs = currentMs - windowInSecond * 1000;
-        ZSetOperations zSetOperations = redisTemplate.opsForZSet();
-        zSetOperations.removeRangeByScore(key, 0, windowStartMs);
-        zSetOperations.add(key, String.valueOf(currentMs), currentMs);
-        redisTemplate.expire(key, windowInSecond, TimeUnit.SECONDS);
+        // 检查请求数是否超过最大请求数
+        if (requestQueue.size() < maxRequests) {
+            return requestQueue.offer(currentTimestamp);
+        } else {
+            return false; // 限流
+        }
     }
 }

@@ -1,18 +1,26 @@
 package com.wei;
 
-import com.wei.limit.limiter.FlowControl;
+import com.wei.limit.aop.FlowControl;
+import com.wei.limit.constant.FlowControlConstant;
 import org.springframework.stereotype.Service;
 
-@Service
+import java.time.LocalDateTime;
+
+@Service("testService")
 public class TestService {
 
-
-    @FlowControl(limit = 100, time = 5, callback = "flowControl")
+    @FlowControl(limit = 1, time = 1, type = FlowControlConstant.TOKEN_BUCKET, callback = "flowControl")
     public String test() {
-        return String.valueOf(System.currentTimeMillis());
+        return LocalDateTime.now().toString();
+    }
+
+
+    @FlowControl(limit = 1, time = 1, type = FlowControlConstant.TOKEN_BUCKET, callback = "flowControl")
+    public String test2() {
+        return LocalDateTime.now().toString();
     }
 
     public String flowControl() {
-        return "触发流控！flowControl";
+        return "降级！flowControl";
     }
 }

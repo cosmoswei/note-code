@@ -1,7 +1,7 @@
 package com.wei.limit.controller;
 
 
-import com.wei.limit.limiter.FlowControl;
+import com.wei.limit.aop.FlowControl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LimiterController {
 
-    @GetMapping("/test1")
+    @GetMapping("/test12")
     @FlowControl(limit = 5, time = 5, callback = "test2")
     public String test1() {
         return "ok";
     }
 
-    @GetMapping("/test2")
+    @GetMapping("/test22")
     @FlowControl()
     public String test2() {
         return "ok2";

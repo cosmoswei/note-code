@@ -1,7 +1,5 @@
 package com.wei;
 
-import com.wei.limit.limiter.handler.LimiterHandler;
-import com.wei.limit.limiter.impl.CounterLimiter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebRun {
 
     public static void main(String[] args) {
-        LimiterHandler.setLimiter(CounterLimiter.getInstance());
         SpringApplication.run(WebRun.class);
     }
 }

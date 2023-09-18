@@ -1,6 +1,5 @@
 package com.wei.controller;
 
-import com.google.gson.Gson;
 import com.wei.TestService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +13,12 @@ public class LimitTestController {
     private TestService testService;
 
     @RequestMapping("/test")
-    public String test() {
-        Gson gson = new Gson();
-        return gson.toJson(testService.test());
+    public String test() throws InterruptedException {
+        return testService.test();
+    }
+
+    @RequestMapping("/test2")
+    public String test2() throws InterruptedException {
+        return testService.test2();
     }
 }
