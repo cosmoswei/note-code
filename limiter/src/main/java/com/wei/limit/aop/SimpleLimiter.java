@@ -1,6 +1,6 @@
 package com.wei.limit.aop;
 
-import com.wei.limit.constant.FlowControlConstant;
+import com.wei.limit.constant.SimpleLimiterConstant;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FlowControl {
+public @interface SimpleLimiter {
 
     int limit() default 0;
 
@@ -24,7 +24,7 @@ public @interface FlowControl {
     /**
      * 限流器类型
      */
-    String type() default FlowControlConstant.COUNTER;
+    String type() default SimpleLimiterConstant.COUNTER;
 
     String msg() default "系统服务繁忙";
 

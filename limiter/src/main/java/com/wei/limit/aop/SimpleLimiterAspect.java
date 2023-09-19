@@ -2,7 +2,7 @@ package com.wei.limit.aop;
 
 
 import com.wei.limit.DTO.MataData;
-import com.wei.limit.exception.FlowControlException;
+import com.wei.limit.exception.SimpleLimiterException;
 import com.wei.limit.limiter.LimiterAbstract;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,7 +21,7 @@ import java.util.Map;
 @Aspect
 @Component
 @Slf4j
-public class FlowControlAspect {
+public class SimpleLimiterAspect {
 
     @Resource
     private Map<String, LimiterAbstract> limiterMap;
@@ -30,7 +30,7 @@ public class FlowControlAspect {
      * 拦截Limit注解的请求
      */
     @Around("@annotation(flowControl)")
-    public Object restriction(ProceedingJoinPoint joinPoint, FlowControl flowControl) throws Throwable {
+    public Object restriction(ProceedingJoinPoint joinPoint, SimpleLimiter flowControl) throws Throwable {
         String key = getKey(joinPoint, flowControl.key());
         int limit = flowControl.limit();
         int time = flowControl.time();
@@ -46,7 +46,7 @@ public class FlowControlAspect {
         } else {
             String callback = flowControl.callback();
             if (null == callback || callback.isEmpty()) {
-                throw new FlowControlException(flowControl.msg());
+                throw new SimpleLimiterException(flowControl.msg());
             }
             log.info("触发降级！method = {}", callback);
             // 限流失败，执行指定的回调方法

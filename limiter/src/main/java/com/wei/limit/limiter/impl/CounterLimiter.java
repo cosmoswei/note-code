@@ -2,7 +2,7 @@ package com.wei.limit.limiter.impl;
 
 
 import com.wei.limit.DTO.MataData;
-import com.wei.limit.constant.FlowControlConstant;
+import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 计数器限流
  */
-@Component(FlowControlConstant.COUNTER)
+@Component(SimpleLimiterConstant.COUNTER)
 public class CounterLimiter extends LimiterAbstract {
 
     private final Map<String, Data> map = new HashMap<>();

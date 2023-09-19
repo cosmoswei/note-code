@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 按照一定的速率往桶中放token
  * 每次请求校验桶中是否有token
  */
+@Deprecated
 @Component("FlowControlConstant.TOKEN_BUCKET")
 public class TokenBucketLimiter extends LimiterAbstract {
 

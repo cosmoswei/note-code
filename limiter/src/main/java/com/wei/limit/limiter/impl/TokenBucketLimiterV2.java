@@ -2,7 +2,7 @@ package com.wei.limit.limiter.impl;
 
 
 import com.wei.limit.DTO.MataData;
-import com.wei.limit.constant.FlowControlConstant;
+import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * 每次请求校验桶中是否有token
  */
 @Slf4j
-@Component(FlowControlConstant.TOKEN_BUCKET)
+@Component(SimpleLimiterConstant.TOKEN_BUCKET)
 public class TokenBucketLimiterV2 extends LimiterAbstract {
 
     private final Semaphore semaphore;

@@ -2,7 +2,7 @@ package com.wei.limit.limiter.impl;
 
 
 import com.wei.limit.DTO.MataData;
-import com.wei.limit.constant.FlowControlConstant;
+import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import java.util.concurrent.Semaphore;
 /**
  * 漏桶限流
  */
-@Component(FlowControlConstant.LEAKY_BUCKET)
+@Component(SimpleLimiterConstant.LEAKY_BUCKET)
 public class LeakyBucketLimiter extends LimiterAbstract {
 
 

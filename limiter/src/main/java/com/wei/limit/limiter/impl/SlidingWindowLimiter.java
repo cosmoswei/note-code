@@ -1,7 +1,7 @@
 package com.wei.limit.limiter.impl;
 
 import com.wei.limit.DTO.MataData;
-import com.wei.limit.constant.FlowControlConstant;
+import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 
-@Component(FlowControlConstant.SLIDING_WINDOW)
+@Component(SimpleLimiterConstant.SLIDING_WINDOW)
 public class SlidingWindowLimiter extends LimiterAbstract {
 
     private final BlockingQueue<Long> requestQueue;

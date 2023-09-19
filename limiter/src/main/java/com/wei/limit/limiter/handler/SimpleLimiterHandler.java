@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * 限流处理器
  */
 @Component
-public class FlowControlHandler implements Limiter {
+public class SimpleLimiterHandler implements Limiter {
 
     // 默认限流方式是计数器
     static Limiter limiter = CounterLimiter.getInstance();

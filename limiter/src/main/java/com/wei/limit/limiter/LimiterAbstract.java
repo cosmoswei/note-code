@@ -1,7 +1,7 @@
 package com.wei.limit.limiter;
 
 /**
- * 此处是为了让限流实现类必须实现check(),其他方法按需索取
+ * 此处是为了让限流实现类必须实现 check(),其他方法按需索取
  */
 public abstract class LimiterAbstract implements Limiter {
 

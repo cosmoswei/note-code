@@ -4,7 +4,7 @@ package com.wei.limit.constant;
 /**
  * 流控常量
  */
-public interface FlowControlConstant {
+public interface SimpleLimiterConstant {
     /**
      * 计数器限流
      */
