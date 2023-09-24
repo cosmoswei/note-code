@@ -6,7 +6,7 @@ import com.wei.mapper.DepartmentEmployeesSimpleMapper;
 import com.wei.service.simple.DepartmentEmployeesSimpleService;
 import com.wei.service.simple.impl.*;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
