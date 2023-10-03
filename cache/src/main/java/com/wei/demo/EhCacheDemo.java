@@ -31,8 +31,8 @@ public class EhCacheDemo {
         Cache<String, String> cache2 = cacheManager.createCache("cache2", CacheConfigurationBuilder.newCacheConfigurationBuilder(String.class, String.class, ResourcePoolsBuilder.heap(5)));
 
         //5. 操作
-        cache1.put("cache0", "阿巴阿巴~~");
-        Object value1 = cache1.get("cache0");
+        cache2.put("cacheKey", "阿巴阿巴~~");
+        Object value1 = cache2.get("cacheKey");
         System.out.println(value1);
     }
 }
