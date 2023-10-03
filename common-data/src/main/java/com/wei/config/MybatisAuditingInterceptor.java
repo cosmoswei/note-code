@@ -214,14 +214,12 @@ public class MybatisAuditingInterceptor implements Interceptor {
     /**
      * 获取当前请求上下文中的当前用户
      *
-     * @return Kylin 认证拦截器执行完成之后封装的 BaseUserDTO 对象
      */
     private UserDTO getCurrentUser() {
         try {
             HttpServletRequest request =
                     ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-
-            return (UserDTO) request.getAttribute("baseUserDTO");
+            return (UserDTO) request.getAttribute("userDTO");
         } catch (Exception e) {
             return null;
         }

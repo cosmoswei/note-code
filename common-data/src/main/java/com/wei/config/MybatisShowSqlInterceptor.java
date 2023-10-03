@@ -48,7 +48,7 @@ public class MybatisShowSqlInterceptor implements Interceptor {
         if (parameterObject == null || parameterMappings.size() == 0) {
             return sql;
         }
- 
+
         TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
         if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
             sql = sql.replaceFirst("\\?", getParameterValue(parameterObject));

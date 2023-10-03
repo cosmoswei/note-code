@@ -30,6 +30,7 @@
         <module>leetcode</module>
         <module>byte-code</module>
         <module>web</module>
+        <module>cache</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
