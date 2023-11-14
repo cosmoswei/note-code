@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Map;
 
-public class create_sms_index {
+class createSmsIndex {
     String index = "sms_logs_index";
     String type = "sms_logs_type";
 
@@ -31,52 +31,52 @@ public class create_sms_index {
 
         XContentBuilder mappings = JsonXContent.contentBuilder()
                 .startObject()
-                    .startObject("properties")
-                        .startObject("createDate")
-                            .field("type", "date")
-                            .field("format","yyyy-MM-dd")
-                        .endObject()
-                        .startObject("sendDate")
-                            .field("type", "date")
-                            .field("format", "yyyy-MM-dd")
-                        .endObject()
-                        .startObject("longCode")
-                            .field("type", "keyword")
-                        .endObject()
-                        .startObject("mobile")
-                            .field("type", "keyword")
-                        .endObject()
-                        .startObject("corpName")
-                            .field("type", "keyword")
-                        .endObject()
-                        .startObject("smsContent")
-                            .field("type", "text")
-                            .field("analyzer", "ik_max_word")
-                        .endObject()
-                        .startObject("state")
-                            .field("type", "integer")
-                        .endObject()
-                        .startObject("operatorid")
-                            .field("type", "integer")
-                        .endObject()
-                        .startObject("province")
-                            .field("type", "keyword")
-                        .endObject()
-                        .startObject("ipAddr")
-                            .field("type", "ip")
-                        .endObject()
-                        .startObject("replyTotal")
-                            .field("type", "integer")
-                        .endObject()
-                        .startObject("fee")
-                            .field("type", "long")
-                        .endObject()
-                    .endObject()
+                .startObject("properties")
+                .startObject("createDate")
+                .field("type", "date")
+                .field("format", "yyyy-MM-dd")
+                .endObject()
+                .startObject("sendDate")
+                .field("type", "date")
+                .field("format", "yyyy-MM-dd")
+                .endObject()
+                .startObject("longCode")
+                .field("type", "keyword")
+                .endObject()
+                .startObject("mobile")
+                .field("type", "keyword")
+                .endObject()
+                .startObject("corpName")
+                .field("type", "keyword")
+                .endObject()
+                .startObject("smsContent")
+                .field("type", "text")
+                .field("analyzer", "ik_max_word")
+                .endObject()
+                .startObject("state")
+                .field("type", "integer")
+                .endObject()
+                .startObject("operatorid")
+                .field("type", "integer")
+                .endObject()
+                .startObject("province")
+                .field("type", "keyword")
+                .endObject()
+                .startObject("ipAddr")
+                .field("type", "ip")
+                .endObject()
+                .startObject("replyTotal")
+                .field("type", "integer")
+                .endObject()
+                .startObject("fee")
+                .field("type", "long")
+                .endObject()
+                .endObject()
                 .endObject();
 
         CreateIndexRequest request = new CreateIndexRequest(index)
                 .settings(settings)
-                .mapping(type,mappings);
+                .mapping(type, mappings);
 
         RestHighLevelClient client = ESClient.getClient();
         CreateIndexResponse response = client.indices().create(request, RequestOptions.DEFAULT);
@@ -94,21 +94,21 @@ public class create_sms_index {
     }
 
     @Test
-    public void testQuery() throws IOException {
-//        1 创建Request对象
+    void testQuery() throws IOException {
+        // 1 创建Request对象
         SearchRequest request = new SearchRequest(index);
         request.types(type);
-//        2 指定查询条件
+        // 2 指定查询条件
         SearchSourceBuilder builder = new SearchSourceBuilder();
         builder.from(0);
         builder.size(5);
         builder.query(QueryBuilders.termQuery("province", "河北"));
 
         request.source(builder);
-//        3 执行查询
+        // 3 执行查询
         RestHighLevelClient client = ESClient.getClient();
         SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-//        4  获取到_source中的数据
+        // 4  获取到_source中的数据
         for (SearchHit hit : response.getHits().getHits()) {
             Map<String, Object> result = hit.getSourceAsMap();
             System.out.println(result);
@@ -116,25 +116,25 @@ public class create_sms_index {
     }
 
     @Test
-    public void test_terms() throws IOException {
+    void test_terms() throws IOException {
         SearchRequest request = new SearchRequest(index);
         request.types(type);
 
         SearchSourceBuilder builder = new SearchSourceBuilder();
-        builder.query(QueryBuilders.termsQuery("province","河北","河南"));
+        builder.query(QueryBuilders.termsQuery("province", "河北", "河南"));
 
         request.source(builder);
 
         RestHighLevelClient client = ESClient.getClient();
         SearchResponse resp = client.search(request, RequestOptions.DEFAULT);
 
-        for (SearchHit hit : resp.getHits().getHits()){
+        for (SearchHit hit : resp.getHits().getHits()) {
             System.out.println(hit);
         }
     }
 
     @Test
-    public void test_match_all() throws IOException {
+    void test_match_all() throws IOException {
         SearchRequest request = new SearchRequest(index);
         request.types(type);
         SearchSourceBuilder builder = new SearchSourceBuilder();
@@ -143,45 +143,46 @@ public class create_sms_index {
         RestHighLevelClient client = ESClient.getClient();
         SearchResponse response = client.search(request, RequestOptions.DEFAULT);
 
-        for (SearchHit hit : response.getHits().getHits()){
+        for (SearchHit hit : response.getHits().getHits()) {
             System.out.println(hit);
         }
 
     }
+
     @Test
-    public void test_match_field() throws IOException {
+    void test_match_field() throws IOException {
         SearchRequest request = new SearchRequest(index);
         request.types(type);
         SearchSourceBuilder builder = new SearchSourceBuilder();
-        builder.query(QueryBuilders.matchQuery("smsContext","打车"));
+        builder.query(QueryBuilders.matchQuery("smsContext", "打车"));
         request.source(builder);
         RestHighLevelClient client = ESClient.getClient();
         SearchResponse response = client.search(request, RequestOptions.DEFAULT);
 
-        for (SearchHit hit : response.getHits().getHits()){
+        for (SearchHit hit : response.getHits().getHits()) {
             System.out.println(hit);
         }
 
     }
 
     @Test
-    public void test_match_boolean() throws IOException {
+    void test_match_boolean() throws IOException {
         SearchRequest request = new SearchRequest(index);
         request.types(type);
         SearchSourceBuilder builder = new SearchSourceBuilder();
-        builder.query(QueryBuilders.matchQuery("smsContext","打车 女士").operator(Operator.AND));
+        builder.query(QueryBuilders.matchQuery("smsContext", "打车 女士").operator(Operator.AND));
         request.source(builder);
         RestHighLevelClient client = ESClient.getClient();
         SearchResponse response = client.search(request, RequestOptions.DEFAULT);
 
-        for (SearchHit hit : response.getHits().getHits()){
+        for (SearchHit hit : response.getHits().getHits()) {
             System.out.println(hit);
         }
 
     }
 
     @Test
-    public void test_multi_match() throws IOException {
+    void test_multi_match() throws IOException {
         SearchRequest request = new SearchRequest(index);
         request.types(type);
         SearchSourceBuilder builder = new SearchSourceBuilder();
