@@ -1,13 +1,10 @@
 package com.wei.limit.DTO;
 
-import lombok.Data;
-
 /**
  * 用于封装不同限流方案中的参数
  * 如果其他限流方案需要其他参数则在这里更新并在aop中添加到该bean
  */
 public class MataData {
-
 
     /**
      * 限制次数

@@ -22,10 +22,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component(SimpleLimiterConstant.COUNTER)
 public class CounterLimiter extends LimiterAbstract {
 
+    /**
+     * key 与统计指标
+     */
     private final Map<String, Data> map = new HashMap<>();
+
+    /**
+     * 阻塞队列，用来做什么的？
+     */
     private final BlockingQueue<DataDelay> delayQueue = new DelayQueue<>();
+
     private boolean state = false;
 
+    /**
+     * 限流器实例，用来初始化这个限流器的
+     */
     private static CounterLimiter instance;
 
     public static CounterLimiter getInstance() {
@@ -84,11 +95,15 @@ public class CounterLimiter extends LimiterAbstract {
             return false;
         }
         Data data = map.get(key);
+        // 如果指标里的值大于限流值目标值
         boolean res = data.value.get() >= limit;
         if (res) {
+            // 移除这个延迟队列的Key
             removeDelayKey(key);
-            addDelay(key, data.time);
+            // 添加到延迟队列里，续上新的过期时间
+            addDelayKey(key, data.time);
         }
+        // 自增
         incr(key, time);
         return res;
     }
@@ -97,7 +112,7 @@ public class CounterLimiter extends LimiterAbstract {
         delayQueue.remove(new DataDelay(key));
     }
 
-    private void addDelay(String key, long time) {
+    private void addDelayKey(String key, long time) {
         delayQueue.add(new DataDelay(key, time));
     }
 
@@ -106,7 +121,9 @@ public class CounterLimiter extends LimiterAbstract {
         new Thread(() -> {
             while (true) {
                 try {
+                    // 每到过期时间，会把这个Key干掉
                     DataDelay take = delayQueue.take();
+                    System.out.println("??????" + take.key);
                     map.remove(take.key);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -117,11 +134,20 @@ public class CounterLimiter extends LimiterAbstract {
 
     // 封装数据
     private class Data {
+
+        /**
+         * 限流值
+         */
         AtomicInteger value;
+        /**
+         * 限流时间
+         */
         long time;
 
-        public Data(Integer value, long time) {
+        public Data() {
+        }
 
+        public Data(Integer value, long time) {
             this.value = new AtomicInteger(value);
             this.time = time;
         }
@@ -129,10 +155,6 @@ public class CounterLimiter extends LimiterAbstract {
         // 自增
         public void incr() {
             value.getAndIncrement();
-        }
-
-        public Data() {
-
         }
     }
 
@@ -152,7 +174,6 @@ public class CounterLimiter extends LimiterAbstract {
 
         public DataDelay(String key) {
             this.key = key;
-
         }
 
 
