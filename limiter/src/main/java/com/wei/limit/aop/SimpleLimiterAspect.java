@@ -29,12 +29,12 @@ public class SimpleLimiterAspect {
     /**
      * 拦截Limit注解的请求
      */
-    @Around("@annotation(flowControl)")
-    public Object restriction(ProceedingJoinPoint joinPoint, SimpleLimiter flowControl) throws Throwable {
-        String key = getKey(joinPoint, flowControl.key());
-        int limit = flowControl.limit();
-        int time = flowControl.time();
-        String type = flowControl.type();
+    @Around("@annotation(simpleLimiter)")
+    public Object restriction(ProceedingJoinPoint joinPoint, SimpleLimiter simpleLimiter) throws Throwable {
+        String key = getKey(joinPoint, simpleLimiter.key());
+        int limit = simpleLimiter.limit();
+        int time = simpleLimiter.time();
+        String type = simpleLimiter.type();
         LimiterAbstract limiterAbstract = limiterMap.get(type);
         log.info("限流器 = {}", type);
         log.info("key = {}", key);
@@ -44,9 +44,9 @@ public class SimpleLimiterAspect {
         if (!result) {
             return joinPoint.proceed();
         } else {
-            String callback = flowControl.callback();
+            String callback = simpleLimiter.callback();
             if (null == callback || callback.isEmpty()) {
-                throw new SimpleLimiterException(flowControl.msg());
+                throw new SimpleLimiterException(simpleLimiter.msg());
             }
             log.info("触发降级！method = {}", callback);
             // 限流失败，执行指定的回调方法

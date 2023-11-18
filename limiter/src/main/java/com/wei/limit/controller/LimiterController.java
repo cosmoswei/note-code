@@ -3,6 +3,7 @@ package com.wei.limit.controller;
 
 import com.wei.limit.aop.SimpleLimiter;
 import com.wei.limit.constant.SimpleLimiterConstant;
+import com.wei.limit.limiter.chat.RateLimit;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class LimiterController {
 
     static int cnt = 0;
+
+
+    @GetMapping("/test31")
+    @RateLimit(limit = 100, interval = 5000, type = "slidingWindow")
+    public String test31() {
+        cnt++;
+        System.out.println("ok11: " + cnt);
+        return "ok11";
+    }
 
     @GetMapping("/test11")
     @SimpleLimiter(limit = 100, time = 1, type = SimpleLimiterConstant.COUNTER, callback = "callback")

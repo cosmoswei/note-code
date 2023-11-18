@@ -24,4 +24,5 @@ public interface SimpleLimiterConstant {
      * 滑动窗口限流
      */
     String SLIDING_WINDOW = "SLIDING_WINDOW";
+    String SLIDING_WINDOW_V2 = "SLIDING_WINDOW_V2";
 }
