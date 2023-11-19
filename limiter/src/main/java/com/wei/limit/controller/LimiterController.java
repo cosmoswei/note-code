@@ -19,7 +19,7 @@ public class LimiterController {
 
 
     @GetMapping("/test31")
-    @RateLimit(limit = 100, interval = 5000, type = "slidingWindow")
+    @RateLimit(limit = 200, interval = 1000, type = "slidingWindow")
     public String test31() {
         cnt++;
         System.out.println("ok11: " + cnt);

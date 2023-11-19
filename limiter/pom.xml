@@ -44,6 +44,10 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <version>3.0.4</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
 
     </dependencies>
 

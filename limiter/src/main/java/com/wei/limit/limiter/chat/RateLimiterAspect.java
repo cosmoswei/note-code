@@ -32,14 +32,15 @@ public class RateLimiterAspect {
         // 检查是否超过限流
         if (rateLimiter.isRateLimited()) {
             log.info("接口访问频率过高，被限流！");
-//            throw new RuntimeException("接口访问频率过高，被限流！");
+            throw new RuntimeException("接口访问频率过高，被限流！");
+        } else {
+            // 更新限流器状态
+            log.info("成功！");
         }
+        rateLimiter.update();
 
         // 执行原始方法
         Object result = joinPoint.proceed();
-
-        // 更新限流器状态
-        rateLimiter.update();
 
         return result;
     }
@@ -63,7 +64,7 @@ public class RateLimiterAspect {
             case "counter":
                 return new CounterRateLimiter(rateLimitAnnotation.limit(), rateLimitAnnotation.interval());
             case "slidingWindow":
-                return new SlidingWindowRateLimiterV1(rateLimitAnnotation.limit(), rateLimitAnnotation.interval());
+                return new SlidingWindowRateLimiterV2(rateLimitAnnotation.limit(), rateLimitAnnotation.interval());
             // 可以根据需要扩展其他类型的限流器
             default:
                 throw new IllegalArgumentException("Unsupported rate limiter type: " + rateLimitAnnotation.type());
