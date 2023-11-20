@@ -45,7 +45,7 @@ public class TokenBucketLimiter extends LimiterAbstract {
     }
 
     @Override
-    public boolean check(MataData restrictDTO) {
+    public boolean limit(MataData restrictDTO) {
         // 是否有容量
         if (surplus.get() <= 0) {
             return true;

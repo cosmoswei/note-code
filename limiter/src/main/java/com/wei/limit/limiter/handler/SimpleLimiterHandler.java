@@ -30,13 +30,13 @@ public class SimpleLimiterHandler implements Limiter {
     }
 
     @Override
-    public void incr(String key, long time) {
+    public void incr(String key, int time) {
         limiter.incr(key, time);
     }
 
     @Override
-    public boolean check(MataData restrictDTO) {
-        return limiter.check(restrictDTO);
+    public boolean limit(MataData restrictDTO) {
+        return limiter.limit(restrictDTO);
     }
 
     public static void setLimiter(Limiter r) {

@@ -71,7 +71,7 @@ public class CounterLimiter extends LimiterAbstract {
      * 自增,不存在则添加
      */
     @Override
-    public void incr(String key, long time) {
+    public void incr(String key, int time) {
         if (map.containsKey(key)) {
             map.get(key).incr();
         } else {
@@ -85,11 +85,11 @@ public class CounterLimiter extends LimiterAbstract {
      * 如果用户执意访问则延续time期间
      */
     @Override
-    public boolean check(MataData mataData) {
+    public boolean limit(MataData mataData) {
         // 此处key应该为请求路径+userId。此处是为了测试方便
         String key = mataData.key;
         int limit = mataData.limit;
-        int time = mataData.time;
+        int time = mataData.interval;
         if (!map.containsKey(key)) {
             set(key, 1, time);
             return false;
@@ -169,7 +169,7 @@ public class CounterLimiter extends LimiterAbstract {
 
         public DataDelay(String key, long time) {
             this.key = key;
-            this.expire = new Date().getTime() + (time * 1000);
+            this.expire = new Date().getTime() + time;
         }
 
         public DataDelay(String key) {

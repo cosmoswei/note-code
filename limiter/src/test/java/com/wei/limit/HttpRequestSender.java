@@ -1,4 +1,6 @@
-package com.wei.limit.limiter.chat;
+package com.wei.limit;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,19 +11,31 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class HttpRequestSender {
 
     static int successCnt = 0;
 
     static int failCnt = 0;
-    private static final String TARGET_URL = "http://localhost:8080/test31"; // 替换为你要发送请求的目标URL
+    private static final String TARGET_URL = "http://localhost:8080/test11"; // 替换为你要发送请求的目标URL
 
     public static void main(String[] args) {
         // 创建一个定时任务执行器，设置为单线程池
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        long start = System.currentTimeMillis();
+        long end = start + 10 * 1000;
 
         // 设定任务，每隔1秒执行一次
-        executorService.scheduleAtFixedRate(HttpRequestSender::sendHttpRequest, 0, 2, TimeUnit.MILLISECONDS);
+        executorService.scheduleAtFixedRate(HttpRequestSender::sendHttpRequest, 0, 1, TimeUnit.MILLISECONDS);
+
+        while (true) {
+            if (end < System.currentTimeMillis()) {
+                executorService.shutdownNow();
+                break;
+            }
+        }
+        log.info("start: {}", start);
+        log.info("System.currentTimeMillis(): {}", System.currentTimeMillis());
     }
 
     private static void sendHttpRequest() {
@@ -48,18 +62,17 @@ public class HttpRequestSender {
             }
 
             // 打印响应信息
-//            System.out.println("Response Code: " + responseCode);
-//            System.out.println("Response Body: " + response);
-            successCnt++;
-            System.out.println("successCnt : " + successCnt);
-            System.out.println("success time: " + System.currentTimeMillis());
+            log.info("response: {}", response);
+//            successCnt++;
+//            System.out.println("successCnt : " + successCnt);
+//            System.out.println("success time: " + System.currentTimeMillis());
             // 关闭连接和读取器
             reader.close();
             connection.disconnect();
         } catch (IOException e) {
-            failCnt++;
-            System.out.println("failCnt : " + failCnt);
-            System.out.println("fail time: " + System.currentTimeMillis());
+//            failCnt++;
+//            System.out.println("failCnt : " + failCnt);
+//            System.out.println("fail time: " + System.currentTimeMillis());
         }
     }
 }

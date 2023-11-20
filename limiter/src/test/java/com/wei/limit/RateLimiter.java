@@ -1,4 +1,4 @@
-package com.wei.limit.test;
+package com.wei.limit;
 
 import java.util.concurrent.TimeUnit;
 

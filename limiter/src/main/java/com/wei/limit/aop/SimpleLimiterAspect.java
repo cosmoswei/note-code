@@ -33,22 +33,18 @@ public class SimpleLimiterAspect {
     public Object restriction(ProceedingJoinPoint joinPoint, SimpleLimiter simpleLimiter) throws Throwable {
         String key = getKey(joinPoint, simpleLimiter.key());
         int limit = simpleLimiter.limit();
-        int time = simpleLimiter.time();
+        int time = simpleLimiter.interval();
         String type = simpleLimiter.type();
         LimiterAbstract limiterAbstract = limiterMap.get(type);
-        log.info("限流器 = {}", type);
-        log.info("key = {}", key);
-
         MataData mataData = new MataData(limit, time, key);
-        boolean result = limiterAbstract.check(mataData);
+        boolean result = limiterAbstract.limit(mataData);
         if (!result) {
             return joinPoint.proceed();
         } else {
             String callback = simpleLimiter.callback();
             if (null == callback || callback.isEmpty()) {
-                throw new SimpleLimiterException(simpleLimiter.msg());
+                throw new SimpleLimiterException(simpleLimiter.limitMsg());
             }
-            log.info("触发降级！method = {}", callback);
             // 限流失败，执行指定的回调方法
             Object target = joinPoint.getTarget();
             try {

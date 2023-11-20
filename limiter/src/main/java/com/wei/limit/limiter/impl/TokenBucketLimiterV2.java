@@ -38,7 +38,7 @@ public class TokenBucketLimiterV2 extends LimiterAbstract {
     }
 
     @Override
-    public boolean check(MataData restrictDTO) {
+    public boolean limit(MataData restrictDTO) {
         lazyInit();
         // 是否有容量
         return !semaphore.tryAcquire();

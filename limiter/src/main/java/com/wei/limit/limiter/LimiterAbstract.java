@@ -19,6 +19,6 @@ public abstract class LimiterAbstract implements Limiter {
     }
 
     @Override
-    public void incr(String key, long time) {
+    public void incr(String key, int time) {
     }
 }

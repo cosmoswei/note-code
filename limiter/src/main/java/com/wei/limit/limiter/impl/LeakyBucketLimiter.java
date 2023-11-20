@@ -24,7 +24,7 @@ public class LeakyBucketLimiter extends LimiterAbstract {
     }
 
     @Override
-    public boolean check(MataData restrictDTO) {
+    public boolean limit(MataData restrictDTO) {
         return !semaphore.tryAcquire(1);
     }
 

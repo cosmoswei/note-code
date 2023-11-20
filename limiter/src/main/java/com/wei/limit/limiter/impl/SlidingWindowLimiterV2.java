@@ -1,12 +1,15 @@
 package com.wei.limit.limiter.impl;
 
 import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.Quota;
 import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
 
 @Component(SimpleLimiterConstant.SLIDING_WINDOW_V2)
@@ -14,54 +17,60 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SlidingWindowLimiterV2 extends LimiterAbstract {
 
 
-    private int limit;
-    private long interval;
-    private AtomicInteger[] window;
-    private int currentIndex = 0;
-    private long lastUpdateTime = System.currentTimeMillis();
-
-    public SlidingWindowLimiterV2() {
-        init();
-    }
-
-    private void init() {
-        this.limit = limit;
-        this.interval = interval;
-        this.window = new AtomicInteger[(int) (interval / 100)];
-        for (int i = 0; i < window.length; i++) {
-            window[i] = new AtomicInteger(0);
-        }
-    }
+    /**
+     * key 与统计指标
+     */
+    private final Map<String, Quota> map = new HashMap<>();
 
     // 判断是否允许新请求
     @Override
-    public boolean check(MataData restrictDTO) {
-
-        // 更新时间窗口
-        updateWindow();
-
-        // 计算窗口内的总请求数
-        int totalRequests = 0;
-        for (AtomicInteger count : window) {
-            totalRequests += count.get();
+    public boolean limit(MataData mataData) {
+        // 此处 key 为请求路径
+        String key = mataData.key;
+        int limit = mataData.limit;
+        int time = mataData.interval;
+        if (!map.containsKey(key)) {
+            init(key, time);
+            return false;
         }
-
-        log.info("totalRequests = {},limit = {}", totalRequests, limit);
-        // 判断是否超过限制
-        return totalRequests > limit;
+        Quota quota = map.get(key);
+        cleanExpiredRequests(quota);
+        boolean res = quota.getRequestTimestamps().size() > limit;
+        // 被限流的请求不加指标
+        if (!res) {
+            incr(key, time);
+        }
+        return res;
     }
 
-    private void updateWindow() {
+    private void cleanExpiredRequests(Quota quota) {
         long currentTime = System.currentTimeMillis();
-        int timePassed = (int) ((currentTime - lastUpdateTime) / 100);
-
-        // 清零过期的窗口
-        for (int i = 0; i < timePassed; i++) {
-            window[(currentIndex + i) % window.length].set(0);
+        Queue<Long> requestTimestamps = quota.getRequestTimestamps();
+        int limit = quota.getInterval();
+        while (!requestTimestamps.isEmpty() && currentTime - requestTimestamps.peek() > limit) {
+            requestTimestamps.poll();
         }
+    }
 
-        // 更新当前索引和最后更新时间
-        currentIndex = (currentIndex + timePassed) % window.length;
-        lastUpdateTime = currentTime;
+    @Override
+    public void incr(String key, int time) {
+        if (map.containsKey(key)) {
+            Quota quota = map.get(key);
+            update(quota);
+        } else {
+            init(key, time);
+        }
+    }
+
+    public void update(Quota quota) {
+        cleanExpiredRequests(quota);
+        quota.getRequestTimestamps().offer(System.currentTimeMillis());
+    }
+
+
+    public void init(String key, int time) {
+        Quota quota = new Quota(key, time);
+        quota.getRequestTimestamps().offer(System.currentTimeMillis());
+        map.put(key, quota);
     }
 }

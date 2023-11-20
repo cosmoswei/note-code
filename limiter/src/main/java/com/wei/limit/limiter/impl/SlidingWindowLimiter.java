@@ -28,12 +28,12 @@ public class SlidingWindowLimiter extends LimiterAbstract {
 
     // 判断是否允许新请求
     @Override
-    public boolean check(MataData restrictDTO) {
+    public boolean limit(MataData restrictDTO) {
 
         // 此处key应该为请求路径+userId。此处是为了测试方便
         String key = restrictDTO.key;
         int limit = restrictDTO.limit;
-        int time = restrictDTO.time;
+        int time = restrictDTO.interval;
         if (!keyQuota.containsKey(key)) {
             set(key, 1, time);
             return false;
@@ -42,7 +42,7 @@ public class SlidingWindowLimiter extends LimiterAbstract {
         if (Objects.isNull(requestQueue)) {
             requestQueue = new ArrayBlockingQueue<>(restrictDTO.limit);
         }
-        return !allowRequest(restrictDTO.time, restrictDTO.limit);
+        return !allowRequest(restrictDTO.interval, restrictDTO.limit);
     }
 
     @Override

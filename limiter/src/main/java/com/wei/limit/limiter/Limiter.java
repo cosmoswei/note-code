@@ -37,7 +37,7 @@ public interface Limiter {
      *
      * @param key
      */
-    void incr(String key, long time);
+    void incr(String key, int time);
 
     /**
      * 检查是否达到限制,子类必须强制实现该接口
@@ -45,6 +45,6 @@ public interface Limiter {
      * @param restrictDTO
      * @return
      */
-    boolean check(MataData restrictDTO);
+    boolean limit(MataData restrictDTO);
 
 }

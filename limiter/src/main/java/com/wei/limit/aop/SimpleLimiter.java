@@ -15,10 +15,20 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SimpleLimiter {
 
+    /**
+     * 限流次数
+     */
     int limit() default 0;
 
-    int time() default 0;
+    /**
+     * 间隔时间，单位毫秒
+     */
+    int interval() default 0;
 
+
+    /**
+     * 限流Key 默认为方法名
+     */
     String key() default "";
 
     /**
@@ -26,7 +36,13 @@ public @interface SimpleLimiter {
      */
     String type() default SimpleLimiterConstant.COUNTER;
 
-    String msg() default "系统服务繁忙";
+    /**
+     * 限流异常提示
+     */
+    String limitMsg() default "系统服务繁忙";
 
+    /**
+     * 回调方法
+     */
     String callback() default "";
 }

@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 @Service("testService")
 public class TestService {
 
-    @SimpleLimiter(limit = 1, time = 1, type = SimpleLimiterConstant.TOKEN_BUCKET, callback = "flowControl")
+    @SimpleLimiter(limit = 1, interval = 1, type = SimpleLimiterConstant.TOKEN_BUCKET, callback = "flowControl")
     public String test() {
         return LocalDateTime.now().toString();
     }
 
 
-    @SimpleLimiter(limit = 1, time = 1, type = SimpleLimiterConstant.TOKEN_BUCKET, callback = "flowControl")
+    @SimpleLimiter(limit = 1, interval = 1, type = SimpleLimiterConstant.TOKEN_BUCKET, callback = "flowControl")
     public String test2() {
         return LocalDateTime.now().toString();
     }
