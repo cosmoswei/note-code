@@ -54,7 +54,7 @@ public class SimpleLimiterAspect {
                         .invoke(target);
             } catch (Exception e) {
                 // 处理反射调用异常
-                log.error("流控降低调用反射异常！", e);
+                log.error("流控回调反射异常！", e);
                 // 返回一个适当的响应，例如限流失败的提示
                 return "Rate limit exceeded. Callback invoked.";
             }
