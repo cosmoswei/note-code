@@ -26,14 +26,11 @@ public class SlidingWindowRateLimiterV1 implements RateLimiter {
     public boolean isRateLimited() {
         // 更新时间窗口
         updateWindow();
-
         // 计算窗口内的总请求数
         int totalRequests = 0;
         for (AtomicInteger count : window) {
             totalRequests += count.get();
         }
-
-        log.info("totalRequests = {},limit = {}", totalRequests, limit);
         // 判断是否超过限制
         return totalRequests > limit;
     }
@@ -42,7 +39,6 @@ public class SlidingWindowRateLimiterV1 implements RateLimiter {
     public void update() {
         // 更新时间窗口
         updateWindow();
-        log.info("currentIndex = {},limit = {}", currentIndex, limit);
         // 增加当前窗口的计数
         window[currentIndex].incrementAndGet();
     }
@@ -50,12 +46,10 @@ public class SlidingWindowRateLimiterV1 implements RateLimiter {
     private void updateWindow() {
         long currentTime = System.currentTimeMillis();
         int timePassed = (int) ((currentTime - lastUpdateTime) / 100);
-
         // 清零过期的窗口
         for (int i = 0; i < timePassed; i++) {
             window[(currentIndex + i) % window.length].set(0);
         }
-
         // 更新当前索引和最后更新时间
         currentIndex = (currentIndex + timePassed) % window.length;
         lastUpdateTime = currentTime;

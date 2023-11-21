@@ -64,7 +64,7 @@ public class RateLimiterAspect {
             case "counter":
                 return new CounterRateLimiter(rateLimitAnnotation.limit(), rateLimitAnnotation.interval());
             case "slidingWindow":
-                return new SlidingWindowRateLimiterV2(rateLimitAnnotation.limit(), rateLimitAnnotation.interval());
+                return new SlidingWindowRateLimiterV1(rateLimitAnnotation.limit(), rateLimitAnnotation.interval());
             // 可以根据需要扩展其他类型的限流器
             default:
                 throw new IllegalArgumentException("Unsupported rate limiter type: " + rateLimitAnnotation.type());

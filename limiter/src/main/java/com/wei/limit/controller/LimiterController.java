@@ -18,7 +18,7 @@ public class LimiterController {
     static int cnt = 0;
 
     @GetMapping("/test11")
-    @SimpleLimiter(limit = 500, interval = 1000, type = SimpleLimiterConstant.SLIDING_WINDOW_V2, callback = "callback")
+    @SimpleLimiter(limit = 500, interval = 1000, type = SimpleLimiterConstant.SLIDING_WINDOW_V3, callback = "callback")
     public String test1() {
         cnt++;
         return "ok,cnt = " + cnt;
