@@ -77,9 +77,9 @@ public class SimpleLimiterBenchmark {
     }
 
     @Benchmark
-    public void res4jTest() {
+    public void resilience4jTest() {
         for (int i = 0; i < param; i++) {
-            simpleLimiterTest.res4jTest();
+            simpleLimiterTest.resilience4jTest();
         }
     }
 

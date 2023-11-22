@@ -3,6 +3,7 @@ package com.wei.limit;
 import com.wei.limit.aop.SimpleLimiter;
 import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.util.ThreadUtils;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,8 +35,8 @@ public class SimpleLimiterTest {
         ThreadUtils.safeSleep(1);
     }
 
-
-    public void res4jTest() {
+    @RateLimiter(name = "myRateLimiter")
+    public void resilience4jTest() {
         ThreadUtils.safeSleep(1);
     }
 
