@@ -94,18 +94,10 @@ public class SlidingWindowLimiterV2 extends LimiterAbstract {
         AtomicInteger[] window = quota.getWindow();
         long currentTime = System.currentTimeMillis();
         int timePassed = (int) ((currentTime - lastUpdateTime) / 100);
-        log.info("currentTime = {},lastUpdateTime = {},timePassed= {}",
-                currentTime,
-                lastUpdateTime,
-                timePassed);
         // 清零过期的窗口
         extracted(quota, currentTime);
         // 更新当前索引和最后更新时间，如果一直有请求，窗口索引一直不会增加，只过期窗口，不加指标行不行？
         currentIndex = (currentIndex + timePassed) % window.length;
-        log.info("currentIndex = {},window.length = {},timePassed= {}",
-                currentIndex,
-                window.length,
-                timePassed);
         lastUpdateTime = currentTime;
         quota.setCurrentIndex(currentIndex);
         quota.setLastUpdateTime(lastUpdateTime);

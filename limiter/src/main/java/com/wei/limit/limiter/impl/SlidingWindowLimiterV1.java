@@ -13,7 +13,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
-@Component(SimpleLimiterConstant.SLIDING_WINDOW_1)
+@Component(SimpleLimiterConstant.SLIDING_WINDOW_V1)
 @Slf4j
 public class SlidingWindowLimiterV1 extends LimiterAbstract {
 

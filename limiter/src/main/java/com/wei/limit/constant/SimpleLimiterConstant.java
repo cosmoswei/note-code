@@ -29,7 +29,7 @@ public interface SimpleLimiterConstant {
     /**
      * 滑动窗口限流
      */
-    String SLIDING_WINDOW_1 = "SLIDING_WINDOW_1";
+    String SLIDING_WINDOW_V1 = "SLIDING_WINDOW_V1";
 
     /**
      * 滑动窗口限流

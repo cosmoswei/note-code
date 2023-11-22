@@ -19,7 +19,7 @@ public @interface SimpleLimiter {
     /**
      * 间隔时间，单位毫秒
      */
-    int interval() default 0;
+    int interval() default 1000;
 
 
     /**

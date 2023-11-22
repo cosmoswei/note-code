@@ -29,7 +29,6 @@ public class ThreadUtils {
                 break;
             }
         }
-
     }
 
     public static boolean sleep(long millis) {
