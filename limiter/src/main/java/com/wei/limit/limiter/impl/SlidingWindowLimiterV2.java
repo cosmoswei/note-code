@@ -1,6 +1,6 @@
 package com.wei.limit.limiter.impl;
 
-import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.LimiterMataData;
 import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
 import lombok.Data;
@@ -23,11 +23,11 @@ public class SlidingWindowLimiterV2 extends LimiterAbstract {
 
     // 判断是否允许新请求
     @Override
-    public boolean limit(MataData mataData) {
+    public boolean limit(LimiterMataData limiterMataData) {
         // 此处 key 为请求路径
-        String key = mataData.key;
-        int limit = mataData.limit;
-        int interval = mataData.interval;
+        String key = limiterMataData.key;
+        int limit = limiterMataData.limit;
+        int interval = limiterMataData.interval;
         if (!map.containsKey(key)) {
             init(key, interval);
             return false;
@@ -54,7 +54,6 @@ public class SlidingWindowLimiterV2 extends LimiterAbstract {
         for (AtomicInteger count : window) {
             totalRequests += count.get();
         }
-        log.info("totalRequests = {},limit = {}", totalRequests, limit);
         // 判断是否超过限制
         return totalRequests > limit;
     }
@@ -64,7 +63,6 @@ public class SlidingWindowLimiterV2 extends LimiterAbstract {
         updateWindow(quota);
         AtomicInteger[] window = quota.getWindow();
         int currentIndex = quota.getCurrentIndex();
-        log.info("currentIndex= {}", currentIndex);
         window[currentIndex].incrementAndGet();
     }
 

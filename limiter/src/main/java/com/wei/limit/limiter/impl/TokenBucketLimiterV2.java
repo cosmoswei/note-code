@@ -1,7 +1,7 @@
 package com.wei.limit.limiter.impl;
 
 
-import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.LimiterMataData;
 import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * 每次请求校验桶中是否有token
  */
 @Slf4j
-@Component(SimpleLimiterConstant.TOKEN_BUCKET)
+@Component(SimpleLimiterConstant.TOKEN_BUCKET_V2)
 public class TokenBucketLimiterV2 extends LimiterAbstract {
 
     private final Semaphore semaphore;
@@ -38,7 +38,7 @@ public class TokenBucketLimiterV2 extends LimiterAbstract {
     }
 
     @Override
-    public boolean limit(MataData restrictDTO) {
+    public boolean limit(LimiterMataData limiterMataData) {
         lazyInit();
         // 是否有容量
         return !semaphore.tryAcquire();

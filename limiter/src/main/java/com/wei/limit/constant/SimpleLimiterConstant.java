@@ -17,6 +17,11 @@ public interface SimpleLimiterConstant {
     String TOKEN_BUCKET = "TOKEN_BUCKET";
 
     /**
+     * 令牌桶限流
+     */
+    String TOKEN_BUCKET_V2 = "TOKEN_BUCKET_V2";
+
+    /**
      * 漏桶限流
      */
     String LEAKY_BUCKET = "LEAKY_BUCKET";
@@ -24,7 +29,7 @@ public interface SimpleLimiterConstant {
     /**
      * 滑动窗口限流
      */
-    String SLIDING_WINDOW = "SLIDING_WINDOW";
+    String SLIDING_WINDOW_1 = "SLIDING_WINDOW_1";
 
     /**
      * 滑动窗口限流

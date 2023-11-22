@@ -3,14 +3,10 @@ package com.wei.limit.controller;
 
 import com.wei.limit.aop.SimpleLimiter;
 import com.wei.limit.constant.SimpleLimiterConstant;
-import com.wei.limit.limiter.chat.RateLimit;
+import com.wei.chat.RateLimit;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Author: Xhy
- * CreateTime: 2023-03-08 22:48
- */
 
 @RestController
 public class LimiterController {

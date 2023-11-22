@@ -7,7 +7,12 @@ import lombok.Data;
  * 如果其他限流方案需要其他参数则在这里更新并在aop中添加到该bean
  */
 @Data
-public class MataData {
+public class LimiterMataData {
+
+    /**
+     * 用于不同具体限流实现
+     */
+    public final String key;
 
     /**
      * 限制次数
@@ -19,14 +24,9 @@ public class MataData {
      */
     public final int interval;
 
-    /**
-     * 用于不同具体限流实现
-     */
-    public final String key;
-
-    public MataData(int limit, int interval, String key) {
+    public LimiterMataData(String key, int limit, int interval) {
+        this.key = key;
         this.limit = limit;
         this.interval = interval;
-        this.key = key;
     }
 }

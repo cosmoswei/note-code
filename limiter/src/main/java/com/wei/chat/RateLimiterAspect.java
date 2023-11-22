@@ -1,4 +1,4 @@
-package com.wei.limit.limiter.chat;
+package com.wei.chat;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -16,7 +16,7 @@ public class RateLimiterAspect {
 
     private static final Map<String, Map<String, RateLimiter>> rateLimitersMap = new ConcurrentHashMap<>();
 
-    @Pointcut("@annotation(com.wei.limit.limiter.chat.RateLimit)")
+    @Pointcut("@annotation(com.wei.chat.RateLimit)")
     public void rateLimitedMethods() {
     }
 

@@ -1,7 +1,7 @@
 package com.wei.limit.limiter;
 
 
-import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.LimiterMataData;
 
 /**
  * 限流接口
@@ -13,9 +13,9 @@ public interface Limiter {
      *
      * @param key
      * @param value
-     * @param time  秒
+     * @param interval 秒
      */
-    void set(String key, Integer value, long time);
+    void set(String key, Integer value, long interval);
 
     /**
      * 获取,可能为空
@@ -37,14 +37,14 @@ public interface Limiter {
      *
      * @param key
      */
-    void incr(String key, int time);
+    void incr(String key, int interval);
 
     /**
      * 检查是否达到限制,子类必须强制实现该接口
      *
-     * @param restrictDTO
+     * @param limiterMataData
      * @return
      */
-    boolean limit(MataData restrictDTO);
+    boolean limit(LimiterMataData limiterMataData);
 
 }

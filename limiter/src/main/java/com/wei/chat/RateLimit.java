@@ -1,4 +1,4 @@
-package com.wei.limit.limiter.chat;
+package com.wei.chat;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

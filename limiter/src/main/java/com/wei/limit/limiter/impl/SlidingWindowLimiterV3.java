@@ -1,94 +1,66 @@
 package com.wei.limit.limiter.impl;
 
-import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.LimiterMataData;
 import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Objects;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 
+@Deprecated
 @Component(SimpleLimiterConstant.SLIDING_WINDOW_V3)
-@Slf4j
 public class SlidingWindowLimiterV3 extends LimiterAbstract {
 
+    private BlockingQueue<Long> requestQueue;
 
     /**
-     * key 与统计指标
+     * 每个Key的指标
      */
-    private final Map<String, Quota> map = new HashMap<>();
+    private final Map<String, BlockingQueue<Long>> keyQuota = new HashMap<>();
+
+    public SlidingWindowLimiterV3() {
+    }
 
     // 判断是否允许新请求
     @Override
-    public boolean limit(MataData mataData) {
-        // 此处 key 为请求路径
-        String key = mataData.key;
-        int limit = mataData.limit;
-        int interval = mataData.interval;
-        if (!map.containsKey(key)) {
-            init(key, interval);
+    public boolean limit(LimiterMataData limiterMataData) {
+
+        // 此处key应该为请求路径+userId。此处是为了测试方便
+        String key = limiterMataData.key;
+        int time = limiterMataData.interval;
+        if (!keyQuota.containsKey(key)) {
+            set(key, 1, time);
             return false;
         }
-        Quota quota = map.get(key);
-        cleanExpiredRequests(quota);
-        boolean res = quota.getRequestTimestamps().size() > limit;
-        // 被限流的请求不加指标
-        if (!res) {
-            incr(key, interval);
-        }
-        return res;
-    }
 
-    private void cleanExpiredRequests(Quota quota) {
-        long currentTime = System.currentTimeMillis();
-        Queue<Long> requestTimestamps = quota.getRequestTimestamps();
-        int limit = quota.getInterval();
-        while (!requestTimestamps.isEmpty() && currentTime - requestTimestamps.peek() > limit) {
-            requestTimestamps.poll();
+        if (Objects.isNull(requestQueue)) {
+            requestQueue = new ArrayBlockingQueue<>(limiterMataData.limit);
         }
+        return !allowRequest(limiterMataData.interval, limiterMataData.limit);
     }
 
     @Override
-    public void incr(String key, int time) {
-        if (map.containsKey(key)) {
-            Quota quota = map.get(key);
-            update(quota);
-        } else {
-            init(key, time);
+    public void set(String key, Integer value, long interval) {
+
+    }
+
+    public synchronized boolean allowRequest(int windowSize, int maxRequests) {
+        long currentTimestamp = System.currentTimeMillis();
+        // 移除超过滑动窗口大小的时间戳
+        while (!requestQueue.isEmpty() && currentTimestamp - requestQueue.peek() >= windowSize * 1000L) {
+            requestQueue.poll();
         }
-    }
 
-    public void update(Quota quota) {
-        cleanExpiredRequests(quota);
-        quota.getRequestTimestamps().offer(System.currentTimeMillis());
-    }
-
-
-    public void init(String key, int time) {
-        Quota quota = new Quota(key, time);
-        quota.getRequestTimestamps().offer(System.currentTimeMillis());
-        map.put(key, quota);
-    }
-
-    @Data
-    class Quota {
-        /**
-         * 用于不同具体限流实现
-         */
-        public final String key;
-
-        public final int interval;
-
-        private Queue<Long> requestTimestamps = new ConcurrentLinkedQueue<>();
-
-        public Quota(String key, int limit) {
-            this.key = key;
-            this.interval = limit;
+        // 检查请求数是否超过最大请求数
+        if (requestQueue.size() < maxRequests) {
+            return requestQueue.offer(currentTimestamp);
+        } else {
+            return false; // 限流
         }
     }
 }

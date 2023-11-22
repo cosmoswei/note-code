@@ -1,7 +1,7 @@
 package com.wei.limit.limiter.impl;
 
 
-import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.LimiterMataData;
 import com.wei.limit.limiter.LimiterAbstract;
 import org.springframework.stereotype.Component;
 
@@ -45,7 +45,7 @@ public class TokenBucketLimiter extends LimiterAbstract {
     }
 
     @Override
-    public boolean limit(MataData restrictDTO) {
+    public boolean limit(LimiterMataData limiterMataData) {
         // 是否有容量
         if (surplus.get() <= 0) {
             return true;

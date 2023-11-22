@@ -1,4 +1,4 @@
-package com.wei.limit.limiter.chat;
+package com.wei.chat;
 
 import lombok.extern.slf4j.Slf4j;
 

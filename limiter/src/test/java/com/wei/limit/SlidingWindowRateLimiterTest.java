@@ -1,7 +1,7 @@
 package com.wei.limit;
 
 
-import com.wei.limit.limiter.chat.SlidingWindowRateLimiterV2;
+import com.wei.chat.SlidingWindowRateLimiterV2;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

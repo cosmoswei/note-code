@@ -1,7 +1,7 @@
 package com.wei.limit.aop;
 
 
-import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.LimiterMataData;
 import com.wei.limit.exception.SimpleLimiterException;
 import com.wei.limit.limiter.LimiterAbstract;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +14,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Map;
 
-/**
- * Author: Xhy
- * CreateTime: 2023-03-08 09:40
- */
 @Aspect
 @Component
 @Slf4j
@@ -31,13 +27,13 @@ public class SimpleLimiterAspect {
      */
     @Around("@annotation(simpleLimiter)")
     public Object restriction(ProceedingJoinPoint joinPoint, SimpleLimiter simpleLimiter) throws Throwable {
-        String key = getKey(joinPoint, simpleLimiter.key());
+        String limiterKey = getLimiterKey(joinPoint, simpleLimiter.key());
         int limit = simpleLimiter.limit();
-        int time = simpleLimiter.interval();
+        int interval = simpleLimiter.interval();
         String type = simpleLimiter.type();
         LimiterAbstract limiterAbstract = limiterMap.get(type);
-        MataData mataData = new MataData(limit, time, key);
-        boolean result = limiterAbstract.limit(mataData);
+        LimiterMataData limiterMataData = new LimiterMataData(limiterKey, limit, interval);
+        boolean result = limiterAbstract.limit(limiterMataData);
         if (!result) {
             return joinPoint.proceed();
         } else {
@@ -62,7 +58,7 @@ public class SimpleLimiterAspect {
 
     }
 
-    private String getKey(ProceedingJoinPoint joinPoint, String key) {
+    private String getLimiterKey(ProceedingJoinPoint joinPoint, String key) {
         Signature signature = joinPoint.getSignature();
         if (null == key || key.isEmpty()) {
             return signature.getDeclaringType().getName()

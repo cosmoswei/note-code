@@ -1,4 +1,4 @@
-package com.wei.limit.limiter.chat;
+package com.wei.chat;
 
 public interface RateLimiter {
     boolean isRateLimited();

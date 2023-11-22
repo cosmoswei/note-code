@@ -1,7 +1,7 @@
 package com.wei.limit.limiter.impl;
 
 
-import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.LimiterMataData;
 import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,6 @@ import java.util.concurrent.Semaphore;
 @Component(SimpleLimiterConstant.LEAKY_BUCKET)
 public class LeakyBucketLimiter extends LimiterAbstract {
 
-
     private final Semaphore semaphore;
 
     public LeakyBucketLimiter() {
@@ -24,7 +23,7 @@ public class LeakyBucketLimiter extends LimiterAbstract {
     }
 
     @Override
-    public boolean limit(MataData restrictDTO) {
+    public boolean limit(LimiterMataData limiterMataData) {
         return !semaphore.tryAcquire(1);
     }
 

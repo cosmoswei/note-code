@@ -1,6 +1,6 @@
 package com.wei.limit.limiter.handler;
 
-import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.LimiterMataData;
 import com.wei.limit.limiter.Limiter;
 import com.wei.limit.limiter.impl.CounterLimiter;
 import org.springframework.stereotype.Component;
@@ -15,8 +15,8 @@ public class SimpleLimiterHandler implements Limiter {
     static Limiter limiter = CounterLimiter.getInstance();
 
     @Override
-    public void set(String key, Integer value, long time) {
-        limiter.set(key, value, time);
+    public void set(String key, Integer value, long interval) {
+        limiter.set(key, value, interval);
     }
 
     @Override
@@ -30,13 +30,13 @@ public class SimpleLimiterHandler implements Limiter {
     }
 
     @Override
-    public void incr(String key, int time) {
-        limiter.incr(key, time);
+    public void incr(String key, int interval) {
+        limiter.incr(key, interval);
     }
 
     @Override
-    public boolean limit(MataData restrictDTO) {
-        return limiter.limit(restrictDTO);
+    public boolean limit(LimiterMataData limiterMataData) {
+        return limiter.limit(limiterMataData);
     }
 
     public static void setLimiter(Limiter r) {

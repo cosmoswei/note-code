@@ -1,7 +1,7 @@
 package com.wei.limit.limiter.impl;
 
 
-import com.wei.limit.DTO.MataData;
+import com.wei.limit.DTO.LimiterMataData;
 import com.wei.limit.constant.SimpleLimiterConstant;
 import com.wei.limit.limiter.LimiterAbstract;
 import org.springframework.stereotype.Component;
@@ -32,11 +32,6 @@ public class CounterLimiter extends LimiterAbstract {
      */
     private final BlockingQueue<DataDelay> delayQueue = new DelayQueue<>();
 
-    private boolean state = false;
-
-    /**
-     * 限流器实例，用来初始化这个限流器的
-     */
     private static CounterLimiter instance;
 
     public static CounterLimiter getInstance() {
@@ -51,9 +46,9 @@ public class CounterLimiter extends LimiterAbstract {
     }
 
     @Override
-    public void set(String key, Integer value, long time) {
-        map.put(key, new Data(value, time));
-        delayQueue.add(new DataDelay(key, time));
+    public void set(String key, Integer value, long interval) {
+        map.put(key, new Data(value, interval));
+        delayQueue.add(new DataDelay(key, interval));
     }
 
     @Override
@@ -67,29 +62,20 @@ public class CounterLimiter extends LimiterAbstract {
         delayQueue.remove(new DataDelay(key));
     }
 
-    /**
-     * 自增,不存在则添加
-     */
     @Override
-    public void incr(String key, int time) {
+    public void incr(String key, int interval) {
         if (map.containsKey(key)) {
             map.get(key).incr();
         } else {
-            set(key, 1, time);
+            set(key, 1, interval);
         }
     }
 
-
-    /**
-     * 达到限制让用户time期间内不允许访问
-     * 如果用户执意访问则延续time期间
-     */
     @Override
-    public boolean limit(MataData mataData) {
-        // 此处key应该为请求路径+userId。此处是为了测试方便
-        String key = mataData.key;
-        int limit = mataData.limit;
-        int time = mataData.interval;
+    public boolean limit(LimiterMataData limiterMataData) {
+        String key = limiterMataData.key;
+        int limit = limiterMataData.limit;
+        int time = limiterMataData.interval;
         if (!map.containsKey(key)) {
             set(key, 1, time);
             return false;
@@ -101,7 +87,7 @@ public class CounterLimiter extends LimiterAbstract {
             // 移除这个延迟队列的Key
             removeDelayKey(key);
             // 添加到延迟队列里，续上新的过期时间
-            addDelayKey(key, data.time);
+            addDelayKey(key, data.interval);
         }
         // 自增
         incr(key, time);
@@ -142,14 +128,14 @@ public class CounterLimiter extends LimiterAbstract {
         /**
          * 限流时间
          */
-        long time;
+        long interval;
 
         public Data() {
         }
 
-        public Data(Integer value, long time) {
+        public Data(Integer value, long interval) {
             this.value = new AtomicInteger(value);
-            this.time = time;
+            this.interval = interval;
         }
 
         // 自增
@@ -161,15 +147,22 @@ public class CounterLimiter extends LimiterAbstract {
     // 延迟队列
     private class DataDelay implements Delayed {
 
+        /**
+         * 队列的Key
+         */
         String key;
-        long expire;
+
+        /**
+         * 到期时间
+         */
+        long expireTime;
 
         public DataDelay() {
         }
 
         public DataDelay(String key, long time) {
             this.key = key;
-            this.expire = new Date().getTime() + time;
+            this.expireTime = new Date().getTime() + time;
         }
 
         public DataDelay(String key) {
@@ -179,8 +172,7 @@ public class CounterLimiter extends LimiterAbstract {
 
         @Override
         public long getDelay(TimeUnit unit) {
-            return unit.convert(this.expire - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
-
+            return unit.convert(this.expireTime - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
         }
 
         @Override

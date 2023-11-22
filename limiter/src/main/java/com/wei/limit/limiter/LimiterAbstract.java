@@ -6,7 +6,7 @@ package com.wei.limit.limiter;
 public abstract class LimiterAbstract implements Limiter {
 
     @Override
-    public void set(String key, Integer value, long time) {
+    public void set(String key, Integer value, long interval) {
     }
 
     @Override
@@ -19,6 +19,6 @@ public abstract class LimiterAbstract implements Limiter {
     }
 
     @Override
-    public void incr(String key, int time) {
+    public void incr(String key, int interval) {
     }
 }
