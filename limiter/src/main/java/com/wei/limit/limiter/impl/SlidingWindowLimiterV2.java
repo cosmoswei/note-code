@@ -33,11 +33,15 @@ public class SlidingWindowLimiterV2 extends LimiterAbstract {
             return false;
         }
         Quota quota = map.get(key);
-        update(quota);
         boolean res = isRateLimited(quota, limit);
+//        update(quota);
         // 被限流的请求不加指标
         if (!res) {
             incr(key, interval);
+        } else {
+            // 清除过期窗口
+            long currentTime = System.currentTimeMillis();
+            extracted(quota, currentTime);
         }
         return res;
     }
@@ -60,6 +64,7 @@ public class SlidingWindowLimiterV2 extends LimiterAbstract {
         updateWindow(quota);
         AtomicInteger[] window = quota.getWindow();
         int currentIndex = quota.getCurrentIndex();
+        log.info("currentIndex= {}", currentIndex);
         window[currentIndex].incrementAndGet();
     }
 
@@ -96,10 +101,8 @@ public class SlidingWindowLimiterV2 extends LimiterAbstract {
                 lastUpdateTime,
                 timePassed);
         // 清零过期的窗口
-        for (int i = 0; i < timePassed; i++) {
-            window[(currentIndex + i) % window.length].set(0);
-        }
-        // 更新当前索引和最后更新时间
+        extracted(quota, currentTime);
+        // 更新当前索引和最后更新时间，如果一直有请求，窗口索引一直不会增加，只过期窗口，不加指标行不行？
         currentIndex = (currentIndex + timePassed) % window.length;
         log.info("currentIndex = {},window.length = {},timePassed= {}",
                 currentIndex,
@@ -108,6 +111,15 @@ public class SlidingWindowLimiterV2 extends LimiterAbstract {
         lastUpdateTime = currentTime;
         quota.setCurrentIndex(currentIndex);
         quota.setLastUpdateTime(lastUpdateTime);
+    }
+
+    private static void extracted(Quota quota, long currentTime) {
+        int timePassed = (int) ((currentTime - quota.getLastUpdateTime()) / 100);
+        AtomicInteger[] window = quota.getWindow();
+        int currentIndex = quota.getCurrentIndex();
+        for (int i = 0; i < timePassed; i++) {
+            window[(currentIndex + i) % window.length].set(0);
+        }
     }
 
     @Data
