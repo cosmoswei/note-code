@@ -2,7 +2,7 @@ resilience4j:
   rate-limiter:
     configs:
       default:
-        limitForPeriod: 500000
+        limitForPeriod: 100
         limitRefreshPeriod: 1s
     instances:
       myRateLimiter:

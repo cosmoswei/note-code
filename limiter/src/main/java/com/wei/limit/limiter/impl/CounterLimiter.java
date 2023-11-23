@@ -109,7 +109,7 @@ public class CounterLimiter extends LimiterAbstract {
                 try {
                     // 每到过期时间，会把这个Key干掉
                     DataDelay take = delayQueue.take();
-                    System.out.println("??????" + take.key);
+//                    System.out.println("??????" + take.key);
                     map.remove(take.key);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
