@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class LeetCode286 {
+public class Solution_286 {
     public int missingNumber(int[] nums) {
         List<Integer> collect = Arrays.stream(nums).boxed().sorted().collect(Collectors.toList());
         Arrays.sort(nums);
@@ -19,7 +19,7 @@ public class LeetCode286 {
     }
 
     public static void main(String[] args) {
-        LeetCode286 test = new LeetCode286();
+        Solution_286 test = new Solution_286();
         int[] num = {9, 6, 4, 2, 3, 5, 7, 0, 1};
         System.out.println(test.officialSolution3(num));
     }

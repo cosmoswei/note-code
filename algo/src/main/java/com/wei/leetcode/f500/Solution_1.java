@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LeetCode1 {
+public class Solution_1 {
 
     public static void main(String[] args) {
 
-        LeetCode1 leetCode1 = new LeetCode1();
+        Solution_1 leetCode1 = new Solution_1();
         int[] nums = {2, 7, 11, 15};
         int target = 26;
         System.out.println(Arrays.toString(leetCode1.twoSum(nums, target)));
