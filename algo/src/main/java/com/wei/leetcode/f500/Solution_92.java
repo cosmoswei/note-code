@@ -11,7 +11,7 @@ public class Solution_92 {
         Solution_92 solution19 = new Solution_92();
         int[] nums = {1, 2, 3, 4, 5};
         ListNode listNode = LeetCodeUtils.arrayToList(nums);
-        ListNode res = solution19.reverseBetween1(listNode, 3, 4);
+        ListNode res = solution19.reverseBetween1(listNode, 1, 4);
         LeetCodeUtils.printList(res);
     }
 

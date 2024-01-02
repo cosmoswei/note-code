@@ -1,6 +1,8 @@
 package com.wei.leetcode.f500;
 
 
+import com.wei.leetcode.ListNode;
+
 public class Solution_2 {
 
     public static void main(String[] args) {
@@ -115,36 +117,4 @@ public class Solution_2 {
 
     }
 
-
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-
-        @Override
-        public String toString() {
-            String result = "";
-            ListNode listNode = this;
-            return traverseList(listNode, result);
-        }
-
-        public String traverseList(ListNode node, String result) {
-            if (node != null) {
-                result = result + node.val;
-                result = traverseList(node.next, result);
-            }
-            return result;
-        }
-    }
 }
