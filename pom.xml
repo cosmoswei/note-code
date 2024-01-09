@@ -27,7 +27,6 @@
         <module>new-jdk</module>
         <module>rule-engine</module>
         <module>event</module>
-        <module>leetcode</module>
         <module>byte-code</module>
         <module>cache</module>
         <module>algo</module>
