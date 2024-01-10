@@ -6,7 +6,7 @@ import java.util.Map;
 public class Solution_3 {
 
     public static void main(String[] args) {
-        System.out.println("findAnagrams = " + lengthOfLongestSubstring("abbcddeb"));
+        System.out.println("findAnagrams = " + findLongestSubstring("abbcddeb"));
     }
 
     public static String findLongestSubstring(String s) {
