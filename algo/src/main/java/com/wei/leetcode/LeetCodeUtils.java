@@ -170,4 +170,10 @@ public class LeetCodeUtils {
             System.out.println();
         }
     }
+
+    public static void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println("i" + i + " = " + array[i]);
+        }
+    }
 }
