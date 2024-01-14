@@ -27,10 +27,11 @@
         <module>new-jdk</module>
         <module>rule-engine</module>
         <module>event</module>
-        <module>byte-code</module>
         <module>cache</module>
         <module>algo</module>
         <module>json</module>
+        <module>java-agant</module>
+        <module>demo</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
