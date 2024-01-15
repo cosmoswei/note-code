@@ -1,9 +1,9 @@
 package com.wei.leetcode;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+public class TreeNode {
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
     TreeNode(int val) {
         this.val = val;

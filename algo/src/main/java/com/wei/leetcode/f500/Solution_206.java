@@ -9,7 +9,7 @@ public class Solution_206 {
         Solution_206 solution19 = new Solution_206();
         int[] nums = {1, 2, 3, 4, 5};
         ListNode listNode = LeetCodeUtils.arrayToList(nums);
-        ListNode res = solution19.reverse(listNode);
+        ListNode res = solution19.test(listNode);
         LeetCodeUtils.printList(res);
     }
 
@@ -26,6 +26,17 @@ public class Solution_206 {
         head.next.next = head;
         head.next = null;
         return last;
+    }
+
+    public ListNode test(ListNode listNode) {
+        if (null == listNode || null == listNode.next) {
+            return listNode;
+        }
+
+        ListNode test = test(listNode.next);
+        listNode.next.next = listNode;
+        listNode.next = null;
+        return test;
     }
 
 }
