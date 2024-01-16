@@ -3,6 +3,7 @@ package com.wei.leetcode.f500;
 import com.wei.leetcode.LeetCodeUtils;
 import com.wei.leetcode.ListNode;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Solution_23 {
@@ -24,7 +25,7 @@ public class Solution_23 {
         }
         ListNode dump = new ListNode(-1);
         ListNode res = dump;
-        PriorityQueue<ListNode> priorityQueue = new PriorityQueue<>(lists.length, (x, y) -> (x.val - y.val));
+        PriorityQueue<ListNode> priorityQueue = new PriorityQueue<>(lists.length, Comparator.comparingInt(x -> x.val));
         for (ListNode list : lists) {
             if (null != list) {
                 priorityQueue.add(list);

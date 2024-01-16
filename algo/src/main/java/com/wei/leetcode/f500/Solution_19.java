@@ -9,7 +9,7 @@ public class Solution_19 {
         Solution_19 solution19 = new Solution_19();
         int[] nums = {1, 2, 3, 4, 5};
         ListNode listNode = LeetCodeUtils.arrayToList(nums);
-        int target = 2;
+        int target = 5;
         ListNode res = solution19.removeNthFromEnd(listNode, target);
         LeetCodeUtils.printList(res);
     }
