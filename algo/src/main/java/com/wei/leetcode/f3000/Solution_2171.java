@@ -11,6 +11,7 @@ public class Solution_2171 {
         long i = solution.minimumRemoval2(param);
         System.out.println("i = " + i);
     }
+
     public long minimumRemoval2(int[] beans) {
         int n = beans.length;
         Arrays.sort(beans);
