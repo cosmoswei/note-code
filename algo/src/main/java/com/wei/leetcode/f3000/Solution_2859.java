@@ -39,8 +39,6 @@ public class Solution_2859 {
         x = (x >> 8) + ((x >> 4) & 0b1111) + (x & 0b1111);
         return x;
     }
-
-
 }
 
 
