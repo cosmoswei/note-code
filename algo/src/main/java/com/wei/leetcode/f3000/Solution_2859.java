@@ -2,11 +2,13 @@ package com.wei.leetcode.f3000;
 
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Solution_2859 {
 
     public static void main(String[] args) {
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
         Solution_2859 solution = new Solution_2859();
         Integer[] param = {5, 10, 1, 5, 2};
         List<Integer> maxHeights = Arrays.asList(param);
