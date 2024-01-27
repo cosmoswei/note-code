@@ -17,7 +17,7 @@ public class Solution_2859 {
     public int sumIndicesWithKSetBits(List<Integer> nums, int k) {
         int ans = 0;
         for (int i = 0; i < nums.size(); ++i) {
-            if (bitCount(i) == k) {
+            if (bitCount2(i) == k) {
                 ans += nums.get(i);
             }
         }
