@@ -1,4 +1,4 @@
-package com.wei.leetcode.f3000;
+package com.wei.leetcode.f2500;
 
 
 import java.util.Arrays;
