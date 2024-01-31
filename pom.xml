@@ -11,7 +11,6 @@
         <module>async</module>
         <module>flink</module>
         <module>netty-pro</module>
-        <module>hutool</module>
         <module>disruptor</module>
         <module>dev-util</module>
         <module>design-pattern</module>
@@ -22,9 +21,7 @@
         <module>limiter</module>
         <module>spock</module>
         <module>common-data</module>
-        <module>batch</module>
         <module>hodgepodge</module>
-        <module>new-jdk</module>
         <module>rule-engine</module>
         <module>event</module>
         <module>cache</module>
