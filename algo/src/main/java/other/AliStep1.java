@@ -2,7 +2,7 @@ package other;
 
 import java.util.Scanner;
 
-class Ali一面 {
+class AliStep1 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int n = scan.nextInt();
