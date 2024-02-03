@@ -25,7 +25,8 @@ class Solution_1690 {
         if (memo[i][j] != 0) {
             return memo[i][j];
         }
-        int res = Math.max(sum[j + 1] - sum[i + 1] - dfs(i + 1, j, sum, memo), sum[j] - sum[i] - dfs(i, j - 1, sum, memo));
+        int res = Math.max(sum[j + 1] - sum[i + 1] - dfs(i + 1, j, sum, memo),
+                sum[j] - sum[i] - dfs(i, j - 1, sum, memo));
         memo[i][j] = res;
         return res;
     }
