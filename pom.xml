@@ -28,6 +28,7 @@
         <module>algo</module>
         <module>json</module>
         <module>java-agant</module>
+        <module>spi</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
