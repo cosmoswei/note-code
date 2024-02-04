@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public class WeightedRoundRobinLoadBalancer {
     private List<String> servers;
     private Map<String, Integer> weights;
