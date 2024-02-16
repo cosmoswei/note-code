@@ -34,13 +34,14 @@ public class DemoRpcProxy implements InvocationHandler {
     private Registry<ServerInfo> registry;
 
     public DemoRpcProxy(String serviceName,
-                        Registry<ServerInfo> registry) throws Exception {
+                        Registry<ServerInfo> registry) {
         this.serviceName = serviceName;
         this.registry = registry;
     }
 
     public static <T> T newInstance(Class<T> clazz, Registry<ServerInfo> registry) throws Exception {
         // 创建代理对象
+        // 获取的注册服务信息
         return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
                 new Class[]{clazz},
                 new DemoRpcProxy("demoService", registry));

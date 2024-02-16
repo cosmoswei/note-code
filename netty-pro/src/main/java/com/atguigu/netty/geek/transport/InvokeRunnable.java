@@ -1,10 +1,10 @@
 package com.atguigu.netty.geek.transport;
 
+import com.atguigu.netty.geek.factory.BeanManager;
 import com.atguigu.netty.geek.protocol.Header;
 import com.atguigu.netty.geek.protocol.Message;
 import com.atguigu.netty.geek.protocol.Request;
 import com.atguigu.netty.geek.protocol.Response;
-import com.demo.rpc.factory.BeanManager;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.lang.reflect.Method;
@@ -35,13 +35,11 @@ class InvokeRunnable implements Runnable {
             result = method.invoke(bean, request.getArgs());
         } catch (Exception e) {
             // 省略异常处理
-        } finally {
         }
         Header header = message.getHeader();
         header.setExtraInfo((byte) 1);
         response.setResult(result); // 设置响应结果
         // 将响应消息返回给客户端
-        ctx.writeAndFlush(new Message(header, response));
+        ctx.writeAndFlush(new Message<>(header, response));
     }
-
 }

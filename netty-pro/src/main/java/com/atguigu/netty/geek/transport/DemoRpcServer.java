@@ -53,14 +53,13 @@ public class DemoRpcServer {
     }
 
 
-    public void startAndWait() throws InterruptedException {
+    public void startAndWait() {
         try {
             channel.closeFuture().await();
         } catch (InterruptedException e) {
             Thread.interrupted();
         }
     }
-
 
     public void shutdown() throws InterruptedException {
         channel.close().sync();

@@ -28,7 +28,7 @@ public class ZookeeperRegistry<T> implements Registry<T> {
     private String address = "localhost:2181";
 
     public void start() throws Exception {
-        String root = "/demo/rpc";
+        String root = "com/atguigu/netty/geek";
         // 初始化CuratorFramework
         CuratorFramework client = CuratorFrameworkFactory.newClient(address, new ExponentialBackoffRetry(1000, 3));
         client.start();  // 启动Curator客户端

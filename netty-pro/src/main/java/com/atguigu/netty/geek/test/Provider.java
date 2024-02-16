@@ -1,9 +1,9 @@
 package com.atguigu.netty.geek.test;
 
+import com.atguigu.netty.geek.factory.BeanManager;
 import com.atguigu.netty.geek.registry.ServerInfo;
 import com.atguigu.netty.geek.registry.ZookeeperRegistry;
 import com.atguigu.netty.geek.transport.DemoRpcServer;
-import com.demo.rpc.factory.BeanManager;
 import org.apache.curator.x.discovery.ServiceInstance;
 
 /**
@@ -23,7 +23,6 @@ public class Provider {
         // 启动DemoRpcServer，等待Client的请求
         DemoRpcServer rpcServer = new DemoRpcServer(20880);
         rpcServer.start();
-        System.out.println("rpcServer = " + rpcServer);
         Thread.sleep(100000000L);
     }
 }
