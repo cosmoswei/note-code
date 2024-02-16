@@ -18,7 +18,7 @@ public class DemoRpcServer {
     private Channel channel;
     protected int port;
 
-    public DemoRpcServer(int port) throws InterruptedException {
+    public DemoRpcServer(int port) {
         this.port = port;
         // 创建boss和worker两个EventLoopGroup，注意一些小细节，
         // workerGroup 是按照中的线程数是按照 CPU 核数计算得到的

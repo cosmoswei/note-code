@@ -24,7 +24,6 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<MyDataInfo.M
     public void channelRead0(ChannelHandlerContext ctx, MyDataInfo.MyMessage msg) throws Exception {
 
         //根据dataType 来显示不同的信息
-
         MyDataInfo.MyMessage.DataType dataType = msg.getDataType();
         if(dataType == MyDataInfo.MyMessage.DataType.StudentType) {
 
@@ -37,11 +36,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<MyDataInfo.M
         } else {
             System.out.println("传输的类型不正确");
         }
-
-
     }
-
-
 
 //    //读取数据实际(这里我们可以读取客户端发送的消息)
 //    /*
@@ -61,7 +56,6 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<MyDataInfo.M
     //数据读取完毕
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-
         //writeAndFlush 是 write + flush
         //将数据写入到缓存，并刷新
         //一般讲，我们对这个发送的数据进行编码
@@ -69,7 +63,6 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<MyDataInfo.M
     }
 
     //处理异常, 一般是需要关闭通道
-
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         ctx.close();

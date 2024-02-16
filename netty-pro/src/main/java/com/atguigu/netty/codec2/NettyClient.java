@@ -33,9 +33,7 @@ public class NettyClient {
                             pipeline.addLast(new NettyClientHandler()); //加入自己的处理器
                         }
                     });
-
             System.out.println("客户端 ok..");
-
             //启动客户端去连接服务器端
             //关于 ChannelFuture 要分析，涉及到netty的异步模型
             ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 6668).sync();

@@ -26,8 +26,6 @@ public class GroupChatClient {
         EventLoopGroup group = new NioEventLoopGroup();
 
         try {
-
-
             Bootstrap bootstrap = new Bootstrap()
                     .group(group)
                     .channel(NioSocketChannel.class)
@@ -35,7 +33,6 @@ public class GroupChatClient {
 
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-
                             //得到pipeline
                             ChannelPipeline pipeline = ch.pipeline();
                             //加入相关handler
@@ -45,7 +42,6 @@ public class GroupChatClient {
                             pipeline.addLast(new GroupChatClientHandler());
                         }
                     });
-
             ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
             //得到channel
             Channel channel = channelFuture.channel();

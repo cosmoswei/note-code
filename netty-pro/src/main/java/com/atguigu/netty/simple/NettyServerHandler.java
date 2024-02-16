@@ -8,8 +8,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelPipeline;
 import io.netty.util.CharsetUtil;
 
-import java.util.concurrent.TimeUnit;
-
 /*
 说明
 1. 我们自定义一个Handler 需要继续netty 规定好的某个HandlerAdapter(规范)
@@ -76,17 +74,13 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             }
         }, 5, TimeUnit.SECONDS);
 
-
-
         System.out.println("go on ...");*/
-
 
         System.out.println("服务器读取线程 " + Thread.currentThread().getName() + " channle =" + ctx.channel());
         System.out.println("server ctx =" + ctx);
         System.out.println("看看channel 和 pipeline的关系");
         Channel channel = ctx.channel();
         ChannelPipeline pipeline = ctx.pipeline(); //本质是一个双向链接, 出站入站
-
 
         //将 msg 转成一个 ByteBuf
         //ByteBuf 是 Netty 提供的，不是 NIO 的 ByteBuffer.

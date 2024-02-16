@@ -1,6 +1,5 @@
 package com.atguigu.netty.websocket;
 
-import com.atguigu.netty.heartbeat.MyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -15,9 +14,6 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import io.netty.handler.timeout.IdleStateHandler;
-
-import java.util.concurrent.TimeUnit;
 
 public class MyServer {
     public static void main(String[] args) throws Exception {
@@ -38,18 +34,16 @@ public class MyServer {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline pipeline = ch.pipeline();
-
                     //因为基于http协议，使用http的编码和解码器
                     pipeline.addLast(new HttpServerCodec());
                     //是以块方式写，添加ChunkedWriteHandler处理器
                     pipeline.addLast(new ChunkedWriteHandler());
-
                     /*
                     说明
                     1. http数据在传输过程中是分段, HttpObjectAggregator ，就是可以将多个段聚合
                     2. 这就就是为什么，当浏览器发送大量数据时，就会发出多次http请求
                      */
-                    pipeline.addLast(new HttpObjectAggregator(8192));
+                    pipeline.addLast(new HttpObjectAggregator(8989));
                     /*
                     说明
                     1. 对应websocket ，它的数据是以 帧(frame) 形式传递
@@ -66,7 +60,7 @@ public class MyServer {
             });
 
             //启动服务器
-            ChannelFuture channelFuture = serverBootstrap.bind(7000).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(8989).sync();
             channelFuture.channel().closeFuture().sync();
 
         } finally {

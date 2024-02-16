@@ -12,7 +12,6 @@ public class GroupChatServer {
 
     private int port; //监听端口
 
-
     public GroupChatServer(int port) {
         this.port = port;
     }
@@ -35,7 +34,6 @@ public class GroupChatServer {
 
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-
                             //获取到pipeline
                             ChannelPipeline pipeline = ch.pipeline();
                             //向pipeline加入解码器
@@ -44,13 +42,11 @@ public class GroupChatServer {
                             pipeline.addLast("encoder", new StringEncoder());
                             //加入自己的业务处理handler
                             pipeline.addLast(new GroupChatServerHandler());
-
                         }
                     });
 
             System.out.println("netty 服务器启动");
             ChannelFuture channelFuture = b.bind(port).sync();
-
             //监听关闭
             channelFuture.channel().closeFuture().sync();
         } finally {
@@ -61,7 +57,6 @@ public class GroupChatServer {
     }
 
     public static void main(String[] args) throws Exception {
-
         new GroupChatServer(7000).run();
     }
 }

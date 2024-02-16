@@ -18,13 +18,10 @@ public class MyMessageDecoder extends ReplayingDecoder<Void> {
 
         byte[] content = new byte[length];
         in.readBytes(content);
-
         //封装成 MessageProtocol 对象，放入 out， 传递下一个handler业务处理
         MessageProtocol messageProtocol = new MessageProtocol();
         messageProtocol.setLen(length);
         messageProtocol.setContent(content);
-
         out.add(messageProtocol);
-
     }
 }
