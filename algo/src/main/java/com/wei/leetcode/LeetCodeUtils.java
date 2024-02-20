@@ -150,9 +150,9 @@ public class LeetCodeUtils {
     // 前序遍历打印二叉树
     public static void printPreorder(TreeNode root) {
         if (root == null) {
+            System.out.print("null -> ");
             return;
         }
-
         System.out.print(root.val + " -> ");
         printPreorder(root.left);
         printPreorder(root.right);

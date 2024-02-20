@@ -24,7 +24,6 @@ public class GroupChatClient {
 
     public void run() throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
-
         try {
             Bootstrap bootstrap = new Bootstrap()
                     .group(group)
