@@ -10,7 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpServerCodec;
 
-public class TestServer2 {
+public class HTTPServer {
     public static void main(String[] args) {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -25,7 +25,7 @@ public class TestServer2 {
                             // 添加HTTP请求编解码器
                             pipeline.addLast("codec", new HttpServerCodec());
                             // 添加自定义的处理器
-                            pipeline.addLast("handler", new HttpServerHandler());
+                            pipeline.addLast("handler", new HTTPServerHandler());
                         }
                     });
             ChannelFuture future = bootstrap.bind(8080).sync();
@@ -37,6 +37,4 @@ public class TestServer2 {
             bossGroup.shutdownGracefully();
         }
     }
-
-
 }

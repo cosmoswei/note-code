@@ -25,7 +25,6 @@ public class MyServer {
         try {
 
             ServerBootstrap serverBootstrap = new ServerBootstrap();
-
             serverBootstrap.group(bossGroup, workerGroup);
             serverBootstrap.channel(NioServerSocketChannel.class);
             serverBootstrap.handler(new LoggingHandler(LogLevel.INFO));
@@ -62,7 +61,6 @@ public class MyServer {
             //启动服务器
             ChannelFuture channelFuture = serverBootstrap.bind(8989).sync();
             channelFuture.channel().closeFuture().sync();
-
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();

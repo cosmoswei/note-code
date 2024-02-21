@@ -14,7 +14,6 @@ public class NettyClient {
         //客户端需要一个事件循环组
         EventLoopGroup group = new NioEventLoopGroup();
 
-
         try {
             //创建客户端启动对象
             //注意客户端使用的不是 ServerBootstrap 而是 Bootstrap

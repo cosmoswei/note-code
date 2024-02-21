@@ -100,7 +100,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     //处理异常, 一般是需要关闭通道
-
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         ctx.close();
