@@ -29,6 +29,7 @@
         <module>json</module>
         <module>java-agant</module>
         <module>spi</module>
+        <module>juc</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
