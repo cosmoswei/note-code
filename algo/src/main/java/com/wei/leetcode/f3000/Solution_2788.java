@@ -9,7 +9,7 @@ public class Solution_2788 {
 
     public static void main(String[] args) {
         Solution_2788 solution = new Solution_2788();
-        List<String> req = Arrays.asList("$easy$","$problem$");
+        List<String> req = Arrays.asList("$easy$", "$problem$");
         List<String> res = solution.splitWordsBySeparator(req, '$');
         res.forEach(System.out::println);
     }

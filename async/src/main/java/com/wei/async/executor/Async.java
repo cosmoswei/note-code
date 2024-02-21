@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 /**
  * 类入口，可以根据自己情况调整core线程的数量
+ *
  * @author wuweifeng wrote on 2019-12-18
  * @version 1.0
  */
@@ -28,7 +29,7 @@ public class Async {
      * 出发点
      */
     public static boolean beginWork(long timeout, ExecutorService executorService, List<WorkerWrapper> workerWrappers) throws ExecutionException, InterruptedException {
-        if(workerWrappers == null || workerWrappers.size() == 0) {
+        if (workerWrappers == null || workerWrappers.size() == 0) {
             return false;
         }
         //保存线程池变量
@@ -57,10 +58,10 @@ public class Async {
      * 如果想自定义线程池，请传pool。不自定义的话，就走默认的COMMON_POOL
      */
     public static boolean beginWork(long timeout, ExecutorService executorService, WorkerWrapper... workerWrapper) throws ExecutionException, InterruptedException {
-        if(workerWrapper == null || workerWrapper.length == 0) {
+        if (workerWrapper == null || workerWrapper.length == 0) {
             return false;
         }
-        List<WorkerWrapper> workerWrappers =  Arrays.stream(workerWrapper).collect(Collectors.toList());
+        List<WorkerWrapper> workerWrappers = Arrays.stream(workerWrapper).collect(Collectors.toList());
         return beginWork(timeout, executorService, workerWrappers);
     }
 

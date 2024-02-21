@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * 后面请求依赖于前面请求的执行结果
+ *
  * @author wuweifeng wrote on 2019-12-26
  * @version 1.0
  */
@@ -18,7 +19,7 @@ public class Test {
         DeWorker1 w1 = new DeWorker1();
         DeWorker2 w2 = new DeWorker2();
 
-        WorkerWrapper<User, String> workerWrapper2 =  new WorkerWrapper.Builder<User, String>()
+        WorkerWrapper<User, String> workerWrapper2 = new WorkerWrapper.Builder<User, String>()
                 .worker(w2)
                 .callback(w2)
                 .id("third")

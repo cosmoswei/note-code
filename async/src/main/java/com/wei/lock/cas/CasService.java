@@ -16,7 +16,7 @@ public class CasService {
         return new Item();
     }
 
-    public void updateItem(Item  item) {
+    public void updateItem(Item item) {
         int updateResult = updateContentByIdAndVersion(item.getContent(), item.getId(), item.getVersion());
         if (updateResult == 0) {
             // 没有更新成功任何记录，说明version比对失败已经有别人更新了

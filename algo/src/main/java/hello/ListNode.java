@@ -37,13 +37,13 @@ class LinkedListDeque {
         // 若链表为空，则令 front 和 rear 都指向 node
         if (isEmpty())
             front = rear = node;
-        // 队首入队操作
+            // 队首入队操作
         else if (isFront) {
             // 将 node 添加至链表头部
             front.prev = node;
             node.next = front;
             front = node; // 更新头节点
-        // 队尾入队操作
+            // 队尾入队操作
         } else {
             // 将 node 添加至链表尾部
             rear.next = node;
@@ -78,7 +78,7 @@ class LinkedListDeque {
                 front.next = null;
             }
             front = fNext; // 更新头节点
-        // 队尾出队操作
+            // 队尾出队操作
         } else {
             val = rear.val; // 暂存尾节点值
             // 删除尾节点

@@ -5,7 +5,7 @@ class Solution_167 {
     public static void main(String[] args) {
         Solution_167 solution128 = new Solution_167();
 //        int[] nums = {100, 4, 200, 1, 3, 2};
-        int[] nums = {1,2,3,4,5,6,7};
+        int[] nums = {1, 2, 3, 4, 5, 6, 7};
         int i[] = solution128.twoSum2(nums, 5);
         for (int j = 0; j < i.length; j++) {
             System.out.println("i = " + i[j]);

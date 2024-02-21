@@ -2,9 +2,9 @@ package hello;
 
 import java.util.List;
 
-public  class PrintUtil {
+public class PrintUtil {
 
 
-    public static  void printMatrix(List list) {
+    public static void printMatrix(List list) {
     }
 }

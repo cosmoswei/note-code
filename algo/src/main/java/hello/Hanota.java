@@ -7,6 +7,7 @@ public class Hanota {
 
 
     }
+
     /* 移动一个圆盘 */
     void move(List<Integer> src, List<Integer> tar) {
         // 从 src 顶部拿出一个圆盘

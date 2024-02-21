@@ -4,7 +4,7 @@ package com.wei.leetcode;
 public class Difference {
     // 差分数组
     private int[] diff;
-    
+
     /* 输入一个初始数组，区间操作将在这个数组上进行 */
     public Difference(int[] nums) {
         assert nums.length > 0;

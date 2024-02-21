@@ -39,16 +39,16 @@ public class ThreadPoolDemo {
 //            }
 //        }, 0, 2, TimeUnit.SECONDS);
 //
-        MyTask myTask1 =new MyTask();
-        ExecutorService es=new ThreadPoolExecutor(5, 5,
+        MyTask myTask1 = new MyTask();
+        ExecutorService es = new ThreadPoolExecutor(5, 5,
                 0L, TimeUnit.MILLISECONDS,
                 new SynchronousQueue<Runnable>(),
                 new ThreadFactory() {
                     @Override
                     public Thread newThread(Runnable r) {
-                        Thread thread =new Thread(r);
+                        Thread thread = new Thread(r);
                         thread.setDaemon(true);
-                        System.out.println("create:"+thread);
+                        System.out.println("create:" + thread);
                         return thread;
                     }
                 },

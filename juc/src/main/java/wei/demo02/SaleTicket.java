@@ -30,16 +30,17 @@ public class SaleTicket {
 class Ticket {
     private int numner = 600;
 
-    Lock lock =new ReentrantLock();
+    Lock lock = new ReentrantLock();
 
     public synchronized void sale() {
         lock.lock();
         //    synchronized：本质就是排队
-        try{
+        try {
             if (numner > 0) {
                 System.out.println(Thread.currentThread().getName() +
                         "卖出了第" + (numner--) + "张票，剩余：" + numner);
-            }}finally {
+            }
+        } finally {
             lock.unlock();
         }
     }

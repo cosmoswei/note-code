@@ -18,21 +18,21 @@ import java.util.List;
  */
 public class SpelUtils {
 
- private SpelUtils() {
- }
+    private SpelUtils() {
+    }
 
- private static final ExpressionParser parser = new SpelExpressionParser();
+    private static final ExpressionParser parser = new SpelExpressionParser();
 
- public static Object parser(ProceedingJoinPoint proceeding, String spelStr) {
- MethodSignature methodSignature = (MethodSignature) proceeding.getSignature();
- List<String> paramNameList = Arrays.asList(methodSignature.getParameterNames());
- List<Object> paramList = Arrays.asList(proceeding.getArgs());
- EvaluationContext ctx = new StandardEvaluationContext();
- for (int i = 0; i < paramNameList.size(); i++) {
- ctx.setVariable(paramNameList.get(i), paramList.get(i));
- }
- // 解析SpEL表达式获取结果
- return parser.parseExpression(spelStr).getValue(ctx);
- }
+    public static Object parser(ProceedingJoinPoint proceeding, String spelStr) {
+        MethodSignature methodSignature = (MethodSignature) proceeding.getSignature();
+        List<String> paramNameList = Arrays.asList(methodSignature.getParameterNames());
+        List<Object> paramList = Arrays.asList(proceeding.getArgs());
+        EvaluationContext ctx = new StandardEvaluationContext();
+        for (int i = 0; i < paramNameList.size(); i++) {
+            ctx.setVariable(paramNameList.get(i), paramList.get(i));
+        }
+        // 解析SpEL表达式获取结果
+        return parser.parseExpression(spelStr).getValue(ctx);
+    }
 
 }

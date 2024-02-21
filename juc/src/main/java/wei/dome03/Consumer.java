@@ -7,7 +7,7 @@ import java.util.UUID;
  */
 public class Consumer {
     public static void main(String[] args) {
-        System.out.println(UUID.randomUUID().toString().substring(0,10));
+        System.out.println(UUID.randomUUID().toString().substring(0, 10));
 
     }
 }

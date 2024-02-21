@@ -1,6 +1,5 @@
 package com.wei.cep;
 
-import com.wei.pojo.LoginEvent;
 import com.wei.pojo.OrderEvent;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;

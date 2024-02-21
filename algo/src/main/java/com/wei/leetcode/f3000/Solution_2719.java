@@ -19,7 +19,7 @@ public class Solution_2719 {
     int min_sum;
     int max_sum;
 
-    public  int count(String num1, String num2, int min_sum, int max_sum) {
+    public int count(String num1, String num2, int min_sum, int max_sum) {
         d = new int[N][M];
         for (int i = 0; i < N; i++) {
             Arrays.fill(d[i], -1);

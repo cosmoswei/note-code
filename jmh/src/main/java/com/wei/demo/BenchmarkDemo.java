@@ -46,7 +46,7 @@ public class BenchmarkDemo {
 
     @org.openjdk.jmh.annotations.Benchmark
     public void test() {
-        DepartmentEmployeesMapper departmentEmployeesMapper = (DepartmentEmployeesMapper)context.getBean("departmentEmployeesMapper");
+        DepartmentEmployeesMapper departmentEmployeesMapper = (DepartmentEmployeesMapper) context.getBean("departmentEmployeesMapper");
         DepartmentEmployees departmentEmployees = departmentEmployeesMapper.selectByPrimaryKey(1L);
         System.out.println(departmentEmployees);
     }

@@ -20,13 +20,11 @@ public class JedisTest {
                     System.out.println(Thread.currentThread().getName() + "抢到车位");
                     TimeUnit.SECONDS.sleep(2);
                     System.out.println(Thread.currentThread().getName() + "离开车位");
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
                     semaphore.release();
                 }
-
             }, String.valueOf(i)).start();
         }
     }

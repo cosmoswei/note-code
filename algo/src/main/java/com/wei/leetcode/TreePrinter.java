@@ -1,6 +1,7 @@
 package com.wei.leetcode;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class TreePrinter {
     public void printTree(Node root) {

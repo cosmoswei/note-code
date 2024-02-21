@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 public class EventController {
     @Resource
     private ApplicationContext applicationContext;
+
     @GetMapping("/publishEvent")
     public void publishEvent() {
         applicationContext.publishEvent(new RegisterSuccessEvent("歪歪"));

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Contest_601670 {
     public static void main(String[] args) {
-        int[] nums = {232, 124, 456,119,19876};
+        int[] nums = {232, 124, 456, 119, 19876};
         int solution = solution(5, 4, nums);
         System.out.println(solution);
     }

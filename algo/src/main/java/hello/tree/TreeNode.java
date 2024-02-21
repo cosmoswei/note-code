@@ -6,5 +6,8 @@ class TreeNode {
     public int height;     // 节点高度
     public TreeNode left;  // 左子节点
     public TreeNode right; // 右子节点
-    public TreeNode(int x) { val = x; }
+
+    public TreeNode(int x) {
+        val = x;
+    }
 }

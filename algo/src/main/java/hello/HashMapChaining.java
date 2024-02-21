@@ -8,6 +8,7 @@ import java.util.List;
 class HashMapChaining {
     int size; // 键值对数量
     int capacity; // 哈希表容量/* 键值对 */
+
     class Pair {
         public int key;
         public String val;
@@ -96,6 +97,7 @@ class HashMapChaining {
             }
         }
     }
+
     double loadThres; // 触发扩容的负载因子阈值
     int extendRatio; // 扩容倍数
     List<List<Pair>> buckets; // 桶数组

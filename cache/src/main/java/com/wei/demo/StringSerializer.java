@@ -6,7 +6,7 @@ import org.caffinitas.ohc.CacheSerializer;
 import java.nio.ByteBuffer;
 
 public class StringSerializer implements CacheSerializer<String> {
- 
+
     /**
      * 计算字符串序列化后占用的空间
      *
@@ -16,14 +16,14 @@ public class StringSerializer implements CacheSerializer<String> {
     @Override
     public int serializedSize(String value) {
         byte[] bytes = value.getBytes(Charsets.UTF_8);
- 
+
         // 设置字符串长度限制，2^16 = 65536
         if (bytes.length > 65536)
             throw new RuntimeException("encoded string too long: " + bytes.length + " bytes");
         // 设置字符串长度限制，2^16 = 65536
         return bytes.length + 2;
     }
- 
+
     /**
      * 将字符串对象序列化到 ByteBuffer 中，ByteBuffer是OHC管理的堆外内存区域的映射。
      *
@@ -39,7 +39,7 @@ public class StringSerializer implements CacheSerializer<String> {
         buf.put((byte) ((bytes.length) & 0xFF));
         buf.put(bytes);
     }
- 
+
     /**
      * 对堆外缓存的字符串进行反序列化
      *

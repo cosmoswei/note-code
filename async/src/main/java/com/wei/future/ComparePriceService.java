@@ -176,10 +176,10 @@ public class ComparePriceService {
     public PriceResult comparePriceInOnePlat0(List<String> products) {
         return products.parallelStream()
                 .map(product -> CompletableFuture
-                                .supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
-                                .thenCombine(CompletableFuture
-                                                .supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
-                                        this::computeRealPrice))
+                        .supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
+                        .thenCombine(CompletableFuture
+                                        .supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
+                                this::computeRealPrice))
                 .map(CompletableFuture::join)
                 .sorted(Comparator.comparingInt(PriceResult::getRealPrice))
                 .findFirst()
@@ -195,11 +195,11 @@ public class ComparePriceService {
     public PriceResult comparePriceInOnePlat1(List<String> products) {
         return products.stream()
                 .map(product -> CompletableFuture
-                                .supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
-                                .thenCombine(
-                                        CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
-                                        this::computeRealPrice)
-                                .join())
+                        .supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
+                        .thenCombine(
+                                CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
+                                this::computeRealPrice)
+                        .join())
                 .sorted(Comparator.comparingInt(PriceResult::getRealPrice))
                 .findFirst()
                 .get();
@@ -214,9 +214,9 @@ public class ComparePriceService {
     public PriceResult comparePriceInOnePlat2(List<String> products) {
         List<CompletableFuture<PriceResult>> completableFutures = products.stream()
                 .map(product -> CompletableFuture
-                                .supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
-                                .thenCombine(CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
-                                        this::computeRealPrice))
+                        .supplyAsync(() -> HttpRequestMock.getMouBaoPrice(product))
+                        .thenCombine(CompletableFuture.supplyAsync(() -> HttpRequestMock.getMouBaoDiscounts(product)),
+                                this::computeRealPrice))
                 .collect(Collectors.toList());
 
         return completableFutures.stream()

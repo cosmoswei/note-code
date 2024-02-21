@@ -67,7 +67,7 @@ public class BatchUpdateBenchmark {
         batchExecutorUpdate.batchExecutorUpdate(mockData);
     }
 
-        @Benchmark
+    @Benchmark
     public void caseWhenUpdate() {
         List<DepartmentEmployees> mockData = getMockDepartmentEmployees(param);
         mockData.forEach(e -> e.setEmployeeName("caseWhenUpdate 更新后的部门名字"));

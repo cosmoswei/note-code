@@ -6,7 +6,6 @@ public class OOMTest {
         long total = Runtime.getRuntime().totalMemory();
         long avai = Runtime.getRuntime().availableProcessors();
         long free = Runtime.getRuntime().freeMemory();
-
         System.out.println(max / (1024 * 1024) + "MB");
         System.out.println(total / (1024 * 1024) + "MB");
         System.out.println(avai);

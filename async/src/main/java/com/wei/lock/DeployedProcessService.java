@@ -19,7 +19,6 @@ public class DeployedProcessService {
     }
 
 
-
     private void collectProcessInfo() {
         try {
             Thread.sleep(500L);

@@ -61,7 +61,7 @@ public class Solution_2865 {
 
         long res = 0;
         for (int i = 0; i < maxHeights.size(); i++) {
-          res = Math.max(maximumSumOfHeights(maxHeights, i),res);
+            res = Math.max(maximumSumOfHeights(maxHeights, i), res);
         }
         // 将List 分为两部分
         return res;

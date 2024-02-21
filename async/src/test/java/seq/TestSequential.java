@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * 串行测试
+ *
  * @author wuweifeng wrote on 2019-11-20.
  */
 public class TestSequential {
@@ -20,20 +21,20 @@ public class TestSequential {
         SeqWorker2 w2 = new SeqWorker2();
 
         //顺序0-1-2
-        WorkerWrapper<String, String> workerWrapper2 =  new WorkerWrapper.Builder<String, String>()
+        WorkerWrapper<String, String> workerWrapper2 = new WorkerWrapper.Builder<String, String>()
                 .worker(w2)
                 .callback(w2)
                 .param("2")
                 .build();
 
-        WorkerWrapper<String, String> workerWrapper1 =  new WorkerWrapper.Builder<String, String>()
+        WorkerWrapper<String, String> workerWrapper1 = new WorkerWrapper.Builder<String, String>()
                 .worker(w1)
                 .callback(w1)
                 .param("1")
                 .next(workerWrapper2)
                 .build();
 
-        WorkerWrapper<String, String> workerWrapper =  new WorkerWrapper.Builder<String, String>()
+        WorkerWrapper<String, String> workerWrapper = new WorkerWrapper.Builder<String, String>()
                 .worker(w)
                 .callback(w)
                 .param("0")

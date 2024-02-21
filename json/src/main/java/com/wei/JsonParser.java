@@ -163,11 +163,11 @@ public class JsonParser {
             }
         }
 
-        if (currentNode.isObject()){
+        if (currentNode.isObject()) {
             return currentNode.toString();
         }
 
-        if (currentNode.isArray()){
+        if (currentNode.isArray()) {
             return currentNode.toString();
         }
         return currentNode.asText();

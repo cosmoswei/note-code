@@ -7,7 +7,8 @@ public class Node {
     public int value;
     public List<Node> children;
 
-    public Node() {}
+    public Node() {
+    }
 
     public Node(int _val, List<Node> _children) {
         value = _val;

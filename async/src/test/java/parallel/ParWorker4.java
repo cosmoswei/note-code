@@ -39,10 +39,10 @@ public class ParWorker4 implements IWorker<String, String>, ICallback<String, St
     public void result(boolean success, String param, WorkResult<String> workResult) {
         if (success) {
             System.out.println("callback worker4 success--" + SystemClock.now() + "----" + workResult.getResult()
-                    + "-threadName:" +Thread.currentThread().getName());
+                    + "-threadName:" + Thread.currentThread().getName());
         } else {
-            System.err.println("callback worker4 failure--" + SystemClock.now() + "----"  + workResult.getResult()
-                    + "-threadName:" +Thread.currentThread().getName());
+            System.err.println("callback worker4 failure--" + SystemClock.now() + "----" + workResult.getResult()
+                    + "-threadName:" + Thread.currentThread().getName());
         }
     }
 

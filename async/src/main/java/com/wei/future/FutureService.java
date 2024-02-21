@@ -26,21 +26,21 @@ public class FutureService {
         eatAndDrink(bread, coffee);
     }
 
-     private  void goShopping() {
+    private void goShopping() {
 
-     }
+    }
 
-     private void eatAndDrink(Bread bread, Coffee coffee) {
+    private void eatAndDrink(Bread bread, Coffee coffee) {
 
-     }
+    }
 
-     private Coffee makeCoffee() {
+    private Coffee makeCoffee() {
         return null;
-     }
+    }
 
-     private Bread buySomeBread() {
+    private Bread buySomeBread() {
         return null;
-     }
+    }
 
     public static void main(String[] args) {
     }

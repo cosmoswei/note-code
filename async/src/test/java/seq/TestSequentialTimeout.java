@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * 串行测试
+ *
  * @author wuweifeng wrote on 2019-11-20.
  */
 @SuppressWarnings("Duplicates")

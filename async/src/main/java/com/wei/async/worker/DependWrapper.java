@@ -5,6 +5,7 @@ import com.wei.async.wrapper.WorkerWrapper;
 
 /**
  * 对依赖的wrapper的封装
+ *
  * @author wuweifeng wrote on 2019-12-20
  * @version 1.0
  */

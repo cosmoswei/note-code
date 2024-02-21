@@ -8,7 +8,7 @@ import java.util.stream.Collector;
 
 /**
  * 自定义收集器
- *
+ * <p>
  * 对Stream中的数字字段，先平方再累加，得到总累加值
  *
  * @author 架构悟道

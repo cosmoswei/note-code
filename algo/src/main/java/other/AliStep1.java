@@ -6,7 +6,7 @@ class AliStep1 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int n = scan.nextInt();
-        int[] que = new int[n+1];
+        int[] que = new int[n + 1];
         que[0] = 0;
         for (int i = 1; i <= n; i++) {
             que[i] = scan.nextInt();
@@ -27,8 +27,8 @@ class AliStep1 {
                 l++;
             }
         }
-        
-        System.out.println((al+1)+" "+ar);
+
+        System.out.println((al + 1) + " " + ar);
         scan.close();
     }
 }

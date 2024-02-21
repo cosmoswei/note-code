@@ -8,8 +8,8 @@ import java.util.Objects;
 public class Solution_2085 {
 
     public static void main(String[] args) {
-        String[] strings1 = {"a","ab"};
-        String[] strings2 = {"a","a","a","ab"};
+        String[] strings1 = {"a", "ab"};
+        String[] strings2 = {"a", "a", "a", "ab"};
         Solution_2085 solution2085 = new Solution_2085();
         int i = solution2085.countWords(strings1, strings2);
         System.out.println("i = " + i);
