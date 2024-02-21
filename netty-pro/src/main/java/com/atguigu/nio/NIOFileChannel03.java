@@ -10,14 +10,10 @@ public class NIOFileChannel03 {
 
         FileInputStream fileInputStream = new FileInputStream("1.txt");
         FileChannel fileChannel01 = fileInputStream.getChannel();
-
         FileOutputStream fileOutputStream = new FileOutputStream("2.txt");
         FileChannel fileChannel02 = fileOutputStream.getChannel();
-
         ByteBuffer byteBuffer = ByteBuffer.allocate(512);
-
         while (true) { //循环读取
-
             //这里有一个重要的操作，一定不要忘了
             /*
              public final Buffer clear() {
@@ -37,7 +33,6 @@ public class NIOFileChannel03 {
             byteBuffer.flip();
             fileChannel02.write(byteBuffer);
         }
-
         //关闭相关的流
         fileInputStream.close();
         fileOutputStream.close();

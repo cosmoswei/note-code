@@ -14,7 +14,6 @@ public class BIOServer {
         //思路
         //1. 创建一个线程池
         //2. 如果有客户端连接，就创建一个线程，与之通讯(单独写一个方法)
-
         ExecutorService newCachedThreadPool = Executors.newCachedThreadPool();
 
         //创建ServerSocket
@@ -23,13 +22,11 @@ public class BIOServer {
         System.out.println("服务器启动了");
 
         while (true) {
-
             System.out.println("线程信息 id =" + Thread.currentThread().getId() + " 名字=" + Thread.currentThread().getName());
             //监听，等待客户端连接
             System.out.println("等待连接....");
             final Socket socket = serverSocket.accept();
             System.out.println("连接到一个客户端");
-
             //就创建一个线程，与之通讯(单独写一个方法)
             newCachedThreadPool.execute(new Runnable() {
                 public void run() { //我们重写
@@ -37,10 +34,7 @@ public class BIOServer {
                     handler(socket);
                 }
             });
-
         }
-
-
     }
 
     //编写一个handler方法，和客户端通讯
@@ -66,8 +60,6 @@ public class BIOServer {
                    break;
                }
             }
-
-
         }catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -77,7 +69,6 @@ public class BIOServer {
             }catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 }

@@ -14,7 +14,6 @@ public class ScatteringAndGatheringTest {
     public static void main(String[] args) throws Exception {
 
         //使用 ServerSocketChannel 和 SocketChannel 网络
-
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         InetSocketAddress inetSocketAddress = new InetSocketAddress(7000);
 
@@ -31,10 +30,8 @@ public class ScatteringAndGatheringTest {
         int messageLength = 8;   //假定从客户端接收8个字节
         //循环的读取
         while (true) {
-
             int byteRead = 0;
-
-            while (byteRead < messageLength ) {
+            while (byteRead < messageLength) {
                 long l = socketChannel.read(byteBuffers);
                 byteRead += l; //累计读取的字节数
                 System.out.println("byteRead=" + byteRead);
@@ -53,15 +50,11 @@ public class ScatteringAndGatheringTest {
             }
 
             //将所有的buffer 进行clear
-            Arrays.asList(byteBuffers).forEach(buffer-> {
+            Arrays.asList(byteBuffers).forEach(buffer -> {
                 buffer.clear();
             });
 
             System.out.println("byteRead:=" + byteRead + " byteWrite=" + byteWirte + ", messagelength" + messageLength);
         }
-
-
-
-
     }
 }
