@@ -10,7 +10,6 @@ public class MyServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();//一会下断点
-
         //入站的handler进行解码 MyByteToLongDecoder
         //pipeline.addLast(new MyByteToLongDecoder());
         pipeline.addLast(new MyByteToLongDecoder2());
