@@ -1,4 +1,4 @@
-package com.wei.netty.buf;
+package com.wei.netty;
 
 import io.netty.util.Recycler;
 
@@ -61,7 +61,9 @@ public class UserCache {
         System.out.println(user2.getName());
 
         System.out.println(user1 == user2);
-
     }
 
+    private static boolean isPowerOfTwo(int val) {
+        return (val & -val) == val;
+    }
 }
