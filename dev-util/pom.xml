@@ -37,7 +37,7 @@
         </dependency>
         <dependency>
             <groupId>com.wei</groupId>
-            <artifactId>netty-pro</artifactId>
+            <artifactId>netty</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

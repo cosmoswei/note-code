@@ -10,7 +10,7 @@
         <module>jmh</module>
         <module>async</module>
         <module>flink</module>
-        <module>netty-pro</module>
+        <module>netty</module>
         <module>disruptor</module>
         <module>dev-util</module>
         <module>design-pattern</module>
