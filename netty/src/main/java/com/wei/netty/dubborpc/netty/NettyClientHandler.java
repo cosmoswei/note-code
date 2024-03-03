@@ -20,7 +20,6 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter implements 
     }
 
     //收到服务器的数据后，调用方法 (4)
-    //
     @Override
     public synchronized void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println(" channelRead 被调用  ");
@@ -40,9 +39,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter implements 
         context.writeAndFlush(para);
         //进行wait
         wait(); //等待channelRead 方法获取到服务器的结果后，唤醒
-        System.out.println(" call2 被调用  ");
         return  result; //服务方返回的结果
-
     }
     //(2)
     void setPara(String para) {

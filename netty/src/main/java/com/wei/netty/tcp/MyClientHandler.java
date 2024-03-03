@@ -23,7 +23,6 @@ public class MyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
         byte[] buffer = new byte[msg.readableBytes()];
         msg.readBytes(buffer);
-
         String message = new String(buffer, Charset.forName("utf-8"));
         System.out.println("客户端接收到消息=" + message);
         System.out.println("客户端接收消息数量=" + (++this.count));

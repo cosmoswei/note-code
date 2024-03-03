@@ -52,10 +52,9 @@ public class GroupChatServer {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-
     }
 
     public static void main(String[] args) throws Exception {
-        new GroupChatServer(7000).run();
+        new GroupChatServer(7080).run();
     }
 }

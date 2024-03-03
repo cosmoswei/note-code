@@ -9,7 +9,7 @@ public class Client {
     public static void main(String[] args) {
         try {
             // 创建Socket并连接服务器
-            Socket socket = new Socket("localhost", 8888);
+            Socket socket = new Socket("localhost", 8082);
             System.out.println("Connected to server: " + socket.getInetAddress());
 
             // 获取输入流和输出流
