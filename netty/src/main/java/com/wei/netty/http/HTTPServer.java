@@ -28,7 +28,7 @@ public class HTTPServer {
                             pipeline.addLast("handler", new HTTPServerHandler());
                         }
                     });
-            ChannelFuture future = bootstrap.bind(8080).sync();
+            ChannelFuture future = bootstrap.bind(8081).sync();
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
