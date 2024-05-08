@@ -16,7 +16,6 @@ import java.util.List;
  * https://github.com/spacewander/lua-resty-murmurhash3/blob/master/README.md#when-should-i-use-it
  * @see https://www.jianshu.com/p/5eca69c42c78
  */
-
 public class MurMurHashUtils {
 
     /**

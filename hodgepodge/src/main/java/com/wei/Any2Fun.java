@@ -36,7 +36,6 @@ public class Any2Fun {
         /**
          * 黑科技第三步，伪装
          * */
-
         CallSite applyAsInt = LambdaMetafactory.metafactory(
                 lookup,
                 "applyAsInt",
@@ -45,13 +44,9 @@ public class Any2Fun {
                 coder,
                 methodType(byte.class, String.class)
         );
-
         ToIntFunction<String> strCoder
                 = (ToIntFunction<String>) applyAsInt.getTarget().invoke();
-
         int yumiCoder = strCoder.applyAsInt("yumi");
-
         System.out.println(yumiCoder);
-
     }
 }

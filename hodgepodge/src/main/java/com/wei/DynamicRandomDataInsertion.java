@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 public class DynamicRandomDataInsertion {
+
+
     // JDBC连接参数
     public static final String JDBC_URL = "jdbc:mysql://localhost:3306/huangxuwei";
     public static final String USERNAME = "root";

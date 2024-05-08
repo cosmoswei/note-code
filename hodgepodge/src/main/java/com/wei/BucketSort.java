@@ -34,7 +34,7 @@ public class BucketSort {
 
     public static void main(String[] args) {
         int[] arr = {29, 25, 10, 7, 49, 36, 17};
-        int numBuckets = 5;
+        int numBuckets = 8;
 
         bucketSort(arr, numBuckets);
 

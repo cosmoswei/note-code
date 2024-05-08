@@ -45,10 +45,8 @@ public class EmailPrefixTree {
     public static void main(String[] args) {
         List<Email> emails = loadEmails(); // 加载邮件数据
         buildPrefixTree(emails); // 构建前缀树
-
         // 在前缀树中查找匹配的邮件
         List<Email> matchedEmails = searchEmails("send", emails);
-
         // 显示匹配的邮件
         for (Email email : matchedEmails) {
             System.out.println(email.getSender() + " - " + email.getTitle() + " - " + email.getSendTime());
@@ -67,14 +65,12 @@ public class EmailPrefixTree {
         emails.add(new Email("sender4@example.com", "Title 3", "2022-01-03 10:00:00"));
         emails.add(new Email("sender5@example.com", "Title 3", "2022-01-03 10:00:00"));
         // ...
-
         return emails;
     }
 
     // 构建前缀树的方法
     private static void buildPrefixTree(List<Email> emails) {
         root = new TrieNode();
-
         for (Email email : emails) {
             String sender = email.getSender().toLowerCase();
             String title = email.getTitle().toLowerCase();
