@@ -1,11 +1,12 @@
-package com.wei.lite.flow;
+package com.wei;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LiteFlowAppRun {
+public class AppRun {
     public static void main(String[] args) {
-        SpringApplication.run(LiteFlowAppRun.class, args);
+        SpringApplication.run(AppRun.class, args);
     }
 }

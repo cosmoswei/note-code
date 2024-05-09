@@ -1,6 +1,5 @@
 package com.wei.lite.flow.cmp;
 
-import com.wei.exexutor.CustomerDefaultNodeExecutor;
 import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.flow.executor.NodeExecutor;
 import org.springframework.stereotype.Component;
@@ -20,8 +19,10 @@ public class BCmp extends NodeComponent {
 //        SignContext signContext = this.getContextBean(SignContext.class);
 
     }
+
     @Override
     public Class<? extends NodeExecutor> getNodeExecutorClass() {
-        return CustomerDefaultNodeExecutor.class;
+//        return CustomerDefaultNodeExecutor.class;
+        return null;
     }
 }
