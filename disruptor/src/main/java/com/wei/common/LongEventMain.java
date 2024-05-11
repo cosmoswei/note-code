@@ -52,7 +52,7 @@ public class LongEventMain {
         for (long l = 0; true; l++) {
             //存入数据
             bb.putLong(0, l);
-            producer.onData(bb);
+            producer.onData1(bb);
             Thread.sleep(1000);
         }
     }

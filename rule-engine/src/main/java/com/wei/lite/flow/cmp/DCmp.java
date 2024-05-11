@@ -9,7 +9,5 @@ public class DCmp extends NodeComponent {
 	@Override
 	public void process() {
 		//do your business
-		System.out.println("ECmp");
-
 	}
 }

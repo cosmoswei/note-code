@@ -8,6 +8,6 @@ public class CCmp extends NodeComponent {
 
 	@Override
 	public void process() {
-		//do your business
+		System.err.println("this.getClass().getCanonicalName() = " + this.getClass().getCanonicalName());
 	}
 }
