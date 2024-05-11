@@ -10,5 +10,4 @@ public class DataAppRun {
     public static void main(String[] args) {
         SpringApplication.run(DataAppRun.class, args);
     }
-
 }

@@ -36,8 +36,16 @@ end
 
 rule "Amount based discount"
     when
-        OrderRequest(amount > 1000L)
+        OrderRequest(amount > 1000)
     then
         System.out.println("==========Adding 5% discount for amount more than 1000$=============");
     orderDiscount.setDiscount(orderDiscount.getDiscount() + 5);
+end
+
+rule "vip customerNumber"
+    when
+        OrderRequest(customerNumber == "11111")
+    then
+        System.out.println("==========Adding 20% discount for vip customerNumber$=============");
+    orderDiscount.setDiscount(orderDiscount.getDiscount() + 20);
 end

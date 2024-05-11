@@ -22,7 +22,7 @@ public class DroolsConfig {
         KieBuilder kb = kieServices.newKieBuilder(kieFileSystem);
         kb.buildAll();
         KieModule kieModule = kb.getKieModule();
-        KieContainer kieContainer = kieServices.newKieContainer(kieModule.getReleaseId());
-        return kieContainer;
+        return kieServices.newKieContainer(kieModule.getReleaseId());
     }
+
 }

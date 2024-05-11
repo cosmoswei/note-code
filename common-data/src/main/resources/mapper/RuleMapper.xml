@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.mapper.RuleMapper">
+
+    <select id="getByName" resultType="com.wei.entity.Rule">
+        SELECT *
+        FROM sys_rule
+        WHERE name = #{name}
+        limit 1
+    </select>
+
+    <insert id="save" parameterType="com.wei.entity.Rule">
+        INSERT INTO sys_rule (
+        id,
+        name,
+        content,
+        create_by,
+        update_by
+        ) VALUES (
+        #{rule.id},
+        #{rule.name},
+        #{rule.content},
+        #{rule.createBy},
+        #{rule.updateBy}
+        )
+    </insert>
+</mapper>

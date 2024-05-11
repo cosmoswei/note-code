@@ -15,7 +15,7 @@ import java.util.stream.LongStream;
 
 import static com.wei.mock.MockUtils.getMockDepartmentEmployees;
 
-@SpringBootTest
+@SpringBootTest(classes = DataAppRun.class)
 @Slf4j
 class AppTests {
 
@@ -33,7 +33,7 @@ class AppTests {
     private DepartmentEmployeesMapper departmentEmployeesMapper;
     @Resource
     private DepartmentEmployeesService departmentEmployeesService;
-    @Resource
+//    @Resource
 //    private DepartmentEmployeesRepository departmentEmployeesRepository;
 
     private final static Integer batchSize = 30000;

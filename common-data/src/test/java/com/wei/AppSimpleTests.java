@@ -31,7 +31,7 @@ class AppSimpleTests {
     @Resource
     private SingleFieldUpdate batchUpdateSingle;
     @Resource
-    private DepartmentEmployeesSimpleMapper DepartmentEmployeesSimpleMapper;
+    private DepartmentEmployeesSimpleMapper departmentEmployeesSimpleMapper;
     @Resource
     private DepartmentEmployeesSimpleService departmentEmployeesSimpleService;
 //    @Resource
@@ -43,7 +43,7 @@ class AppSimpleTests {
     void queryEmployee() {
         long start = System.currentTimeMillis();
         List<Long> ids = LongStream.range(0, batchSize).boxed().collect(Collectors.toList());
-        List<DepartmentEmployeesSimple> result = DepartmentEmployeesSimpleMapper.selectByIds(ids);
+        List<DepartmentEmployeesSimple> result = departmentEmployeesSimpleMapper.selectByIds(ids);
         System.out.println(result);
         long end = System.currentTimeMillis();
         System.out.println("=锚点=" + (end - start));
