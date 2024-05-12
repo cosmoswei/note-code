@@ -94,7 +94,7 @@ public class Test {
     }
 
     public static void test5(String[] args) {
-        User user = new User(1, "jack", "18");
+        User user = new User(1, "jack", "18", new Date());
         Map<String, Object> env = new HashMap<>();
         env.put("user", user);
 

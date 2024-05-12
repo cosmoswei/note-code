@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 
 @Component("e")
 @LiteflowCmpDefine(NodeTypeEnum.SWITCH)
-public class ECmp{
+public class ECmp {
 
     @LiteflowMethod(value = LiteFlowMethodEnum.PROCESS_SWITCH, nodeType = NodeTypeEnum.SWITCH)
     public String processSwitch(NodeComponent bindCmp) throws Exception {
-        System.out.println("Ecomp executed!");
-        return "g";
+        System.err.println("【NodeTypeEnum.SWITCH】this.getClass().getCanonicalName() = " + this.getClass().getCanonicalName());
+        return "s1";
     }
 }
