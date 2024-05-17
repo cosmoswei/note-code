@@ -26,4 +26,9 @@
         #{rule.updateBy}
         )
     </insert>
+
+    <delete id="delete" parameterType="string">
+        delete from sys_rule where name =
+        #{name}
+    </delete>
 </mapper>

@@ -14,5 +14,7 @@ public interface RuleMapper extends BaseMapper<Rule> {
 
     Rule getByName(@Param("name") String name);
 
-    void save(@Param("rule")Rule rule);
+    void save(@Param("rule") Rule rule);
+
+    void delete(@Param("name") String name);
 }

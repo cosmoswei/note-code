@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 @RestController
 @Slf4j
@@ -74,7 +73,8 @@ public class OrderDiscountController {
         rule.setName(name);
         rule.setContent(getContent(multipartFile));
         rule.setCreateBy("huangxuwei");
-        rule.setCreateTime(new Date());
+        rule.setUpdateBy("huangxuwei");
+        ruleMapper.delete(name);
         ruleMapper.save(rule);
         return Dict.create().set("msg", "添加成功。");
     }

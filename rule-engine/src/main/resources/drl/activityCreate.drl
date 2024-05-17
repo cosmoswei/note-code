@@ -65,3 +65,10 @@ rule "活动优惠信息在特定类型下不应为空"
         activityResult.setMsg(activityResult.getMsg().append("折扣类型活动必须提供优惠信息\n "));
         activityResult.setSuccess(false);
 end
+
+rule "其他规则"
+    when
+    Activity( params.get("name") !=   "huangxuwei" )
+    then
+    System.out.println("黄旭伟的规则");
+end

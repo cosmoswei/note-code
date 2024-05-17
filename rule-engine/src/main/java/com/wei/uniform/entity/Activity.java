@@ -3,6 +3,7 @@ package com.wei.uniform.entity;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.Map;
 
 @Data
 public class Activity {
@@ -28,4 +29,8 @@ public class Activity {
     private Date tmRequest;
     // 创建人
     private String operatorId;
+    /**
+     * 参数
+     */
+    private Map<String,String> params;
 }
