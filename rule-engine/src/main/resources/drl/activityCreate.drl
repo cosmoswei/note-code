@@ -1,0 +1,67 @@
+import com.wei.uniform.entity.Activity
+import java.lang.String;
+import java.util.Date
+global java.util.Date date
+global com.wei.uniform.entity.ActivityResult activityResult
+
+dialect "java"
+// 规则1: 活动名称必须小于10并且不能有英文
+rule "名称"
+
+    when
+        Activity( name.length()> 10 || name not matches "^[^A-Za-z]+$")
+    then
+        // 则添加10%的折扣
+        activityResult.setMsg(activityResult.getMsg().append("活动名称必须小于10并且不能有英文\n "));
+        activityResult.setSuccess(false);
+end
+
+// 规则2： 活动日期大于现在
+rule "日期"
+    when
+     Activity( endDate <=   date )
+    then
+        activityResult.setMsg(activityResult.getMsg().append("活动结束日期小于现在\n "));
+        activityResult.setSuccess(false);
+end
+
+
+rule "活动名称不应为空"
+    when
+        $activity : Activity(name == null || name.length()==0)
+    then
+                activityResult.setMsg(activityResult.getMsg().append("活动名称不能为空\n "));
+                activityResult.setSuccess(false);
+end
+
+rule "活动开始日期应在当前日期之后"
+    when
+        $activity : Activity(startDate >=date)
+    then
+          activityResult.setMsg(activityResult.getMsg().append("活动开始日期应在当前日期之后\n "));
+                        activityResult.setSuccess(false);
+end
+
+rule "活动结束日期应在开始日期之后"
+    when
+        $activity : Activity(startDate >= endDate)
+    then
+           activityResult.setMsg(activityResult.getMsg().append("活动结束日期应在开始日期之后\n "));
+                                activityResult.setSuccess(false);
+end
+
+rule "活动类型必须指定"
+    when
+        $activity : Activity(type == null || type.length()<=0)
+    then
+           activityResult.setMsg(activityResult.getMsg().append("活动类型必须指定\n "));
+           activityResult.setSuccess(false);
+end
+
+rule "活动优惠信息在特定类型下不应为空"
+    when
+        $activity : Activity((type != null && type == "折扣" )&&( discountInfo == null || discountInfo.length()<=0))
+    then
+        activityResult.setMsg(activityResult.getMsg().append("折扣类型活动必须提供优惠信息\n "));
+        activityResult.setSuccess(false);
+end

@@ -2,11 +2,14 @@ package com.wei;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.lang.Dict;
+import com.wei.drools.ActivityService;
 import com.wei.drools.OrderDiscount;
 import com.wei.drools.OrderDiscountService;
 import com.wei.drools.OrderRequest;
 import com.wei.entity.Rule;
 import com.wei.mapper.RuleMapper;
+import com.wei.uniform.entity.Activity;
+import com.wei.uniform.entity.ActivityResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,18 +33,32 @@ public class OrderDiscountController {
     @Resource
     private RuleMapper ruleMapper;
     @Resource
+    private ActivityService activityService;
+    @Resource
     private OrderDiscountService orderDiscountService;
 
-    @PostMapping("/getDiscount/v1")
-    public ResponseEntity<OrderDiscount> getDiscount(@RequestBody OrderRequest orderRequest) {
-        OrderDiscount discount = orderDiscountService.getDiscount(orderRequest);
-        return new ResponseEntity<>(discount, HttpStatus.OK);
-    }
+//    @PostMapping("/getDiscount/v1")
+//    public ResponseEntity<OrderDiscount> getDiscount(@RequestBody OrderRequest orderRequest) {
+//        OrderDiscount discount = orderDiscountService.getDiscount(orderRequest);
+//        return new ResponseEntity<>(discount, HttpStatus.OK);
+//    }
 
     @PostMapping("/getDiscount/v2")
     public ResponseEntity<OrderDiscount> getDiscount2(@RequestBody OrderRequest orderRequest) {
         OrderDiscount discount = orderDiscountService.getDiscount2(orderRequest);
         return new ResponseEntity<>(discount, HttpStatus.OK);
+    }
+
+    @PostMapping("/getActivity")
+    public ResponseEntity<ActivityResult> getActivity(@RequestBody Activity activity) {
+        ActivityResult activityResult = null;
+        try {
+            activityResult = activityService.getActivity(activity);
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            return new ResponseEntity<>(activityResult, HttpStatus.NOT_EXTENDED);
+        }
+        return new ResponseEntity<>(activityResult, HttpStatus.OK);
     }
 
     @PostMapping("/save")

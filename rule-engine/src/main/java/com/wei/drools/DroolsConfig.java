@@ -13,12 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class DroolsConfig {
     // 制定规则文件的路径
     private static final String RULES_CUSTOMER_RULES_DRL = "drl/test.drl";
+    private static final String ACTIVITY_RULES_DRL = "drl/activityCreate.drl";
     private static final KieServices kieServices = KieServices.Factory.get();
 
+//    @Bean
+//    public KieContainer kieContainer() {
+//        KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
+//        kieFileSystem.write(ResourceFactory.newClassPathResource(RULES_CUSTOMER_RULES_DRL));
+//        KieBuilder kb = kieServices.newKieBuilder(kieFileSystem);
+//        kb.buildAll();
+//        KieModule kieModule = kb.getKieModule();
+//        return kieServices.newKieContainer(kieModule.getReleaseId());
+//    }
+
     @Bean
-    public KieContainer kieContainer() {
+    public KieContainer activityContainer() {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        kieFileSystem.write(ResourceFactory.newClassPathResource(RULES_CUSTOMER_RULES_DRL));
+        kieFileSystem.write(ResourceFactory.newClassPathResource(ACTIVITY_RULES_DRL));
         KieBuilder kb = kieServices.newKieBuilder(kieFileSystem);
         kb.buildAll();
         KieModule kieModule = kb.getKieModule();
