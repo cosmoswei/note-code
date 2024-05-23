@@ -14,8 +14,8 @@ public class DynamicRandomDataInsertion {
     public static final String USERNAME = "root";
     public static final String PASSWORD = "huangxuwei";
     public static final String DATA_BASE_NAME = "huangxuwei";
-    public static final String TABLE_NAME = "e_commerce_users";
-    public static final int NUM_ROWS_TO_INSERT = 1_000;
+    public static final String TABLE_NAME = "t_user_tags";
+    public static final int NUM_ROWS_TO_INSERT = 100_000;
 
     public static void main(String[] args) {
         dynamicRandomDataInsertion(TABLE_NAME, NUM_ROWS_TO_INSERT);

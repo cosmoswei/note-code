@@ -118,7 +118,7 @@ public class BeanUtils {
             String methodName = "set" + capitalize(key);
             // 查找匹配的方法
             Method targetMethod = null;
-            for (Method method : UniformRequest.class.getMethods()) {
+            for (Method method : clazz.getMethods()) {
                 if (method.getName().equals(methodName) && method.getParameterCount() == 1) {
                     Class<?> parameterType = method.getParameterTypes()[0];
                     if (parameterType.isAssignableFrom(LinkedHashMap.class)) {
