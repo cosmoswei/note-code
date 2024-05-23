@@ -8,7 +8,7 @@ public class Solution_86 {
     public static void main(String[] args) {
 
         int[] arr = {1, 4, 3, 2, 5, 2};
-        int x = 3;
+        int x = 12;
         ListNode listNode = LeetCodeUtils.arrayToList(arr);
         LeetCodeUtils.printList(listNode);
         Solution_86 solution86 = new Solution_86();

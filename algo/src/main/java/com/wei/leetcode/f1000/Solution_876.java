@@ -7,7 +7,7 @@ public class Solution_876 {
 
     public static void main(String[] args) {
         Solution_876 solution876 = new Solution_876();
-        int[] nums = {1, 2, 3, 4, 5};
+        int[] nums = {1, 2, 3, 4, 5,6};
         ListNode listNode = LeetCodeUtils.arrayToList(nums);
         ListNode res = solution876.middleNode(listNode);
         LeetCodeUtils.printList(res);

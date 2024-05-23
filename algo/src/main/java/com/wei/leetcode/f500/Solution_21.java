@@ -1,13 +1,19 @@
 package com.wei.leetcode.f500;
 
+import com.wei.leetcode.LeetCodeUtils;
 import com.wei.leetcode.ListNode;
 
 public class Solution_21 {
 
     public static void main(String[] args) {
+        int[] nums = new int[]{1, 4};
+        int[] nums2 = new int[]{1, 2, 3};
+        ListNode listNode = LeetCodeUtils.arrayToList(nums);
+        ListNode listNode2 = LeetCodeUtils.arrayToList(nums2);
+        LeetCodeUtils.printList(mergeTwoLists(listNode, listNode2));
     }
 
-    ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         // 虚拟头结点
         ListNode dummy = new ListNode(-1), p = dummy;
         ListNode p1 = l1, p2 = l2;
@@ -24,6 +30,7 @@ public class Solution_21 {
             }
             // p 指针不断前进
             p = p.next;
+            LeetCodeUtils.printList(p);
         }
 
         if (p1 != null) {
@@ -33,8 +40,7 @@ public class Solution_21 {
         if (p2 != null) {
             p.next = p2;
         }
-
+        LeetCodeUtils.printList(dummy);
         return dummy.next;
     }
-
 }
