@@ -3,9 +3,9 @@ package com.wei.leetcode.f500;
 public class Solution_27 {
 
     public static void main(String[] args) {
-        Solution_27 solution26 = new Solution_27();
+        Solution_27 solution = new Solution_27();
         int[] nums = {3, 2, 1, 3};
-        int i = solution26.removeElement2(nums, 3);
+        int i = solution.removeElement2(nums, 3);
         System.out.println("i = " + i);
     }
 

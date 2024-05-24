@@ -1,32 +1,37 @@
 package other;
 
+import com.wei.leetcode.LeetCodeUtils;
+import com.wei.leetcode.TreeNode;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Test {
 
     public static void main(String[] args) {
-
-        int[] int1 = {1, 4, 5};
-        int[] int2 = {1, 3, 4};
-        int[] int3 = {2, 6, 9};
-        Test solution23 = new Test();
-        solution23.test(int2, 2);
+        int[] nums = {3, 9, 20, 00, 0, 15, 7};
+        TreeNode treeNode = LeetCodeUtils.arrayToTree(nums);
+        System.out.println(treeNode);
+        levelTraverse(treeNode);
     }
 
-    public static void test(int[] que, int bignum) {
-        int n = que.length;
-        int l = 0, r = 0, al = 0, ar = n;
-        while (r <= n) {
-            if (que[r] - que[l] < bignum) {
-                r++;
-            } else {
-                if (r - l < ar - al) {
-                    ar = r;
-                    al = l;
+    // 输入一棵二叉树的根节点，层序遍历这棵二叉树
+    static void levelTraverse(TreeNode root) {
+        if (root == null) return;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int sz = q.size();
+            for (int i = 0; i < sz; i++) {
+                TreeNode cur = q.poll();
+                System.out.print(cur.val + " ");
+                if (cur.left != null) {
+                    q.offer(cur.left);
                 }
-                l++;
+                if (cur.right != null) {
+                    q.offer(cur.right);
+                }
             }
         }
-        System.out.println((al + 1) + " " + ar);
     }
-
-
 }

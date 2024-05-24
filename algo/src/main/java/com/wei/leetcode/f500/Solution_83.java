@@ -29,19 +29,4 @@ public class Solution_83 {
         slow.next = null;
         return head;
     }
-
-    ListNode deleteDuplicates1(ListNode head) {
-        if (head == null) return null;
-        ListNode fast = head;
-        ListNode slow = head;
-        while (null != fast) {
-            if (fast.val != slow.val) {
-                slow.next = fast;
-                slow = slow.next;
-            }
-            fast = fast.next;
-        }
-        slow.next = null;
-        return head;
-    }
 }

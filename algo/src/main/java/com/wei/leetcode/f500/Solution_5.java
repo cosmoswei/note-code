@@ -4,17 +4,13 @@ package com.wei.leetcode.f500;
 public class Solution_5 {
 
     public static void main(String[] args) {
-        String aba = longestPalindrome2("aabxxaxbaa");
+        String aba = longestPalindrome("aabxxaxbaa");
         String aba2 = palindrome("aabxxaxbaa", 5, 5);
         System.out.println("aba = " + aba);
         System.out.println("aba2 = " + aba2);
     }
 
-    static public String longestPalindrome(String s) {
-        return "";
-    }
-
-    static String longestPalindrome2(String s) {
+    static String longestPalindrome(String s) {
         String res = "";
         for (int i = 0; i < s.length(); i++) {
             // 以 s[i] 为中心的最长回文子串
