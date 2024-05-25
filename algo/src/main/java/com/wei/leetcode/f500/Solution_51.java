@@ -7,8 +7,8 @@ public class Solution_51 {
 
     public static void main(String[] args) {
         Solution_51 solution = new Solution_51();
-        List<List<String>> ints = solution.solveNQueens(8);
-        System.out.println("ints" + ints);
+        List<List<String>> res = solution.solveNQueens(4);
+        res.forEach(System.out::println);
     }
 
     List<List<String>> res = new ArrayList<>();
@@ -32,8 +32,10 @@ public class Solution_51 {
     // 选择列表：第 row 行的所有列都是放置皇后的选择
     // 结束条件：row 超过 board 的最后一行
     void backtrack(List<String> board, int row) {
+        System.out.println("row = " + row);
         // 触发结束条件
         if (row == board.size()) {
+            System.out.println("board = " + board);
             res.add(new ArrayList<>(board));
             return;
         }
@@ -69,16 +71,14 @@ public class Solution_51 {
         }
 
         /* 检查右上方是否有皇后互相冲突 */
-        for (int i = row - 1, j = col + 1;
-             i >= 0 && j < n; i--, j++) {
+        for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
             if (board.get(i).charAt(j) == 'Q') {
                 return false;
             }
         }
 
         /* 检查左上方是否有皇后互相冲突 */
-        for (int i = row - 1, j = col - 1;
-             i >= 0 && j >= 0; i--, j--) {
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
             if (board.get(i).charAt(j) == 'Q') {
                 return false;
             }
