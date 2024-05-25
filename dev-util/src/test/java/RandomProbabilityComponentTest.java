@@ -1,6 +1,7 @@
 import com.wei.util.random.RandomProbabilityComponent;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class RandomProbabilityComponentTest {
     public static void main(String[] args) {
