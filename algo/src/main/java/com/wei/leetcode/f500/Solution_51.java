@@ -32,10 +32,9 @@ public class Solution_51 {
     // 选择列表：第 row 行的所有列都是放置皇后的选择
     // 结束条件：row 超过 board 的最后一行
     void backtrack(List<String> board, int row) {
-        System.out.println("row = " + row);
         // 触发结束条件
+        System.out.println("row = " + row);
         if (row == board.size()) {
-            System.out.println("board = " + board);
             res.add(new ArrayList<>(board));
             return;
         }
@@ -56,6 +55,7 @@ public class Solution_51 {
             // 撤销选择
             sb.setCharAt(col, '.');
             board.set(row, sb.toString());
+            System.out.println("===========");
         }
     }
 
