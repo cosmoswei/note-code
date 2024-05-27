@@ -5,7 +5,6 @@ import java.util.Deque;
 
 class Solution_1696 {
 
-
     public static void main(String[] args) {
         int[] nums = {10, -5, -2, 4, 0, 3};
         Solution_1696 solution = new Solution_1696();

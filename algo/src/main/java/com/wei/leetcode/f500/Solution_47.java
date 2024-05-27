@@ -1,31 +1,27 @@
 package com.wei.leetcode.f500;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-public class Solution_46 {
+public class Solution_47 {
 
     public static void main(String[] args) {
-        Solution_46 solution = new Solution_46();
-        int[] int1 = {1, 4, 5};
-        IntStream.of(int1)
-                .boxed()
-                .collect(Collectors.toList());
-        List<List<Integer>> ints = solution.permute(int1);
-        System.out.println("ints" + ints);
+        Solution_47 solution = new Solution_47();
+        int[] int1 = {1, 2, 2, 2};
+        List<List<Integer>> res = solution.permuteUnique(int1);
+        System.out.println("res" + res);
     }
 
     List<List<Integer>> res = new LinkedList<>();
+    // 记录「路径」
+    LinkedList<Integer> track = new LinkedList<>();
 
     /* 主函数，输入一组不重复的数字，返回它们的全排列 */
-    List<List<Integer>> permute(int[] nums) {
-        // 记录「路径」
-        LinkedList<Integer> track = new LinkedList<>();
+    List<List<Integer>> permuteUnique(int[] nums) {
+        Arrays.sort(nums);
         // 「路径」中的元素会被标记为 true，避免重复使用
         boolean[] used = new boolean[nums.length];
-
         backtrack(nums, track, used);
         return res;
     }
@@ -46,6 +42,11 @@ public class Solution_46 {
                 // nums[i] 已经在 track 中，跳过
                 continue;
             }
+
+            if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
+                continue;
+            }
+
             // 做选择
             track.add(nums[i]);
             used[i] = true;
