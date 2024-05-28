@@ -7,7 +7,7 @@ public class Solution_76 {
 
     public static void main(String[] args) {
 
-        System.out.println(minWindow("ADOBECODEBANC", "ABC"));
+        System.out.println(minWindow("ADOBECODEBANC", "ABCC"));
     }
 
 

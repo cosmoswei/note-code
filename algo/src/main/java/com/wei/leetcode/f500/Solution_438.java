@@ -8,7 +8,7 @@ import java.util.Map;
 public class Solution_438 {
 
     public static void main(String[] args) {
-        System.out.println("findAnagrams = " + findAnagrams2("cbaebabacd", "abc"));
+        System.out.println("findAnagrams = " + findAnagrams2("cbaebabacdbac", "abc"));
     }
 
     public static List<Integer> findAnagrams(String s, String p) {
