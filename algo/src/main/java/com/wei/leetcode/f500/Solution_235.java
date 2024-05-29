@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution_235 {
+
     /*
     作者：力扣官方题解
     链接：https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-search-tree/solutions/428633/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-26/
@@ -39,6 +40,17 @@ class Solution_235 {
         }
         path.add(node);
         return path;
+    }
+
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        int val = root.val;
+        if(p.val>val&&q.val>val) {
+            return lowestCommonAncestor2(root.right, p, q);
+        }
+        if(p.val<val&&q.val<val) {
+            return lowestCommonAncestor2(root.left, p, q);
+        }
+        return root;
     }
 }
 
