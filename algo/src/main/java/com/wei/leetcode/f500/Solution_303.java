@@ -7,10 +7,6 @@ public class Solution_303 {
 
     private int[] preSum;
 
-//    public Solution_303(int[] nums) {
-//        this.nums = nums;
-//    }
-
     public Solution_303(int[] nums) {
         preSum = new int[nums.length + 1];
         for (int i = 1; i < nums.length + 1; i++) {
@@ -18,12 +14,11 @@ public class Solution_303 {
         }
     }
 
-
     public static void main(String[] args) {
 
-        int[] nums = {2, 7, 11, 15};
+        int[] nums = {2, 7, 11, 15,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
         Solution_303 solution303 = new Solution_303(nums);
-        System.out.println("sumRange = " + solution303.sumRange(1, 3));
+        System.out.println("sumRange = " + solution303.sumRange(0,10));
     }
 
     public int sumRange(int left, int right) {
