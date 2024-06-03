@@ -13,7 +13,7 @@ public class Solution_104 {
         int[] nums = {3, 9, 20, 00, 0, 15, 7};
         TreeNode treeNode = LeetCodeUtils.arrayToTree(nums);
         LeetCodeUtils.printPreorder(treeNode);
-        int i = solution19.maxDepth2(treeNode);
+        int i = solution19.maxDepth(treeNode);
         System.out.println();
         System.out.println("i = " + i);
     }

@@ -57,4 +57,31 @@ class Solution_105 {
         TreeNode treeNode = solution.buildTree(nums1, nums2);
         LeetCodeUtils.printPreorder(treeNode);
     }
+
+    public TreeNode buildTree2(int[] preorder, int[] inorder) {
+
+        for (int i = 0; i < preorder.length; i++) {
+            valIndexMap.put(inorder[i], i);
+        }
+        return build(preorder, 0, preorder.length - 1,
+                inorder, 0, inorder.length - 1);
+    }
+
+    Map<Integer, Integer> valIndexMap = new HashMap<>();
+
+    private TreeNode build(int[] preorder, int preStart, int preEnd,
+                           int[] inorder, int inStart, int inEnd) {
+        if (preStart > preEnd) {
+            return null;
+        }
+        int rootVal = preorder[preStart];
+        Integer index = valIndexMap.get(rootVal);
+        TreeNode root = new TreeNode(rootVal);
+        int leftSize = index - inStart;
+        root.left = build(preorder, preStart + 1, preStart + leftSize,
+                inorder, inStart, index - 1);
+        root.right = build(preorder, preStart + leftSize + 1, preEnd,
+                inorder, index + 1, inEnd);
+        return root;
+    }
 }
