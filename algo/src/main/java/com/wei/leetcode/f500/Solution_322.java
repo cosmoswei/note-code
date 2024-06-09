@@ -7,8 +7,8 @@ public class Solution_322 {
     public static void main(String[] args) {
         Solution_322 solution = new Solution_322();
         int[] nums = {1, 5, 10, 20};
-        int target = 11;
-        System.out.println(solution.coinChange(nums, target));
+        int target = 100;
+        System.out.println(solution.coinChange2(nums, target));
     }
 
     int[] memo;
@@ -18,7 +18,42 @@ public class Solution_322 {
         // 备忘录初始化为一个不会被取到的特殊值，代表还未被计算
         Arrays.fill(memo, -666);
         // 题目要求的最终结果是 dp(amount)
-        return dp(coins, amount);
+        return dp2(coins, amount);
+    }
+
+    int coinChange2(int[] coins, int amount) {
+        // 题目要求的最终结果是 dp(amount)
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        for (int i = 1; i < dp.length; i++) {
+            for (int coin : coins) {
+                if (i - coin < 0) {
+                    continue;
+                }
+                dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+            }
+        }
+        return dp[amount] == amount + 1 ? -1 : dp[amount];
+    }
+
+    int dp2(int[] coins, int amount) {
+        System.out.println("amount = " + amount);
+        if (amount == 0) {
+            return 0;
+        }
+        if (amount < 0) {
+            return -1;
+        }
+        int res = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            int i = dp2(coins, amount - coin);
+            if (i == -1) {
+                continue;
+            }
+            res = Math.min(res, i + 1);
+        }
+        return res == Integer.MAX_VALUE ? -1 : res;
     }
 
     // 定义：要凑出金额 n，至少要 dp(coins, n) 个硬币
