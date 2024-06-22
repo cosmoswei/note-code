@@ -10,7 +10,8 @@ public class UserService {
     TicketService ticketService;
 
     public String byTicket() {
-        System.out.println("在注册中心拿到票=》》》》" + ticketService.getTicket());
-        return ticketService.getTicket();
+        Long ticketId = ticketService.getTicketId();
+        System.out.println("在注册中心拿到票 = " + ticketService.queryTicketById(ticketId));
+        return "ticketId=" + ticketId + ", ticketInfo = " + ticketService.queryTicketById(ticketId);
     }
 }

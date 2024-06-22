@@ -1,5 +1,6 @@
 package com.wei.service;
 
 public interface TicketService {
-    String getTicket();
+    String queryTicketById(Long ticketId);
+    Long getTicketId();
 }
