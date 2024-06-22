@@ -8,14 +8,11 @@ import java.util.Map;
 public class Solution_438 {
 
     public static void main(String[] args) {
-        System.out.println("findAnagrams = " + findAnagrams2("cbaebabacdbac", "abc"));
+        System.out.println("findAnagrams = " + findAnagrams("cbaebabacd", "abc"));
     }
 
-    public static List<Integer> findAnagrams(String s, String p) {
-        return null;
-    }
 
-    public static List<Integer> findAnagrams2(String s, String t) {
+    public static List<Integer> findAnagrams(String s, String t) {
         Map<Character, Integer> need = new HashMap<>();
         Map<Character, Integer> window = new HashMap<>();
         for (int i = 0; i < t.length(); i++) {
