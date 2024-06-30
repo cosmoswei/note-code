@@ -3,11 +3,9 @@ package com.wei.service;
 import com.wei.SeataIdWorker;
 import com.wei.WorkIdGenerator;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.springframework.stereotype.Component;
 
 
 @DubboService
-@Component
 public class TicketServiceImpl implements TicketService {
 
     @Override

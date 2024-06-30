@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class UserService {
 
     @DubboReference
-    TicketService ticketService;
+    private TicketService ticketService;
 
     public String byTicket() {
         Long ticketId = ticketService.getTicketId();

@@ -60,6 +60,7 @@
             <artifactId>curator-recipes</artifactId>
             <version>5.1.0</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
         <dependency>
             <groupId>org.apache.curator</groupId>
