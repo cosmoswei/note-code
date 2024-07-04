@@ -36,3 +36,5 @@ build/
 
 #custom
 *.json
+/log/
+*.log
