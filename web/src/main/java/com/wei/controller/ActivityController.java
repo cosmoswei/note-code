@@ -1,4 +1,4 @@
-package com.wei;
+package com.wei.controller;
 
 import com.wei.drools.ActivityService;
 import com.wei.mapper.RuleMapper;
