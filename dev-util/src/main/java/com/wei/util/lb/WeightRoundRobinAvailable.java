@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 加权轮询算法：加入存活状态，降权使宕机权重降低，从而不会被选中
  */
-public class WeightedRoundRobinAvailable {
+public class WeightRoundRobinAvailable {
 
     private static List<ServerNode> serverNodes = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public class WeightedRoundRobinAvailable {
         int loop = 18;
 
         new Thread(() -> {
-            WeightedRoundRobinAvailable weightedRoundRobin1 = new WeightedRoundRobinAvailable();
+            WeightRoundRobinAvailable weightedRoundRobin1 = new WeightRoundRobinAvailable();
             for (int i = 1; i <= loop; i++) {
                 ServerNode serverNode = weightedRoundRobin1.selectNode();
                 System.out.println(Thread.currentThread().getName() + "==第" + i + "次轮询选中[当前权重最大]的节点：" + serverNode + "\n");
@@ -91,7 +91,7 @@ public class WeightedRoundRobinAvailable {
         }).start();
         //
         new Thread(() -> {
-            WeightedRoundRobinAvailable weightedRoundRobin2 = new WeightedRoundRobinAvailable();
+            WeightRoundRobinAvailable weightedRoundRobin2 = new WeightRoundRobinAvailable();
             for (int i = 1; i <= loop; i++) {
                 ServerNode serverNode = weightedRoundRobin2.selectNode();
                 System.out.println(Thread.currentThread().getName() + "==第" + i + "次轮询选中[当前权重最大]的节点：" + serverNode + "\n");

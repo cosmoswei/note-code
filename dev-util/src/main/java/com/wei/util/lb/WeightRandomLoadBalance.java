@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 /**
  * 权重随机负载均衡算法
  */
-public class WeightedRandomLoadBalanceV2 {
+public class WeightRandomLoadBalance {
     private List<Node> nodes;
     private Random random;
 
-    public WeightedRandomLoadBalanceV2() {
+    public WeightRandomLoadBalance() {
         this.nodes = new ArrayList<>();
         this.random = new Random();
     }
@@ -41,7 +41,7 @@ public class WeightedRandomLoadBalanceV2 {
     }
 
     public static void main(String[] args) {
-        WeightedRandomLoadBalanceV2 loadBalanceV2 = new WeightedRandomLoadBalanceV2();
+        WeightRandomLoadBalance loadBalanceV2 = new WeightRandomLoadBalance();
         // 添加3个节点，权重分别为2、3、5
         loadBalanceV2.addNode(new Node("A", 2));
         loadBalanceV2.addNode(new Node("B", 3));

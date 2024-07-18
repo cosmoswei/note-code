@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 加权轮询算法
  */
-public class WeightedRoundRobin {
+public class WeightRoundRobin {
 
     private static List<Node> nodes = new ArrayList<>();
     // 权重之和
@@ -32,7 +32,7 @@ public class WeightedRoundRobin {
         Node nodeOfMaxWeight = null; // 保存轮询选中的节点信息
 //      之前写错的代码
 //      synchronized (nodes){
-        synchronized (WeightedRoundRobin.class) {
+        synchronized (WeightRoundRobin.class) {
             // 打印信息对象：避免并发时打印出来的信息太乱，不利于观看结果
             StringBuffer sb = new StringBuffer();
             sb.append(Thread.currentThread().getName() + "==加权轮询--[当前权重]值的变化：" + printCurrentWeight(nodes));
@@ -70,17 +70,17 @@ public class WeightedRoundRobin {
     // 并发测试：两个线程循环获取节点
     public static void main(String[] args) {
         Thread thread = new Thread(() -> {
-            WeightedRoundRobin weightedRoundRobin1 = new WeightedRoundRobin();
+            WeightRoundRobin weightRoundRobin1 = new WeightRoundRobin();
             for (int i = 1; i <= totalWeight; i++) {
-                Node node = weightedRoundRobin1.selectNode();
+                Node node = weightRoundRobin1.selectNode();
                 System.out.println(Thread.currentThread().getName() + "==第" + i + "次轮询选中[当前权重最大]的节点：" + node + "\n");
             }
         });
         thread.start();
         //
-        WeightedRoundRobin weightedRoundRobin2 = new WeightedRoundRobin();
+        WeightRoundRobin weightRoundRobin2 = new WeightRoundRobin();
         for (int i = 1; i <= totalWeight; i++) {
-            Node node = weightedRoundRobin2.selectNode();
+            Node node = weightRoundRobin2.selectNode();
             System.out.println(Thread.currentThread().getName() + "==第" + i + "次轮询选中[当前权重最大]的节点：" + node + "\n");
         }
 

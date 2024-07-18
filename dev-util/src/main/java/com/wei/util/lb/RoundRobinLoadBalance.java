@@ -25,24 +25,15 @@ public class RoundRobinLoadBalance {
         servers.add("Server A");
         servers.add("Server B");
         servers.add("Server C");
-
-        RoundRobinLoadBalance loadBalancer = new RoundRobinLoadBalance(servers);
-
-        // 模拟10次请求
-//        for (int i = 0; i < 1000000; i++) {
-//            String server = loadBalancer.getNextServer();
-//            System.out.println("Request " + (i + 1) + " routed to " + server);
-//        }
-
+        RoundRobinLoadBalance loadBalance = new RoundRobinLoadBalance(servers);
         List<String> res = new ArrayList<>(1000000);
         // 模拟10次随机选择
         for (int i = 0; i < 1000000; i++) {
-            String server = loadBalancer.getNextServer();
+            String server = loadBalance.getNextServer();
             res.add(server);
         }
         Map<String, Long> fruitCountMap = res.stream()
                 .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
-
         for (Map.Entry<String, Long> entry : fruitCountMap.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }

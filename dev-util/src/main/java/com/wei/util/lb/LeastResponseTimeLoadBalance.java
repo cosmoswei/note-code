@@ -42,9 +42,7 @@ public class LeastResponseTimeLoadBalance {
         servers.add("Server A");
         servers.add("Server B");
         servers.add("Server C");
-
         LeastResponseTimeLoadBalance loadBalancer = new LeastResponseTimeLoadBalance(servers);
-
         // 模拟10次请求
         for (int i = 0; i < 10; i++) {
             String server = loadBalancer.getNextServer();

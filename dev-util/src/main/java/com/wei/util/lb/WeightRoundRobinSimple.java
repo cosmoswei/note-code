@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * 简单版的加权轮询
  */
-public class WeightedRoundRobinSimple {
+public class WeightRoundRobinSimple {
     private static Integer index = 0;
     private static Map<String, Integer> mapNodes = new HashMap<>();
     // 记录轮询输出结果
@@ -38,7 +38,7 @@ public class WeightedRoundRobinSimple {
             }
         }
         String ip;
-        synchronized (WeightedRoundRobinSimple.class) {
+        synchronized (WeightRoundRobinSimple.class) {
             // 下标复位
             if (index >= nodes.size()) index = 0;
             ip = nodes.get(index);
@@ -51,7 +51,7 @@ public class WeightedRoundRobinSimple {
     // 并发测试：两个线程循环获取节点
     public static void main(String[] args) throws InterruptedException {
         new Thread(() -> {
-            WeightedRoundRobinSimple roundRobin1 = new WeightedRoundRobinSimple();
+            WeightRoundRobinSimple roundRobin1 = new WeightRoundRobinSimple();
             for (int i = 1; i <= 6; i++) {
                 roundRobin1.selectNode();
                 try {
@@ -63,7 +63,7 @@ public class WeightedRoundRobinSimple {
             }
         }).start();
         new Thread(() -> {
-            WeightedRoundRobinSimple roundRobin1 = new WeightedRoundRobinSimple();
+            WeightRoundRobinSimple roundRobin1 = new WeightRoundRobinSimple();
             for (int i = 1; i <= 6; i++) {
                 roundRobin1.selectNode();
                 try {

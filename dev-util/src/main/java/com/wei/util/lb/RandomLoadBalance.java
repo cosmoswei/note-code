@@ -25,17 +25,8 @@ public class RandomLoadBalance {
         servers.add("Server A");
         servers.add("Server B");
         servers.add("Server C");
-
         RandomLoadBalance loadBalancer = new RandomLoadBalance(servers);
-
-        // 模拟10次请求
-//        for (int i = 0; i < 10; i++) {
-//            String server = loadBalancer.getNextServer();
-//            System.out.println("Request " + (i + 1) + " routed to " + server);
-//        }
-
         List<String> res = new ArrayList<>(1000000);
-        // 模拟10次随机选择
         for (int i = 0; i < 1000000; i++) {
             String server = loadBalancer.getNextServer();
             res.add(server);
