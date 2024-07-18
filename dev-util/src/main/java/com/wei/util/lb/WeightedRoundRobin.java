@@ -1,6 +1,4 @@
-package com.wei.util.rr;
-
-import com.wei.util.NodeV2;
+package com.wei.util.lb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +8,15 @@ import java.util.List;
  */
 public class WeightedRoundRobin {
 
-    private static List<NodeV2> nodes = new ArrayList<>();
+    private static List<Node> nodes = new ArrayList<>();
     // 权重之和
     private static Integer totalWeight = 0;
 
     // 准备模拟数据
     static {
-        nodes.add(new NodeV2("192.168.1.101", 1));
-        nodes.add(new NodeV2("192.168.1.102", 3));
-        nodes.add(new NodeV2("192.168.1.103", 2));
+        nodes.add(new Node("192.168.1.101", 1));
+        nodes.add(new Node("192.168.1.102", 3));
+        nodes.add(new Node("192.168.1.103", 2));
         nodes.forEach(node -> totalWeight += node.getEffectiveWeight());
     }
 
@@ -27,11 +25,11 @@ public class WeightedRoundRobin {
      *
      * @return Node
      */
-    public NodeV2 selectNode() {
+    public Node selectNode() {
         if (nodes == null || nodes.size() <= 0) return null;
         if (nodes.size() == 1) return nodes.get(0);
 
-        NodeV2 nodeOfMaxWeight = null; // 保存轮询选中的节点信息
+        Node nodeOfMaxWeight = null; // 保存轮询选中的节点信息
 //      之前写错的代码
 //      synchronized (nodes){
         synchronized (WeightedRoundRobin.class) {
@@ -40,15 +38,15 @@ public class WeightedRoundRobin {
             sb.append(Thread.currentThread().getName() + "==加权轮询--[当前权重]值的变化：" + printCurrentWeight(nodes));
 
             // 选出当前权重最大的节点
-            NodeV2 tempNodeOfMaxWeight = null;
-            for (NodeV2 node : nodes) {
+            Node tempNodeOfMaxWeight = null;
+            for (Node node : nodes) {
                 if (tempNodeOfMaxWeight == null)
                     tempNodeOfMaxWeight = node;
                 else
                     tempNodeOfMaxWeight = tempNodeOfMaxWeight.compareTo(node) > 0 ? tempNodeOfMaxWeight : node;
             }
             // 必须new个新的节点实例来保存信息，否则引用指向同一个堆实例，后面的set操作将会修改节点信息
-            nodeOfMaxWeight = new NodeV2(tempNodeOfMaxWeight.getIp(), tempNodeOfMaxWeight.getWeight(), tempNodeOfMaxWeight.getEffectiveWeight(), tempNodeOfMaxWeight.getCurrentWeight());
+            nodeOfMaxWeight = new Node(tempNodeOfMaxWeight.getIp(), tempNodeOfMaxWeight.getWeight(), tempNodeOfMaxWeight.getEffectiveWeight(), tempNodeOfMaxWeight.getCurrentWeight());
 
             // 调整当前权重比：按权重（effectiveWeight）的比例进行调整，确保请求分发合理。
             tempNodeOfMaxWeight.setCurrentWeight(tempNodeOfMaxWeight.getCurrentWeight() - totalWeight);
@@ -63,7 +61,7 @@ public class WeightedRoundRobin {
     }
 
     // 格式化打印信息
-    private String printCurrentWeight(List<NodeV2> nodes) {
+    private String printCurrentWeight(List<Node> nodes) {
         StringBuffer stringBuffer = new StringBuffer("[");
         nodes.forEach(node -> stringBuffer.append(node.getCurrentWeight() + ","));
         return stringBuffer.substring(0, stringBuffer.length() - 1) + "]";
@@ -74,7 +72,7 @@ public class WeightedRoundRobin {
         Thread thread = new Thread(() -> {
             WeightedRoundRobin weightedRoundRobin1 = new WeightedRoundRobin();
             for (int i = 1; i <= totalWeight; i++) {
-                NodeV2 node = weightedRoundRobin1.selectNode();
+                Node node = weightedRoundRobin1.selectNode();
                 System.out.println(Thread.currentThread().getName() + "==第" + i + "次轮询选中[当前权重最大]的节点：" + node + "\n");
             }
         });
@@ -82,7 +80,7 @@ public class WeightedRoundRobin {
         //
         WeightedRoundRobin weightedRoundRobin2 = new WeightedRoundRobin();
         for (int i = 1; i <= totalWeight; i++) {
-            NodeV2 node = weightedRoundRobin2.selectNode();
+            Node node = weightedRoundRobin2.selectNode();
             System.out.println(Thread.currentThread().getName() + "==第" + i + "次轮询选中[当前权重最大]的节点：" + node + "\n");
         }
 

@@ -1,4 +1,4 @@
-package com.wei.util.rr;
+package com.wei.util.lb;
 
 import java.util.*;
 
@@ -16,18 +16,14 @@ public class WeightedRoundRobinSimple {
         mapNodes.put("192.168.1.101", 1);
         mapNodes.put("192.168.1.102", 3);
         mapNodes.put("192.168.1.103", 2);
-        /* -- 以下代码只为了方便查看所有节点，删除不影响 -- S */
         List<String> nodes = new ArrayList<>();
-        Iterator<Map.Entry<String, Integer>> iterator = mapNodes.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, Integer> entry = iterator.next();
+        for (Map.Entry<String, Integer> entry : mapNodes.entrySet()) {
             String key = entry.getKey();
             for (int i = 0; i < entry.getValue(); i++) {
                 nodes.add(key);
             }
         }
         System.out.println("简单版的加权轮询：" + nodes);//打印所有节点
-        /* -- 以上代码只为了方便查看所有节点，删除不影响-- E */
     }
 
     // 关键代码：类似于二维数组 降维成 一维数组，然后使用普通轮询
@@ -41,9 +37,7 @@ public class WeightedRoundRobinSimple {
                 nodes.add(key);
             }
         }
-        String ip = null;
-//      之前写错的代码
-//      synchronized (index){
+        String ip;
         synchronized (WeightedRoundRobinSimple.class) {
             // 下标复位
             if (index >= nodes.size()) index = 0;

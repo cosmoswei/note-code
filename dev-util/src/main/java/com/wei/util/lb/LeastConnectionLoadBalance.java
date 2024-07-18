@@ -1,37 +1,37 @@
-package com.wei.util.rr;
+package com.wei.util.lb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LeastResponseTimeLoadBalancer {
+public class LeastConnectionLoadBalance {
     private List<String> servers;
-    private Map<String, Integer> responseTimes;
+    private Map<String, Integer> connections;
 
-    public LeastResponseTimeLoadBalancer(List<String> servers) {
+    public LeastConnectionLoadBalance(List<String> servers) {
         this.servers = new ArrayList<>(servers);
-        this.responseTimes = new HashMap<>();
+        this.connections = new HashMap<>();
         for (String server : servers) {
-            responseTimes.put(server, 0);
+            connections.put(server, 0);
         }
     }
 
     public String getNextServer() {
         String selectedServer = null;
-        int minResponseTime = Integer.MAX_VALUE;
+        int minConnections = Integer.MAX_VALUE;
 
         for (String server : servers) {
-            int currentResponseTime = responseTimes.get(server);
-            if (currentResponseTime < minResponseTime) {
+            int currentConnections = connections.get(server);
+            if (currentConnections < minConnections) {
                 selectedServer = server;
-                minResponseTime = currentResponseTime;
+                minConnections = currentConnections;
             }
         }
 
         if (selectedServer != null) {
-            int currentResponseTime = responseTimes.get(selectedServer);
-            responseTimes.put(selectedServer, currentResponseTime + 1);
+            int currentConnections = connections.get(selectedServer);
+            connections.put(selectedServer, currentConnections + 1);
         }
 
         return selectedServer;
@@ -43,7 +43,7 @@ public class LeastResponseTimeLoadBalancer {
         servers.add("Server B");
         servers.add("Server C");
 
-        LeastResponseTimeLoadBalancer loadBalancer = new LeastResponseTimeLoadBalancer(servers);
+        LeastConnectionLoadBalance loadBalancer = new LeastConnectionLoadBalance(servers);
 
         // 模拟10次请求
         for (int i = 0; i < 10; i++) {

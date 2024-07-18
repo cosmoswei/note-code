@@ -1,4 +1,4 @@
-package com.wei.util.rr;
+package com.wei.util.lb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class RandomLoadBalancer {
+public class RandomLoadBalance {
     private List<String> servers;
     private Random random;
 
-    public RandomLoadBalancer(List<String> servers) {
+    public RandomLoadBalance(List<String> servers) {
         this.servers = new ArrayList<>(servers);
         this.random = new Random();
     }
@@ -26,7 +26,7 @@ public class RandomLoadBalancer {
         servers.add("Server B");
         servers.add("Server C");
 
-        RandomLoadBalancer loadBalancer = new RandomLoadBalancer(servers);
+        RandomLoadBalance loadBalancer = new RandomLoadBalance(servers);
 
         // 模拟10次请求
 //        for (int i = 0; i < 10; i++) {

@@ -1,15 +1,15 @@
-package com.wei.util.rr;
+package com.wei.util.lb;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class RoundRobinLoadBalancer {
+public class RoundRobinLoadBalance {
     private List<String> servers;
     private int currentIndex;
 
-    public RoundRobinLoadBalancer(List<String> servers) {
+    public RoundRobinLoadBalance(List<String> servers) {
         this.servers = new ArrayList<>(servers);
         this.currentIndex = 0;
     }
@@ -26,7 +26,7 @@ public class RoundRobinLoadBalancer {
         servers.add("Server B");
         servers.add("Server C");
 
-        RoundRobinLoadBalancer loadBalancer = new RoundRobinLoadBalancer(servers);
+        RoundRobinLoadBalance loadBalancer = new RoundRobinLoadBalance(servers);
 
         // 模拟10次请求
 //        for (int i = 0; i < 1000000; i++) {

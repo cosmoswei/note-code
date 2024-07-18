@@ -1,15 +1,15 @@
-package com.wei.util.rr;
+package com.wei.util.lb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class IpHashLoadBalancer {
+public class IpHashLoadBalance {
     private List<String> servers;
     private Map<String, Integer> serverIpHashes;
 
-    public IpHashLoadBalancer(List<String> servers) {
+    public IpHashLoadBalance(List<String> servers) {
         this.servers = new ArrayList<>(servers);
         this.serverIpHashes = new HashMap<>();
         for (String server : servers) {
@@ -30,7 +30,7 @@ public class IpHashLoadBalancer {
         servers.add("Server B");
         servers.add("Server C");
 
-        IpHashLoadBalancer loadBalancer = new IpHashLoadBalancer(servers);
+        IpHashLoadBalance loadBalancer = new IpHashLoadBalance(servers);
 
         // 模拟5个客户端IP
         String[] clientIps = {"192.168.0.1", "192.168.0.2", "192.168.0.3", "192.168.0.4", "192.168.0.5"};
