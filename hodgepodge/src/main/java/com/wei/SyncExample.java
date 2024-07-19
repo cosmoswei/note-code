@@ -28,7 +28,7 @@ public class SyncExample {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("method3 2 end");
+        System.out.println("method 3 end");
     }
 
     public static void main(String[] args) {
