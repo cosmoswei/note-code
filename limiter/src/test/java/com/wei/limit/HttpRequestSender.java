@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class HttpRequestSender {
 
     static int successCnt = 0;
-
     static int failCnt = 0;
     private static final String TARGET_URL = "http://localhost:8080/test11"; // 替换为你要发送请求的目标URL
 
@@ -24,10 +23,8 @@ public class HttpRequestSender {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         long start = System.currentTimeMillis();
         long end = start + 10 * 1000;
-
         // 设定任务，每隔1秒执行一次
         executorService.scheduleAtFixedRate(HttpRequestSender::sendHttpRequest, 0, 2, TimeUnit.MILLISECONDS);
-
         while (true) {
             if (end < System.currentTimeMillis()) {
                 executorService.shutdownNow();
@@ -42,25 +39,19 @@ public class HttpRequestSender {
         try {
             // 创建URL对象
             URL url = new URL(TARGET_URL);
-
             // 打开连接
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
             // 设置请求方法为GET
             connection.setRequestMethod("GET");
-
             // 获取响应码
             int responseCode = connection.getResponseCode();
-
             // 读取响应内容
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder response = new StringBuilder();
             String line;
-
             while ((line = reader.readLine()) != null) {
                 response.append(line);
             }
-
             // 打印响应信息
             log.info("response: {}", response);
 //            successCnt++;
