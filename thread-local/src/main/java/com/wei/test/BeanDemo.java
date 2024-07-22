@@ -10,23 +10,15 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Component
 @Slf4j
 public class BeanDemo {
-
     @Bean
     public ThreadPoolTaskExecutor asyncServiceExecutor() {
         log.info("start executor");
-
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-
         executor.setCorePoolSize(10);
-
         executor.setMaxPoolSize(20);
-
         executor.setQueueCapacity(200);
-
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-
         executor.setTaskDecorator(new CustomTaskDecorator());
-
         executor.initialize();
         log.info("exit executor");
         return executor;

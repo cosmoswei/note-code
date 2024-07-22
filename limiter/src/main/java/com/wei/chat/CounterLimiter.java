@@ -11,8 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 // 计速器 限速
 @Slf4j
-public class CounterLimiter
-{
+public class CounterLimiter {
 
     // 起始时间
     private static long startTime = System.currentTimeMillis();
@@ -24,30 +23,23 @@ public class CounterLimiter
     private static AtomicLong accumulator = new AtomicLong();
 
     // 计数判断, 是否超出限制
-    private static long tryAcquire(long taskId, int turn)
-    {
+    private static long tryAcquire(long taskId, int turn) {
         long nowTime = System.currentTimeMillis();
         //在时间区间之内
-        if (nowTime < startTime + interval)
-        {
+        if (nowTime < startTime + interval) {
             long count = accumulator.incrementAndGet();
 
-            if (count <= maxCount)
-            {
+            if (count <= maxCount) {
                 return count;
-            } else
-            {
+            } else {
                 return -count;
             }
-        } else
-        {
+        } else {
             //在时间区间之外
-            synchronized (CounterLimiter.class)
-            {
+            synchronized (CounterLimiter.class) {
                 log.info("新时间区到了,taskId{}, turn {}..", taskId, turn);
                 // 再一次判断，防止重复初始化
-                if (nowTime > startTime + interval)
-                {
+                if (nowTime > startTime + interval) {
                     accumulator.set(0);
                     startTime = nowTime;
                 }
@@ -60,8 +52,7 @@ public class CounterLimiter
     private ExecutorService pool = Executors.newFixedThreadPool(10);
 
     @Test
-    public void testLimit()
-    {
+    public void testLimit() {
 
         // 被限制的次数
         AtomicInteger limited = new AtomicInteger(0);
@@ -72,29 +63,20 @@ public class CounterLimiter
         // 同步器
         CountDownLatch countDownLatch = new CountDownLatch(threads);
         long start = System.currentTimeMillis();
-        for (int i = 0; i < threads; i++)
-        {
+        for (int i = 0; i < threads; i++) {
             pool.submit(() ->
             {
-                try
-                {
-
-                    for (int j = 0; j < turns; j++)
-                    {
-
+                try {
+                    for (int j = 0; j < turns; j++) {
                         long taskId = Thread.currentThread().getId();
                         long index = tryAcquire(taskId, j);
-                        if (index <= 0)
-                        {
+                        if (index <= 0) {
                             // 被限制的次数累积
                             limited.getAndIncrement();
                         }
                         Thread.sleep(200);
                     }
-
-
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 //等待所有线程结束
@@ -102,11 +84,9 @@ public class CounterLimiter
 
             });
         }
-        try
-        {
+        try {
             countDownLatch.await();
-        } catch (InterruptedException e)
-        {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         float time = (System.currentTimeMillis() - start) / 1000F;

@@ -8,7 +8,6 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Configuration
 public class Main {
-
     public static void main(String[] args) {
         UserUtils.setUserId("1");
         String userId = UserUtils.getUserId();
@@ -21,5 +20,4 @@ public class Main {
             System.out.println(UserUtils.getUserId());
         });
     }
-
 }
