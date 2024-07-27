@@ -1,4 +1,4 @@
-package com.wei.sigar;
+package com.wei.oshi;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
