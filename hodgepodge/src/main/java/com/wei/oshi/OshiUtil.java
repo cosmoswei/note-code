@@ -26,8 +26,8 @@ public class OshiUtil {
         SystemInfo si = new SystemInfo();
 
         HardwareAbstractionLayer hal = si.getHardware();
+        System.out.println("Checking OS...");
         OperatingSystem os = si.getOperatingSystem();
-
         System.out.println(os);
 
         System.out.println("Checking computer system...");
@@ -67,13 +67,12 @@ public class OshiUtil {
         System.out.println("Checking Displays...");
         printDisplays(hal.getDisplays());
 
-        // hardware: USB devices
-        //System.out.println("Checking USB Devices...");
-        //printUsbDevices(hal.getUsbDevices(true));
+//         hardware: USB devices
+        System.out.println("Checking USB Devices...");
+        printUsbDevices(hal.getUsbDevices(true));
     }
 
     private static void printComputerSystem(final ComputerSystem computerSystem) {
-
         System.out.println("manufacturer: " + computerSystem.getManufacturer());
         System.out.println("model: " + computerSystem.getModel());
         System.out.println("serialnumber: " + computerSystem.getSerialNumber());
@@ -166,7 +165,7 @@ public class OshiUtil {
         System.out.println("Sensors:");
         System.out.format(" CPU Temperature: %.1f°C%n", sensors.getCpuTemperature());
         System.out.println(" Fan Speeds: " + Arrays.toString(sensors.getFanSpeeds()));
-        System.out.format(" CPU Voltage: %.1fV%n", sensors.getCpuVoltage());
+        System.out.format(" CPU √√: %.1fV%n", sensors.getCpuVoltage());
     }
 
     private static void printPowerSources(List<PowerSource> list) {
