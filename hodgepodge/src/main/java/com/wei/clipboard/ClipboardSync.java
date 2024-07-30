@@ -22,6 +22,8 @@ import java.net.URL;
 
 public class ClipboardSync {
 
+   static String lastContend = "";
+
     public static void main(String[] args) {
         Thread clipboardPutTask = new Thread(new ClipboardPutTask());
         clipboardPutTask.start();
@@ -99,6 +101,11 @@ public class ClipboardSync {
             reader.close();
             // 将剪切板内容复制到本地剪切板
             String clipboardData = response.toString();
+            if (lastContend.equals(clipboardData)) {
+                connection.disconnect();
+                return;
+            }
+            lastContend = clipboardData;
             System.out.println("获取到云剪切板的内容：" + clipboardData);
             StringSelection selection = new StringSelection(clipboardData);
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
