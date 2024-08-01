@@ -1,11 +1,11 @@
-package com.wei;
+package com.wei.oshi;
 
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.GlobalMemory;
 import oshi.software.os.OperatingSystem;
 
-public class OshiExample {
+public class OshiExample2 {
     public static void main(String[] args) {
         SystemInfo systemInfo = new SystemInfo();
         

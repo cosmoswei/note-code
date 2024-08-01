@@ -32,6 +32,7 @@
         <module>juc</module>
         <module>dubbo-provider</module>
         <module>dubbo-consumer</module>
+        <module>metrics</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
