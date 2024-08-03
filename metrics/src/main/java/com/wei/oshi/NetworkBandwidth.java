@@ -32,7 +32,7 @@ public class NetworkBandwidth {
             long currentBandwidthUsage = (bytesReceivedPerSecond + bytesSentPerSecond) * 8;  // 转换为比特
 
             long remainingBandwidth = net.getSpeed() - currentBandwidthUsage;
-            System.out.println("Remaining Bandwidth: " + remainingBandwidth + " bps");
+            System.out.println("Remaining Bandwidth: " + remainingBandwidth / 8 + " bps");
 
         }
     }
