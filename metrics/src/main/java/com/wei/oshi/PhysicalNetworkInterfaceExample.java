@@ -18,7 +18,6 @@ public class PhysicalNetworkInterfaceExample {
                 System.out.println("MAC Address: " + net.getMacaddr());
                 System.out.println("Traffic In: " + net.getBytesRecv() + " bytes");
                 System.out.println("Traffic Out: " + net.getBytesSent() + " bytes");
-                System.out.println("--------------");
             }
         }
     }
