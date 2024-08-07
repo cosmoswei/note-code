@@ -13,12 +13,12 @@ public class NetworkStats {
             net.updateAttributes();
             long rxBytesStart = net.getBytesRecv();
             long txBytesStart = net.getBytesSent();
-            Thread.sleep(1000); // Sleep for 1 second
+            Thread.sleep(1000);
             net.updateAttributes();
             long rxBytesEnd = net.getBytesRecv();
             long txBytesEnd = net.getBytesSent();
-            long rxRate = (rxBytesEnd - rxBytesStart); // bytes per second
-            long txRate = (txBytesEnd - txBytesStart); // bytes per second
+            long rxRate = (rxBytesEnd - rxBytesStart);
+            long txRate = (txBytesEnd - txBytesStart);
             System.out.println("Receive Rate: " + rxRate + " B/s");
             System.out.println("Transmit Rate: " + txRate + " B/s");
         }
