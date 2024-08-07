@@ -13,7 +13,6 @@ public class NetworkStats {
             net.updateAttributes();
             long rxBytesStart = net.getBytesRecv();
             long txBytesStart = net.getBytesSent();
-            Thread.sleep(1000);
             net.updateAttributes();
             long rxBytesEnd = net.getBytesRecv();
             long txBytesEnd = net.getBytesSent();
