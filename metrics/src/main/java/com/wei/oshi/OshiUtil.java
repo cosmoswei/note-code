@@ -60,7 +60,7 @@ public class OshiUtil {
         System.out.println("Checking Network interfaces...");
         printNetworkInterfaces(hal.getNetworkIFs());
 
-        System.out.println("Checking Network parameterss...");
+        System.out.println("Checking Network params...");
         printNetworkParameters(os.getNetworkParams());
 
         // hardware: displays
